@@ -11,6 +11,8 @@ export default {
         let received = this.received
         let result = received === true
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected true received ${received}`, 'toBeTrue', received, true)
         }
@@ -25,6 +27,8 @@ export default {
         let received = this.received
         let result = received === false
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected false received ${received}`, 'toBeFalse', received, false)
         }
@@ -44,34 +48,15 @@ export default {
             throw new ExpectError(msg || `Expected value is not a string`, 'toMatch', received, 'string')
         }
 
-        let result = received.match(expected)
+        let result = received.match(expected) !== null
 
+        result = result === this.control  
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not match received`, 'toMatch', received, expected)
         }
     },
-
-    /**
-     * Asserts that the actual value not matches the expected pattern.
-     * @param expected - The expected pattern.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toNotMatch(expected, msg = null) {
-        let received = this.received
-
-        if (typeof received !== 'string') {
-            throw new ExpectError(msg || `Expected value is not a string`, 'toNotMatch', received, 'string')
-        }
-
-        let result = !received.match(expected)
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value matched to received`, 'toNotMatch', received, expected)
-        }
-    },
-
-
+    
     /**
      * Asserts that the actual value is greater than the expected value.
      * @param expected - The expected value.
@@ -82,6 +67,8 @@ export default {
         let received = this.received
         let result = received > expected
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not greater than received`, 'toBeGreaterThan', received, expected)
         }
@@ -97,6 +84,8 @@ export default {
         let received = this.received
         let result = received >= expected
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not greater than or equal to received`, 'toBeGreaterThanOrEqual', received, expected)
         }
@@ -112,6 +101,8 @@ export default {
         let received = this.received
         let result = received < expected
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not less than received`, 'toBeLessThan', received, expected)
         }
@@ -127,6 +118,8 @@ export default {
         let received = this.received
         let result = received <= expected
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not less than or equal to received`, 'toBeLessThanOrEqual', received, expected)
         }
@@ -143,12 +136,13 @@ export default {
         let received = this.received
         let result = received >= min && received <= max
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not between ${min} and ${max}`, 'toBeBetween', received, `Between ${min} and ${max}`)
         }
     },
-
-
+    
     /**
      * Asserts that the actual value is positive.
      * @param msg - The message to display if the assertion fails.
@@ -158,6 +152,8 @@ export default {
         let received = this.received
         let result = typeof received === 'number' && received > 0
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not positive`, 'toBePositive', received, 'Positive')
         }
@@ -172,6 +168,8 @@ export default {
         let received = this.received
         let result = typeof received === 'number' && received < 0
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not negative`, 'toBeNegative', received, 'Negative')
         }
@@ -186,6 +184,8 @@ export default {
         let received = this.received
         let result = typeof received === 'number' && Number.isFinite(received)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not finite`, 'toBeFinite', received, 'Finite')
         }
@@ -203,6 +203,8 @@ export default {
         let received = this.received
         let result = Math.abs(received - expected) < Math.pow(10, -precision) / 2
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not close to`, 'toBeCloseTo', received, expected)
         }
@@ -217,22 +219,10 @@ export default {
         let received = this.received
         let result = testValue(received, 'ipv4') || testValue(received, 'ipv6')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not IP Address`, 'toBeIP', received, 'IP Address')
-        }
-    },
-
-    /**
-     * Asserts that the actual value isn't a valid IP address.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotIP(msg = null) {
-        let received = this.received
-        let result = !testValue(received, 'ipv4') && !testValue(received, 'ipv6')
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is IP Address`, 'toBeNotIP', received, 'IP Address')
         }
     },
 
@@ -245,6 +235,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'ipv4')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not IPv4`, 'toBeIPv4', received, 'IPv4')
         }
@@ -259,6 +251,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'ipv6')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not IPv6`, 'toBeIPv6', received, 'IPv6')
         }
@@ -273,6 +267,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'email')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not Email`, 'toBeEmail', received, 'Email')
         }
@@ -287,6 +283,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'url')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not URL`, 'toBeUrl', received, 'URL')
         }
@@ -302,6 +300,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'base64')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not base64`, 'toBeBase64', received, 'Base64')
         }

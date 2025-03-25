@@ -18,13 +18,13 @@ describe(`Number tests`, () => {
         expect(1).toBeInteger()
     })
     it(`toBeNotInteger 1.0 is not integer`, () => {
-        expect(1.01).toBeNotInteger()
+        expect(1.01).not.toBeInteger()
     })
     it(`toBeSafeInteger 1 is integer`, () => {
         expect(Number.MAX_SAFE_INTEGER).toBeSafeInteger()
     })
     it(`toBeNotSafeInteger 1.0 is not integer`, () => {
-        expect(Number.MAX_SAFE_INTEGER + 1).toBeNotSafeInteger()
+        expect(Number.MAX_SAFE_INTEGER + 1).not.toBeSafeInteger()
     })
     it(`toBeFloat 1.01 is float`, () => {
         expect(1.01).toBeFloat()

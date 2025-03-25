@@ -11,6 +11,8 @@ export default {
         let received = this.received
         let result = typeof received === 'boolean'
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not boolean`, 'toBeBoolean', received, 'Boolean')
         }
@@ -25,6 +27,8 @@ export default {
         let received = this.received
         let result = typeof received !== "undefined"
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected defined value received ${received}`, 'toBeDefined', received, 'defined')
         }
@@ -39,6 +43,8 @@ export default {
         let received = this.received
         let result = typeof received === "undefined"
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected undefined value received ${received}`, 'toBeUndefined', received, 'undefined')
         }
@@ -53,22 +59,10 @@ export default {
         let received = this.received
         let result = received === null
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected null received ${received}`, 'toBeNull', received, 'null')
-        }
-    },
-
-    /**
-     * Asserts that the actual value is not null.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotNull(msg = null) {
-        let received = this.received
-        let result = received !== null
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected not null received ${received}`, 'toBeNotNull', received, 'not null')
         }
     },
 
@@ -81,22 +75,10 @@ export default {
         let received = this.received
         let result = Number.isInteger(received)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not integer`, 'toBeInteger', received, 'Integer')
-        }
-    },
-
-    /**
-     * Asserts that the actual value is an integer.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotInteger(msg = null) {
-        let received = this.received
-        let result = Number.isInteger(received) === false
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is integer`, 'toBeInteger', received, 'Integer')
         }
     },
 
@@ -109,22 +91,10 @@ export default {
         let received = this.received
         let result = Number.isSafeInteger(received)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not safe integer`, 'toBeSafeInteger', received, 'Safe Integer')
-        }
-    },
-
-    /**
-     * Asserts that the actual value is a safe integer.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotSafeInteger(msg = null) {
-        let received = this.received
-        let result = Number.isSafeInteger(received) === false
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is safe integer`, 'toBeSafeInteger', received, 'Safe Integer')
         }
     },
 
@@ -137,6 +107,8 @@ export default {
         let received = this.received
         let result = typeof received === 'number' && !Number.isInteger(received) && !isNaN(received)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value not float`, 'toBeFloat', received, 'Float')
         }
@@ -151,6 +123,8 @@ export default {
         let received = Number(this.received)
         let result = typeof received === 'number' && !isNaN(received)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not number`, 'toBeNumber', received, 'Number')
         }
@@ -165,6 +139,8 @@ export default {
         let received = this.received
         let result = isNaN(Number(received))
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not NaN`, 'toBeNaN', received, 'NaN')
         }
@@ -184,6 +160,8 @@ export default {
                 .replace(/(?:^|:|,)(?:\s*\[)+/g, '')
         )
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a json string`, 'toBeJson', received, 'Json')
         }
@@ -198,6 +176,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'xml')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a valid xml string`, 'toBeXml', received, 'Xml')
         }
@@ -214,6 +194,8 @@ export default {
         let received = this.received
         let result = typeof received === type
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not ${type}`, 'toBeType', received, type)
         }
@@ -229,6 +211,8 @@ export default {
         let received = this.received
         let result = received instanceof type
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not instance of ${type}`, 'toBeInstanceOf', received, type)
         }
@@ -244,6 +228,8 @@ export default {
         let received = this.received
         let result = typeof received === 'string'
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not string`, 'toBeString', received, 'String')
         }
@@ -259,6 +245,8 @@ export default {
         let received = this.received
         let result = typeof received === 'function'
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not function`, 'toBeFunction', received, 'Function')
         }
@@ -273,6 +261,8 @@ export default {
         let received = this.received
         let result = received.constructor.name === 'AsyncFunction'
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not async function`, 'toBeAsyncFunction', received, 'Async Function')
         }
@@ -287,6 +277,8 @@ export default {
         let received = this.received
         let result = received instanceof Date || testValue(received, 'date') || testValue(received, 'datetime')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not date`, 'toBeDate', received, 'Date')
         }
@@ -301,6 +293,8 @@ export default {
         let received = this.received
         let result = received instanceof Date
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not datetime object`, 'toBeDateObject', received, 'Date')
         }
@@ -315,6 +309,8 @@ export default {
         let received = this.received
         let result = received instanceof RegExp
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not regular expression`, 'toBeRegExp', received, 'RegExp')
         }
@@ -329,6 +325,8 @@ export default {
         let received = this.received
         let result = typeof received === 'symbol'
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not symbol`, 'toBeSymbol', received, 'Symbol')
         }
@@ -343,6 +341,8 @@ export default {
         let received = this.received
         let result = typeof received === 'bigint'
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not big int`, 'toBeBigInt', received, 'BigInt')
         }
@@ -357,6 +357,8 @@ export default {
         let received = this.received
         let result = received instanceof Map
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a Map`, 'toBeMap', received, 'Map')
         }
@@ -371,6 +373,8 @@ export default {
         let received = this.received
         let result = received instanceof Set
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a Set`, 'toBeSet', received, 'Set')
         }
@@ -385,6 +389,8 @@ export default {
         let received = this.received
         let result = received instanceof WeakMap
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a WeakMap`, 'toBeWeakMap', received, 'WeakMap')
         }
@@ -399,6 +405,8 @@ export default {
         let received = this.received
         let result = received instanceof WeakSet
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a WeakSet`, 'toBeWeakSet', received, 'WeakSet')
         }
@@ -413,6 +421,8 @@ export default {
         let received = this.received
         let result = received instanceof ArrayBuffer
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not an ArrayBuffer`, 'toBeArrayBuffer', received, 'ArrayBuffer')
         }
@@ -427,6 +437,8 @@ export default {
         let received = this.received
         let result = received instanceof Promise
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not a Promise`, 'toBePromise', received, 'Promise')
         }

@@ -113,7 +113,138 @@ export declare class B {
 
     /**
      * Get supported devices list
-     * @type {Readonly<Record<"Blackberry PlayBook" | "Blackberry PlayBook landscape" | "BlackBerry Z30" | "BlackBerry Z30 landscape" | "Galaxy Note 3" | "Galaxy Note 3 landscape" | "Galaxy Note II" | "Galaxy Note II landscape" | "Galaxy S III" | "Galaxy S III landscape" | "Galaxy S5" | "Galaxy S5 landscape" | "Galaxy S8" | "Galaxy S8 landscape" | "Galaxy S9+" | "Galaxy S9+ landscape" | "Galaxy Tab S4" | "Galaxy Tab S4 landscape" | "iPad" | "iPad landscape" | "iPad (gen 6)" | "iPad (gen 6) landscape" | "iPad (gen 7)" | "iPad (gen 7) landscape" | "iPad Mini" | "iPad Mini landscape" | "iPad Pro" | "iPad Pro landscape" | "iPad Pro 11" | "iPad Pro 11 landscape" | "iPhone 4" | "iPhone 4 landscape" | "iPhone 5" | "iPhone 5 landscape" | "iPhone 6" | "iPhone 6 landscape" | "iPhone 6 Plus" | "iPhone 6 Plus landscape" | "iPhone 7" | "iPhone 7 landscape" | "iPhone 7 Plus" | "iPhone 7 Plus landscape" | "iPhone 8" | "iPhone 8 landscape" | "iPhone 8 Plus" | "iPhone 8 Plus landscape" | "iPhone SE" | "iPhone SE landscape" | "iPhone X" | "iPhone X landscape" | "iPhone XR" | "iPhone XR landscape" | "iPhone 11" | "iPhone 11 landscape" | "iPhone 11 Pro" | "iPhone 11 Pro landscape" | "iPhone 11 Pro Max" | "iPhone 11 Pro Max landscape" | "iPhone 12" | "iPhone 12 landscape" | "iPhone 12 Pro" | "iPhone 12 Pro landscape" | "iPhone 12 Pro Max" | "iPhone 12 Pro Max landscape" | "iPhone 12 Mini" | "iPhone 12 Mini landscape" | "iPhone 13" | "iPhone 13 landscape" | "iPhone 13 Pro" | "iPhone 13 Pro landscape" | "iPhone 13 Pro Max" | "iPhone 13 Pro Max landscape" | "iPhone 13 Mini" | "iPhone 13 Mini landscape" | "iPhone 14" | "iPhone 14 landscape" | "iPhone 14 Plus" | "iPhone 14 Plus landscape" | "iPhone 14 Pro" | "iPhone 14 Pro landscape" | "iPhone 14 Pro Max" | "iPhone 14 Pro Max landscape" | "iPhone 15" | "iPhone 15 landscape" | "iPhone 15 Plus" | "iPhone 15 Plus landscape" | "iPhone 15 Pro" | "iPhone 15 Pro landscape" | "iPhone 15 Pro Max" | "iPhone 15 Pro Max landscape" | "JioPhone 2" | "JioPhone 2 landscape" | "Kindle Fire HDX" | "Kindle Fire HDX landscape" | "LG Optimus L70" | "LG Optimus L70 landscape" | "Microsoft Lumia 550" | "Microsoft Lumia 950" | "Microsoft Lumia 950 landscape" | "Nexus 10" | "Nexus 10 landscape" | "Nexus 4" | "Nexus 4 landscape" | "Nexus 5" | "Nexus 5 landscape" | "Nexus 5X" | "Nexus 5X landscape" | "Nexus 6" | "Nexus 6 landscape" | "Nexus 6P" | "Nexus 6P landscape" | "Nexus 7" | "Nexus 7 landscape" | "Nokia Lumia 520" | "Nokia Lumia 520 landscape" | "Nokia N9" | "Nokia N9 landscape" | "Pixel 2" | "Pixel 2 landscape" | "Pixel 2 XL" | "Pixel 2 XL landscape" | "Pixel 3" | "Pixel 3 landscape" | "Pixel 4" | "Pixel 4 landscape" | "Pixel 4a (5G)" | "Pixel 4a (5G) landscape" | "Pixel 5" | "Pixel 5 landscape" | "Moto G4" | "Moto G4 landscape", Device>>}
+     * @type {Readonly<Record<
+     *      "Blackberry PlayBook" 
+     *      | "Blackberry PlayBook landscape" 
+     *      | "BlackBerry Z30" 
+     *      | "BlackBerry Z30 landscape" 
+     *      | "Galaxy Note 3" 
+     *      | "Galaxy Note 3 landscape" 
+     *      | "Galaxy Note II" 
+     *      | "Galaxy Note II landscape" 
+     *      | "Galaxy S III" 
+     *      | "Galaxy S III landscape" 
+     *      | "Galaxy S5" 
+     *      | "Galaxy S5 landscape" 
+     *      | "Galaxy S8" 
+     *      | "Galaxy S8 landscape" 
+     *      | "Galaxy S9+" 
+     *      | "Galaxy S9+ landscape" 
+     *      | "Galaxy Tab S4" 
+     *      | "Galaxy Tab S4 landscape" 
+     *      | "iPad" 
+     *      | "iPad landscape" 
+     *      | "iPad (gen 6)" 
+     *      | "iPad (gen 6) landscape" 
+     *      | "iPad (gen 7)" 
+     *      | "iPad (gen 7) landscape" 
+     *      | "iPad Mini" 
+     *      | "iPad Mini landscape" 
+     *      | "iPad Pro" 
+     *      | "iPad Pro landscape" 
+     *      | "iPad Pro 11" 
+     *      | "iPad Pro 11 landscape" 
+     *      | "iPhone 4" 
+     *      | "iPhone 4 landscape" 
+     *      | "iPhone 5" 
+     *      | "iPhone 5 landscape" 
+     *      | "iPhone 6" 
+     *      | "iPhone 6 landscape" 
+     *      | "iPhone 6 Plus" 
+     *      | "iPhone 6 Plus landscape" 
+     *      | "iPhone 7" 
+     *      | "iPhone 7 landscape" 
+     *      | "iPhone 7 Plus" 
+     *      | "iPhone 7 Plus landscape" 
+     *      | "iPhone 8" 
+     *      | "iPhone 8 landscape" 
+     *      | "iPhone 8 Plus" 
+     *      | "iPhone 8 Plus landscape" 
+     *      | "iPhone SE" 
+     *      | "iPhone SE landscape" 
+     *      | "iPhone X" 
+     *      | "iPhone X landscape" 
+     *      | "iPhone XR" 
+     *      | "iPhone XR landscape" 
+     *      | "iPhone 11" 
+     *      | "iPhone 11 landscape" 
+     *      | "iPhone 11 Pro" 
+     *      | "iPhone 11 Pro landscape" 
+     *      | "iPhone 11 Pro Max" 
+     *      | "iPhone 11 Pro Max landscape" 
+     *      | "iPhone 12" | "iPhone 12 landscape" 
+     *      | "iPhone 12 Pro" 
+     *      | "iPhone 12 Pro landscape" 
+     *      | "iPhone 12 Pro Max" 
+     *      | "iPhone 12 Pro Max landscape" 
+     *      | "iPhone 12 Mini" 
+     *      | "iPhone 12 Mini landscape" 
+     *      | "iPhone 13" 
+     *      | "iPhone 13 landscape" 
+     *      | "iPhone 13 Pro" 
+     *      | "iPhone 13 Pro landscape" 
+     *      | "iPhone 13 Pro Max" 
+     *      | "iPhone 13 Pro Max landscape" 
+     *      | "iPhone 13 Mini" 
+     *      | "iPhone 13 Mini landscape" 
+     *      | "iPhone 14" 
+     *      | "iPhone 14 landscape" 
+     *      | "iPhone 14 Plus" 
+     *      | "iPhone 14 Plus landscape" 
+     *      | "iPhone 14 Pro" 
+     *      | "iPhone 14 Pro landscape" 
+     *      | "iPhone 14 Pro Max" 
+     *      | "iPhone 14 Pro Max landscape" 
+     *      | "iPhone 15" 
+     *      | "iPhone 15 landscape" 
+     *      | "iPhone 15 Plus" 
+     *      | "iPhone 15 Plus landscape" 
+     *      | "iPhone 15 Pro" 
+     *      | "iPhone 15 Pro landscape" 
+     *      | "iPhone 15 Pro Max" 
+     *      | "iPhone 15 Pro Max landscape" 
+     *      | "JioPhone 2" 
+     *      | "JioPhone 2 landscape" 
+     *      | "Kindle Fire HDX" 
+     *      | "Kindle Fire HDX landscape" 
+     *      | "LG Optimus L70" 
+     *      | "LG Optimus L70 landscape" 
+     *      | "Microsoft Lumia 550" 
+     *      | "Microsoft Lumia 950" 
+     *      | "Microsoft Lumia 950 landscape" 
+     *      | "Nexus 10" 
+     *      | "Nexus 10 landscape" 
+     *      | "Nexus 4" 
+     *      | "Nexus 4 landscape" 
+     *      | "Nexus 5" 
+     *      | "Nexus 5 landscape"
+     *      | "Nexus 5X" 
+     *      | "Nexus 5X landscape" 
+     *      | "Nexus 6" 
+     *      | "Nexus 6 landscape" 
+     *      | "Nexus 6P" 
+     *      | "Nexus 6P landscape" 
+     *      | "Nexus 7" 
+     *      | "Nexus 7 landscape" 
+     *      | "Nokia Lumia 520" 
+     *      | "Nokia Lumia 520 landscape" 
+     *      | "Nokia N9" 
+     *      | "Nokia N9 landscape" 
+     *      | "Pixel 2" 
+     *      | "Pixel 2 landscape" 
+     *      | "Pixel 2 XL" 
+     *      | "Pixel 2 XL landscape" 
+     *      | "Pixel 3" 
+     *      | "Pixel 3 landscape" 
+     *      | "Pixel 4" 
+     *      | "Pixel 4 landscape" 
+     *      | "Pixel 4a (5G)" 
+     *      | "Pixel 4a (5G) landscape" 
+     *      | "Pixel 5" 
+     *      | "Pixel 5 landscape" 
+     *      | "Moto G4" 
+     *      | "Moto G4 landscape", Device
+     *      >>}
      */
     static devices: any[];
 
@@ -370,20 +501,17 @@ export declare class Expect {
     constructor(received: any);
 
     /**
+     * get Expect class for negative tests
+     */
+    get not(): Expect
+    
+    /**
      * Asserts that the actual value is equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
     toBe(expected, msg?: string): void
-
-    /**
-     * Asserts that the actual value is not equal to the expected value.
-     * @param expected - The expected value.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNot(expected, msg?: string): void
 
     /**
      * Asserts that the actual value is strict equal (using ===) to the expected value.
@@ -394,29 +522,13 @@ export declare class Expect {
     toBeStrictEqual(expected, msg?: string): void
 
     /**
-     * Asserts that the actual value isn't strict equal (using !==) to the expected value.
-     * @param expected - The expected value.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotStrictEqual(expected, msg?: string): void
-
-    /**
      * Asserts that the actual value is equal (using ==) to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
     toBeEqual(expected, msg?: string): void
-
-    /**
-     * Asserts that the actual value is not equal (using !=) to the expected value.
-     * @param expected - The expected value.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotEqual(expected, msg?: string): void
-
+    
     /**
      * Asserts that the actual object is equal to the expected object.
      * @param expected - The expected object.
@@ -455,14 +567,6 @@ export declare class Expect {
     toMatch(expected, msg?: string): void
 
     /**
-     * Asserts that the actual value not matches the expected pattern.
-     * @param expected - The expected pattern.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toNotMatch(expected, msg?: string): void
-
-    /**
      * Asserts that the actual value is defined.
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
@@ -482,13 +586,6 @@ export declare class Expect {
      * @returns The result of the test.
      */
     toBeNull(msg?: string): void
-
-    /**
-     * Asserts that the actual value is not null.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotNull(msg?: string): void
 
     /**
      * Asserts that the actual value is greater than the expected value.
@@ -539,25 +636,11 @@ export declare class Expect {
     toBeInteger(msg?: string): void
 
     /**
-     * Asserts that the actual value is an integer.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotInteger(msg?: string): void
-
-    /**
      * Asserts that the actual value is a safe integer.
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
     toBeSafeInteger(msg?: string): void
-
-    /**
-     * Asserts that the actual value is a safe integer.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotSafeInteger(msg?: string): void
 
     /**
      * Asserts that the actual value is a float.
@@ -682,13 +765,6 @@ export declare class Expect {
     toBeColor(msg?: string): void
 
     /**
-     * Asserts that the actual value is not a valid color (HEX, RGB, RGBA, HSL, HSLA, or CMYK).
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    toBeNotColor(msg?: string): void
-
-    /**
      * Asserts the mock function was called at least once
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
@@ -726,14 +802,6 @@ export declare class Expect {
      * @returns The result of the test.
      */
     toContain(expected, msg?: string): void
-
-    /**
-     * Asserts that the actual value not contains the expected value.
-     * @param expected - The expected value.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toNotContain(expected, msg?: string): void
 
     /**
      * Asserts that the actual value is deeply equal to the expected value.
@@ -783,13 +851,6 @@ export declare class Expect {
     toBeArraySorted(msg?: string): void
 
     /**
-     * Asserts that the actual value is not sorted.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeArrayNotSorted(msg?: string): void
-
-    /**
      * Asserts that values in the array are unique.
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
@@ -797,25 +858,11 @@ export declare class Expect {
     toBeArrayUnique(msg?: string): void
 
     /**
-     * Asserts that values in the array are not unique.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeArrayNotUnique(msg?: string): void
-
-    /**
      * Asserts that the actual value is a valid IP address.
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
     toBeIP(msg?: string): void
-
-    /**
-     * Asserts that the actual value isn't a valid IP address.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotIP(msg?: string): void
 
     /**
      * Asserts that the actual value is a valid IPv4 address.
@@ -853,13 +900,6 @@ export declare class Expect {
     toBeEmpty(msg?: string): void
 
     /**
-     * Asserts that the actual value is not empty.
-     * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBeNotEmpty(msg?: string): void
-
-    /**
      * Asserts that the array-like object has the expected length.
      * @param {number} expected - The expected length.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
@@ -895,15 +935,7 @@ export declare class Expect {
      * @returns {Object} The result of the test.
      */
     hasProperty(expected, msg?: string): void
-
-    /**
-     * Asserts that the actual value has not the specified property.
-     * @param {string} expected - The expected property name.
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    hasNoProperty(expected, msg?: string): void
-
+    
     /**
      * Asserts that the actual value is of the specified type.
      * @param type - The expected type.
@@ -1071,28 +1103,12 @@ export declare class Expect {
     hasClass(expected, msg?: string): void
 
     /**
-     * Asserts that the HTML element has the specified class.
-     * @param {string} expected - The expected class name.
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    hasNoClass(expected, msg?: string): void
-
-    /**
      * Asserts that the HTML element has the specified attribute.
      * @param {string} expected - The expected attribute name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
      */
     hasAttribute(expected, msg?: string): void
-
-    /**
-     * Asserts that the HTML element has the specified attribute.
-     * @param {string} expected - The expected attribute name.
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    hasNoAttribute(expected, msg?: string): void
 
     /**
      * Asserts that the HTML element has children.
@@ -1102,13 +1118,6 @@ export declare class Expect {
     hasChildren(msg?: string): void
 
     /**
-     * Asserts that the HTML element has children.
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    hasNoChildren(msg?: string): void
-
-    /**
      * Asserts that the HTML element has a parent.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
@@ -1116,9 +1125,27 @@ export declare class Expect {
     hasParent(msg?: string): void
 
     /**
-     * Asserts that the HTML element has no parent.
+     * Asserts that the HTML element has the specified style property.
+     * @param {string} prop - The expected style property name.
+     * @param {string} val - The expected style property value.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
      */
-    hasNoParent(msg?: string): void;
+    hasStyleProperty(prop, val,msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has the specified styles.
+     * @param {Object} styles - The expected styles.
+     * @param {string|null} [msg=null] - The message to display if the assertion fails.
+     * @returns {Object} The result of the test.
+     */
+    hasStyles(styles: object, msg?: string): void
+
+    /**
+     * Asserts that the actual value is resolved with the expected value.
+     * @param {any} expected - The expected text content.
+     * @param {string|null} [msg=null] - The message to display if the assertion fails.
+     * @returns {Object} The result of the test.
+     */
+    toBeResolvedWith(expected: any, msg?: string): void
 }

@@ -11,6 +11,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'hex')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not hex color`, 'toBeHEXColor', received, 'HEX Color')
         }
@@ -25,6 +27,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'rgb')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not rgb color`, 'toBeRGBColor', received, 'RGB Color')
         }
@@ -39,6 +43,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'rgba')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not rgba color`, 'toBeRGBAColor', received, 'RGBA Color')
         }
@@ -53,6 +59,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'hsv')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not hsv color`, 'toBeHSVColor', received, 'HSV Color')
         }
@@ -67,6 +75,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'hsl')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not hsl color`, 'toBeHSLColor', received, 'HSL Color')
         }
@@ -81,6 +91,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'hsla')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not hsla color`, 'toBeHSLAColor', received, 'HSLA Color')
         }
@@ -95,6 +107,8 @@ export default {
         let received = this.received
         let result = testValue(received, 'cmyk')
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected value is not cmyk color`, 'toBeCMYKColor', received, 'CMYK Color')
         }
@@ -115,32 +129,12 @@ export default {
         const testHSLA = testValue(received, 'hsla')
         const testCMYK = testValue(received, 'cmyk')
 
-        const result = testHex || testRGB || testRGBA || testHSL || testHSLA || testCMYK || testHSV
+        let result = testHex || testRGB || testRGBA || testHSL || testHSLA || testCMYK || testHSV
+
+        result = result === this.control
 
         if (!result) {
             throw new ExpectError(msg || `Expected value is not color`, 'toBeColor', received, 'Color')
-        }
-    },
-
-    /**
-     * Asserts that the actual value is not a valid color (HEX, RGB, RGBA, HSL, HSLA, or CMYK).
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    toBeNotColor(msg = null) {
-        let received = this.received
-        const testHex = testValue(received, 'hex')
-        const testRGB = testValue(received, 'rgb')
-        const testRGBA = testValue(received, 'rgba')
-        const testHSL = testValue(received, 'hsl')
-        const testHSV = testValue(received, 'hsv')
-        const testHSLA = testValue(received, 'hsla')
-        const testCMYK = testValue(received, 'cmyk')
-
-        const result = !(testHex || testRGB || testRGBA || testHSL || testHSLA || testCMYK || testHSV)
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is color`, 'toBeNotColor', received, 'Color')
         }
     },
 }

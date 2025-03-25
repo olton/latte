@@ -12,9 +12,15 @@ import ValidatorExpect from "./validator.js";
 
 class Expect {
     received = null
+    control = true
 
-    constructor(received) {
+    constructor(received, control = true) {
         this.received = received
+        this.control = control
+    }
+    
+    get not() {
+        return new Expect(this.received, !this.control)
     }
 }
 

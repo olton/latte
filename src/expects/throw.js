@@ -15,6 +15,8 @@ export default {
             result = true
         }
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected function to throw error`, 'toThrow', received, 'throw')
         }
@@ -37,6 +39,8 @@ export default {
             result = e.message.match(expected) !== null
         }
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Invalid error message`, 'toThrowError', message, expected)
         }

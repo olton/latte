@@ -15,7 +15,11 @@ export default {
         } catch (e) {
             throw new ExpectError(msg || `Promise was rejected`, 'toBeResolvedWith', e, expected)
         }
-        const result = Object.is(resolve, expected)
+        
+        let result = Object.is(resolve, expected)
+
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Promise was resolved with different value`, 'toBeResolvedWith', promise, expected)
         }

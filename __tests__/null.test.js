@@ -3,6 +3,6 @@ describe(`Null tests`, () => {
         expect(null).toBeNull()
     })
     it('toBeNotNull', () => {
-        expect(undefined).toBeNotNull()
+        expect(undefined).not.toBeNull()
     })
 })

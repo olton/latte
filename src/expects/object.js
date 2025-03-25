@@ -25,6 +25,8 @@ export default {
             }
         }
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected object not equal to received`, 'toBeObject', received, expected)
         }
@@ -41,6 +43,8 @@ export default {
         let received = this.received
         let result = deepEqual(received, expected)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected object not equal to received`, 'toBeDeepEqual', received, expected)
         }
@@ -55,8 +59,10 @@ export default {
      */
     toBeDeepEqualSafe(expected, msg = null) {
         let received = this.received
-        const result = stringify(received) === stringify(expected)
+        let result = stringify(received) === stringify(expected)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected object not equal to received`, 'toBeDeepEqualSafe', received, expected)
         }
@@ -72,6 +78,8 @@ export default {
         let received = this.received
         let result = compareStructure(received, expected)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected object structure not equal to received`, 'toBeObjectStructureEqual', received, expected)
         }
@@ -87,25 +95,10 @@ export default {
         let received = this.received
         let result = received[expected] !== undefined
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected object has not property ${expected}`, 'hasProperty', received, expected)
         }
     },
-
-    /**
-     * Asserts that the actual value has not the specified property.
-     * @param {string} expected - The expected property name.
-     * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
-     */
-    hasNoProperty(expected, msg = null) {
-        let received = this.received
-        let result = received[expected] === undefined
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected object has property ${expected}`, 'hasNoProperty', received, expected)
-        }
-    },
-
-    
 }

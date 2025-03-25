@@ -12,6 +12,8 @@ export default {
         let received = this.received
         let result = received.mock.calls.length > 0
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected function is not called`, 'toHaveBeenCalled', received.mock.calls.length, 'Called')
         }
@@ -27,6 +29,8 @@ export default {
         let received = this.received
         let result = received.mock.calls.length === expected
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Function was called ${received.mock.calls.length} times instead of ${expected}`, 'toHaveBeenCalledTimes', received.mock.calls.length, expected)
         }
@@ -42,6 +46,8 @@ export default {
         let received = this.received
         let result = received.mock.calls.some(call => deepEqual(call, expected))
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected function is not called with ${stringify(expected)}`, 'toHaveBeenCalledWith', received.mock.calls, expected)
         }
@@ -57,6 +63,8 @@ export default {
         let received = this.received
         let result = deepEqual(received.mock.calls[received.mock.calls.length - 1], expected)
 
+        result = result === this.control
+        
         if (!result) {
             throw new ExpectError(msg || `Expected function is not called with ${stringify(expected)}`, 'toHaveBeenLastCalledWith', received.mock.calls, expected)
         }

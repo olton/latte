@@ -27,6 +27,6 @@ describe(`Color tests`, () => {
         return expect('#000000').toBeColor()
     })
     it(`toBeNotColor #000000`, () => {
-        return expect('#0000').toBeNotColor()
+        return expect('#0000').not.toBeColor()
     })
 })
