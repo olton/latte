@@ -1,6 +1,13 @@
-import {ExpectError} from "./errors.js";
-import {deepEqual} from "../helpers/objects.js";
-import {stringify} from "../helpers/json.js";
+import {ExpectError} from "../error/errors.js";
+import {deepEqual} from "../../helpers/objects.js";
+import {stringify} from "../../helpers/json.js";
+
+const noMockFn = (method) => {
+    throw new ExpectError(
+        `Expected function is not a mock function`,
+        method,
+    )
+}
 
 export default {
     /**
@@ -10,13 +17,22 @@ export default {
      */
     toHaveBeenCalled(msg = null) {
         let received = this.received
+
+        if (!received.mock || !Array.isArray(received.mock.calls)) {
+            noMockFn('toHaveBeenCalled')
+        }
+
         let result = received.mock.calls.length > 0
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toHaveBeenCalled',
+            null,
+            received.mock.calls.length,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected function is not called`, 'toHaveBeenCalled', received.mock.calls.length, 'Called')
-        }
+        return this
     },
 
     /**
@@ -27,13 +43,22 @@ export default {
      */
     toHaveBeenCalledTimes(expected, msg = null) {
         let received = this.received
+
+        if (!received.mock || !Array.isArray(received.mock.calls)) {
+            noMockFn('toHaveBeenCalledTimes')
+        }
+        
         let result = received.mock.calls.length === expected
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toHaveBeenCalledTimes',
+            expected,
+            received.mock.calls.length,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Function was called ${received.mock.calls.length} times instead of ${expected}`, 'toHaveBeenCalledTimes', received.mock.calls.length, expected)
-        }
+        return this
     },
 
     /**
@@ -44,13 +69,22 @@ export default {
      */
     toHaveBeenCalledWith(expected, msg = null) {
         let received = this.received
+        
+        if (!received.mock || !Array.isArray(received.mock.calls)) {
+            noMockFn('toHaveBeenCalledWith')
+        }
+        
         let result = received.mock.calls.some(call => deepEqual(call, expected))
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toHaveBeenCalledWith',
+            expected,
+            received.mock.calls,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected function is not called with ${stringify(expected)}`, 'toHaveBeenCalledWith', received.mock.calls, expected)
-        }
+        return this
     },
 
     /**
@@ -61,12 +95,21 @@ export default {
      */
     toHaveBeenLastCalledWith(expected, msg = null) {
         let received = this.received
+
+        if (!received.mock || !Array.isArray(received.mock.calls)) {
+            noMockFn('toHaveBeenLastCalledWith')
+        }
+
         let result = deepEqual(received.mock.calls[received.mock.calls.length - 1], expected)
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toHaveBeenLastCalledWith',
+            expected,
+            received.mock.calls,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected function is not called with ${stringify(expected)}`, 'toHaveBeenLastCalledWith', received.mock.calls, expected)
-        }
+        return this
     },
 }

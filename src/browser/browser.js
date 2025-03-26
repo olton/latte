@@ -160,7 +160,7 @@ export class Browser {
      * @returns {Promise<*>}
      */
     static window = async (v) => {
-        return await this.currentPage.evaluate((v) => window[v], v)
+        return await this.currentPage.evaluate((v) => v ? window[v] : window, v)
     }
 
     /**

@@ -1,6 +1,16 @@
-import {ExpectError} from "./errors.js";
-import {compareStructure, deepEqual} from "../helpers/objects.js";
-import {stringify} from "../helpers/json.js";
+import {ExpectError} from "../error/errors.js";
+import {compareStructure, deepEqual} from "../../helpers/objects.js";
+import {stringify} from "../../helpers/json.js";
+
+const check = (obj, method) => {
+    if (typeof obj !== 'object' || obj === null) {
+        throw new ExpectError(
+            `Value is not an object`,
+            method,
+            obj,
+        )
+    }
+}
 
 export default {
     /**
@@ -11,6 +21,10 @@ export default {
      */
     toBeObject(expected, msg = null) {
         let received = this.received
+        
+        check(received, 'toBeObject')
+        check(expected, 'toBeObject')
+        
         let result = true
         let key1 = Object.keys(received)
         let key2 = Object.keys(expected)
@@ -25,13 +39,16 @@ export default {
             }
         }
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeObject',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected object not equal to received`, 'toBeObject', received, expected)
-        }
+        return this
     },
-
+    
     /**
      * Asserts that the actual value is deeply equal to the expected value.
      * With this method you can compare objects with circular references.
@@ -41,13 +58,20 @@ export default {
      */
     toBeDeepEqual(expected, msg = null) {
         let received = this.received
+
+        check(received, 'toBeDeepEqual')
+        check(expected, 'toBeDeepEqual')
+        
         let result = deepEqual(received, expected)
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeDeepEqual',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected object not equal to received`, 'toBeDeepEqual', received, expected)
-        }
+        return this
     },
 
     /**
@@ -59,13 +83,20 @@ export default {
      */
     toBeDeepEqualSafe(expected, msg = null) {
         let received = this.received
+
+        check(received, 'toBeDeepEqualSafe')
+        check(expected, 'toBeDeepEqualSafe')
+
         let result = stringify(received) === stringify(expected)
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeDeepEqualSafe',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected object not equal to received`, 'toBeDeepEqualSafe', received, expected)
-        }
+        return this
     },
 
     /**
@@ -76,13 +107,20 @@ export default {
      */
     toBeObjectStructureEqual(expected, msg = null) {
         let received = this.received
+
+        check(received, 'toBeObjectStructureEqual')
+        check(expected, 'toBeObjectStructureEqual')
+
         let result = compareStructure(received, expected)
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeObjectStructureEqual',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected object structure not equal to received`, 'toBeObjectStructureEqual', received, expected)
-        }
+        return this
     },
 
     /**
@@ -93,12 +131,18 @@ export default {
      */
     hasProperty(expected, msg = null) {
         let received = this.received
+
+        check(received, 'hasProperty')
+
         let result = received[expected] !== undefined
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'hasProperty',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected object has not property ${expected}`, 'hasProperty', received, expected)
-        }
+        return this
     },
 }

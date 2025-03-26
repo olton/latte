@@ -1,5 +1,5 @@
-import {ExpectError} from "./errors.js";
-import {testValue} from "../helpers/test-value.js";
+import {ExpectError} from "../error/errors.js";
+import {testValue} from "../../helpers/test-value.js";
 
 export default {
     /**
@@ -11,11 +11,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'hex')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeHEXColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not hex color`, 'toBeHEXColor', received, 'HEX Color')
-        }
+        return this
     },
 
     /**
@@ -27,11 +30,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'rgb')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeRGBColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not rgb color`, 'toBeRGBColor', received, 'RGB Color')
-        }
+        return this
     },
 
     /**
@@ -43,11 +49,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'rgba')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeRGBAColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not rgba color`, 'toBeRGBAColor', received, 'RGBA Color')
-        }
+        return this
     },
 
     /**
@@ -59,11 +68,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'hsv')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeHSVColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not hsv color`, 'toBeHSVColor', received, 'HSV Color')
-        }
+        return this
     },
 
     /**
@@ -75,11 +87,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'hsl')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeHSLColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not hsl color`, 'toBeHSLColor', received, 'HSL Color')
-        }
+        return this
     },
 
     /**
@@ -91,11 +106,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'hsla')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeHSLAColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not hsla color`, 'toBeHSLAColor', received, 'HSLA Color')
-        }
+        return this
     },
 
     /**
@@ -107,11 +125,14 @@ export default {
         let received = this.received
         let result = testValue(received, 'cmyk')
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeCMYKColor',
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not cmyk color`, 'toBeCMYKColor', received, 'CMYK Color')
-        }
+        return this
     },
 
     /**
@@ -131,10 +152,13 @@ export default {
 
         let result = testHex || testRGB || testRGBA || testHSL || testHSLA || testCMYK || testHSV
 
-        result = result === this.control
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not color`, 'toBeColor', received, 'Color')
-        }
+        this.assert(
+            result,
+            msg,
+            'toBeColor',
+            received,
+        )
+        
+        return this
     },
 }

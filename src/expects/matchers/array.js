@@ -1,5 +1,5 @@
-import {ExpectError} from "./errors.js";
-import checkArraySorted from "../helpers/check-array-sorted.js";
+import {ExpectError} from "../error/errors.js";
+import checkArraySorted from "../../helpers/check-array-sorted.js";
 
 export default {
     /**
@@ -11,11 +11,13 @@ export default {
         let received = this.received
         let result = "length" in received && received.length === 0
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeEmpty',
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not empty`, 'toBeEmpty', received, 'Empty')
-        }
+        return this
     },
 
     /**
@@ -28,11 +30,15 @@ export default {
         let received = this.received
         let result = "length" in received && received.length === expected
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'hasLength',
+            expected,
+            received.length,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value has not length ${expected}`, 'hasLength', received.length, expected)
-        }
+        return this
     },
 
     /**
@@ -44,11 +50,13 @@ export default {
         let received = this.received
         let result = new Set(received).size === received.length
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeArrayUnique',
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Values in expected array is not unique`, 'toBeArrayUnique', received, 'Unique')
-        }
+        return this
     },
     
     /**
@@ -61,11 +69,14 @@ export default {
         let result = checkArraySorted(received)
         let expected = received.slice().sort((a, b) => a - b)
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeArraySorted',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected array is not sorted`, 'toBeArraySorted', received, expected)
-        }
+        return this
     },
 
     /**
@@ -90,11 +101,14 @@ export default {
             result = received.includes(expected)
         }
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toContain',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value not contain received`, 'toContain', received, expected)
-        }
+        return this
     },
 
     /**
@@ -110,18 +124,18 @@ export default {
         if (received.length !== expected.length) {
             result = false
         } else {
-            for (let i = 0; i < received.length; i++) {
-                if (received[i] !== expected[i]) {
-                    result = false
-                }
-            }
+            result = received.every((item, index) => item === expected[index]);
         }
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeArrayEqual',
+            expected,
+            received,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected array not equal to received`, 'toBeArrayEqual', received, expected)
-        }
+        return this
     },
 
     /**
@@ -133,10 +147,12 @@ export default {
         let received = this.received
         let result = Array.isArray(received)
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeArray',
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value is not an array`, 'toBeArray', received, 'Array')
-        }
+        return this
     },
 }

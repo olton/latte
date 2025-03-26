@@ -1,5 +1,5 @@
 export class ExpectError extends Error {
-    constructor(message, matcher, received, expected) {
+    constructor(message, matcher, received = null, expected = null) {
         super(message)
         this.name = matcher
         this.received = received

@@ -414,7 +414,8 @@ export declare class DOM {
 export declare function describe(name: string, fn: () => void): void;
 
 /**
- * Defines a test case with a given name and function.
+ * Defines a test case with a given name and function. 
+ * For usage in describe blocks.
  *
  * @param {string} name - The name of the test case.
  * @param {Function} fn - The function containing the test logic.
@@ -593,7 +594,7 @@ export declare class Expect {
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
-    toBeGreaterThan(expected, msg?: string): void
+    toBeGreaterThan(expected: number, msg?: string): void
 
     /**
      * Asserts that the actual value is greater than or equal to the expected value.
@@ -601,7 +602,7 @@ export declare class Expect {
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
-    toBeGreaterThanOrEqual(expected, msg?: string): void
+    toBeGreaterThanOrEqual(expected: number, msg?: string): void
 
     /**
      * Asserts that the actual value is less than the expected value.
@@ -609,7 +610,7 @@ export declare class Expect {
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
-    toBeLessThan(expected, msg?: string): void
+    toBeLessThan(expected: number, msg?: string): void
 
     /**
      * Asserts that the actual value is less than or equal to the expected value.
@@ -617,7 +618,7 @@ export declare class Expect {
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
-    toBeLessThanOrEqual(expected, msg?: string): void
+    toBeLessThanOrEqual(expected: number, msg?: string): void
 
     /**
      * Asserts that the actual value is between the specified minimum and maximum values.
@@ -626,7 +627,7 @@ export declare class Expect {
      * @param msg - The message to display if the assertion fails.
      * @returns The result of the test.
      */
-    toBetween(min, max, msg?: string): void
+    toBetween(min: number, max: number, msg?: string): void
 
     /**
      * Asserts that the actual value is an integer.
@@ -1100,7 +1101,7 @@ export declare class Expect {
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
      */
-    hasClass(expected, msg?: string): void
+    hasClass(expected: string, msg?: string): void
 
     /**
      * Asserts that the HTML element has the specified attribute.
@@ -1108,7 +1109,7 @@ export declare class Expect {
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
      */
-    hasAttribute(expected, msg?: string): void
+    hasAttribute(expected: string, msg?: string): void
 
     /**
      * Asserts that the HTML element has children.
@@ -1125,13 +1126,21 @@ export declare class Expect {
     hasParent(msg?: string): void
 
     /**
-     * Asserts that the HTML element has the specified style property.
+     * Asserts that the HTML element has the specified style in style property.
+     * @param {string} expected - The expected style.
+     * @param {string|null} [msg=null] - The message to display if the assertion fails.
+     * @returns {Object} The result of the test.
+     */
+    hasStyleProperty(expected: string, msg?: string): void
+
+    /**
+     * Asserts that the HTML element has the specified style property with value.
      * @param {string} prop - The expected style property name.
      * @param {string} val - The expected style property value.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
      */
-    hasStyleProperty(prop, val,msg?: string): void
+    hasStyle(prop: string, val: string, msg?: string): void
     
     /**
      * Asserts that the HTML element has the specified styles.
@@ -1141,6 +1150,52 @@ export declare class Expect {
      */
     hasStyles(styles: object, msg?: string): void
 
+    /**
+     * Asserts that the HTML element has siblings.
+     * @param msg
+     */
+    hasSiblings(msg?: string): void
+
+    /**
+     * Asserts that the HTML element has a specified sibling.
+     * @param expected
+     * @param msg
+     */
+    hasSibling(expected: HTMLElement, msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has a prev siblings.
+     * @param msg
+     */
+    hasPrev(msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has a next siblings.
+     * @param msg
+     */
+    hasNext(msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has a specified text in textContent.
+     * @param expected
+     * @param msg
+     */
+    hasText(expected: string, msg?: string): void
+
+    /**
+     * Asserts that the HTML element contains the specified element.
+     * @param expected
+     * @param msg
+     */
+    containsElement(expected: HTMLElement, msg?: string): void
+    
+    /**
+     * Asserts that the HTML element contains the specified element deeply.
+     * @param expected
+     * @param msg
+     */
+    containsElementDeep(expected: HTMLElement, msg?: string): void
+    
     /**
      * Asserts that the actual value is resolved with the expected value.
      * @param {any} expected - The expected text content.

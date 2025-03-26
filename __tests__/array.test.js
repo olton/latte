@@ -23,4 +23,7 @@ describe(`Array tests`, () => {
     it(`contain 2`, () => {
         return expect([1, 2, 3]).toContain(2)
     })
+    it(`toBeEmpty()`, () => {
+        return expect([]).toBeEmpty()
+    })
 })

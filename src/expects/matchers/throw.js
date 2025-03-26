@@ -1,4 +1,4 @@
-import {ExpectError} from "./errors.js";
+import {ExpectError} from "../error/errors.js";
 
 export default {
     /**
@@ -15,11 +15,13 @@ export default {
             result = true
         }
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toThrow',
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected function to throw error`, 'toThrow', received, 'throw')
-        }
+        return this
     },
 
     /**
@@ -39,10 +41,14 @@ export default {
             result = e.message.match(expected) !== null
         }
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toThrowError',
+            expected,
+            message
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Invalid error message`, 'toThrowError', message, expected)
-        }
+        return this
     },
 }

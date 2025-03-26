@@ -22,7 +22,7 @@ describe(`Browser tests`, () => {
         const title = await B.document.title()
         expect(title).toContain('Example Domain', 'Title test failed')
     })
-    it(`Visit metroui.org.ua`, async () => {
+    it(`Check Metro object`, async () => {
         await B.visit(`https://metroui.org.ua`)
         const metro = await B.window('Metro')
         expect(metro).toBeDefined('Metro is undefined')

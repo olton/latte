@@ -1,4 +1,4 @@
-import {ExpectError} from "./errors.js";
+import {ExpectError} from "../error/errors.js";
 
 export default {
     /**
@@ -11,11 +11,14 @@ export default {
         let received = this.received
         let result = Object.is(received, expected)
         
-        result = result === this.control
-
-        if (!result) {
-            throw new ExpectError(msg || `Expected value not equal to received`, 'toBe', received, expected)
-        }
+        this.assert(
+            result,
+            msg,
+            'toBe',
+            expected,
+        )
+        
+        return this
     },
     
     /**
@@ -28,11 +31,14 @@ export default {
         let received = this.received
         let result = received === expected
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeStrictEqual',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value not strict equal to received`, 'toBeStrictEqual', received, expected)
-        }
+        return this
     },
 
     /**
@@ -45,10 +51,13 @@ export default {
         let received = this.received
         let result = received == expected
 
-        result = result === this.control
+        this.assert(
+            result,
+            msg,
+            'toBeEqual',
+            expected,
+        )
         
-        if (!result) {
-            throw new ExpectError(msg || `Expected value not equal to received`, 'toBeEqual', received, expected)
-        }
+        return this
     },
 }

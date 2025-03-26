@@ -187,7 +187,7 @@ export const runner = async (queue, options) => {
                 }
 
                 global.testResults[file]["tests"].push({
-                    name: test.fn.name,
+                    name: test.name,
                     result: expect.result,
                     message: expect.message || "OK",
                 })
@@ -244,6 +244,15 @@ export const runner = async (queue, options) => {
                 const s = testIndex === testsCount ? "└──" : "├──"
                 log(chalk.white(` ${s} ${chalk.white(test.name)} >>> ${chalk.gray(test.message)} <<<`))
             }
+        }
+        let testIndex = 0
+        for (const test of result.tests) {
+            testIndex++
+            if (test.result) {
+                continue
+            }
+            const s = testIndex === result.tests.length ? "└──" : "├──"
+            log(chalk.white(` ${s} ${chalk.white(test.name)} >>> ${chalk.gray(test.message)} <<<`))
         }
     }
     

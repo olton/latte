@@ -1,26 +1,54 @@
-import {ExpectError} from "./errors.js";
-import BaseExpect from "./base.js";
-import AsyncExpect from "./async.js";
-import HtmlExpect from "./html.js";
-import ObjectExpect from "./object.js";
-import TypeExpect from "./type.js";
-import ThrowExpect from "./throw.js";
-import ColorExpect from "./color.js";
-import ArrayExpect from "./array.js";
-import MockExpect from "./mock.js";
-import ValidatorExpect from "./validator.js";
+import {ExpectError} from "./error/errors.js";
+import assertMessages from "./messages.js";
+import BaseExpect from "./matchers/base.js";
+import AsyncExpect from "./matchers/async.js";
+import HtmlExpect from "./matchers/html.js";
+import ObjectExpect from "./matchers/object.js";
+import TypeExpect from "./matchers/type.js";
+import ThrowExpect from "./matchers/throw.js";
+import ColorExpect from "./matchers/color.js";
+import ArrayExpect from "./matchers/array.js";
+import MockExpect from "./matchers/mock.js";
+import ValidatorExpect from "./matchers/validator.js";
 
 class Expect {
     received = null
     control = true
+    messages = null
 
-    constructor(received, control = true) {
+    constructor(received, messages = assertMessages, control = true) {
         this.received = received
         this.control = control
+        this.messages = messages
     }
     
     get not() {
-        return new Expect(this.received, !this.control)
+        return new this.constructor(this.received, this.messages, !this.control)
+    }
+    
+    assert(result, msg = null, method = null, expected = '', received = '') {
+        const defPositiveMsg = this.messages[method] && this.messages[method]['positive'] ? this.messages[method]['positive'] : `Expected value not to match condition`
+        const defNegativeMsg = this.messages[method] && this.messages[method]['negative'] ? this.messages[method]['negative'] : `Expected value to match condition`
+        
+        received = received || this.received
+        if (received === null || received === undefined) {
+            received = ''
+        }
+        
+        if (expected === null || expected === undefined) {
+            expected = ''
+        }
+        
+        msg = msg || ( this.control ? defPositiveMsg : defNegativeMsg ) 
+        
+        if (!(Boolean(result) === this.control)) {
+            throw new ExpectError(
+                msg.replace('{received}', received.toString ? received : '').replace('{expected}', expected.toString ? expected : ''), 
+                method, 
+                received !== '' ? received : this.received, 
+                expected
+            )
+        }
     }
 }
 

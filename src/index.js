@@ -15,15 +15,17 @@ import { checkReactDependencies } from "./react/check-deps.js";
 import {cleanup, initReact, render, snapshot} from "./react/index.js";
 import {BOT} from "./config/index.js";
 import {findJsxTests, findTypeScriptTests} from "./typescript/index.js";
+import messages from './expects/messages.js';
 
 
 // Экспортируем публичные API
 export { Expect, expect } from "./expects/expect.js";
-export { ExpectError } from "./expects/errors.js";
+export { ExpectError } from "./expects/error/errors.js";
 export * from './core/registry.js';
 export { coverageFilter, generateReport, displayReport } from './core/coverage.js';
 export { fire } from './events/index.js';
 export { waitFor } from './utils/index.js';
+export { messages } 
 
 // Главная функция запуска тестов
 export const run = async (root, options = {}) => {
