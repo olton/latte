@@ -1,6 +1,5 @@
 import {ExpectError} from "../error/errors.js";
 import {deepEqual} from "../../helpers/objects.js";
-import {stringify} from "../../helpers/json.js";
 
 const noMockFn = (method) => {
     throw new ExpectError(

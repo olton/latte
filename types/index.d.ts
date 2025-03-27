@@ -1197,10 +1197,46 @@ export declare class Expect {
     containsElementDeep(expected: HTMLElement, msg?: string): void
     
     /**
+     * Asserts that the HTML element has the specified value in ID.
+     * @param expected
+     * @param msg
+     */
+    hasId(expected: string, msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has the specified name.
+     * @param expected
+     * @param msg
+     */
+    hasName(expected: string, msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has the specified value in src.
+     * @param expected
+     * @param msg
+     */
+    hasSrc(expected: string, msg?: string): void
+    
+    /**
+     * Asserts that the HTML element has the specified value in href.
+     * @param expected
+     * @param msg
+     */
+    hasHref(expected: string, msg?: string): void
+    
+    /**
      * Asserts that the actual value is resolved with the expected value.
      * @param {any} expected - The expected text content.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
      * @returns {Object} The result of the test.
      */
     toBeResolvedWith(expected: any, msg?: string): void
+    
+    /**
+     * Asserts that the actual value is rejected with the expected value.
+     * @param {any} expected - The expected text content.
+     * @param {string|null} [msg=null] - The message to display if the assertion fails.
+     * @returns {Object} The result of the test.
+     */
+    toBeRejectedWith(expected: any, msg?: string): void
 }

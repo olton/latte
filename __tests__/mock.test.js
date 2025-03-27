@@ -35,6 +35,18 @@ describe('Mock function with extensions', () => {
         expect(mockFn()).toBeUndefined();
     });
 
+    it('Implementation, should return specified value', () => {
+        const mockFn = mock().mockImplementation(() => 42);
+        expect(mockFn()).toBe(42);
+        expect(mockFn()).toBe(42);
+    })
+
+    it('should return specified value', () => {
+        const mockFn = mock((a, b) => a + b);
+        expect(mockFn(1, 2)).toBe(3);
+        expect(mockFn("Hello", " World!")).toBe("Hello World!");
+    })
+
     it('should resolve with specified value', async () => {
         const mockFn = mock().mockResolvedValue('resolved');
         await expect(mockFn()).toBeResolvedWith('resolved');
