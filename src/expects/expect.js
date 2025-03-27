@@ -31,19 +31,21 @@ class Expect {
         const defNegativeMsg = this.messages[method] && this.messages[method]['negative'] ? this.messages[method]['negative'] : `Expected value to match condition`
         
         received = received || this.received
-        if (received === null || received === undefined) {
+        if (received === null || received === undefined || typeof received.toString !== 'function') {
             received = ''
         }
         
-        if (expected === null || expected === undefined) {
+        if (expected === null || expected === undefined || typeof expected.toString !== 'function') {
             expected = ''
         }
         
-        msg = msg || ( this.control ? defPositiveMsg : defNegativeMsg ) 
+        msg = (msg || ( this.control ? defPositiveMsg : defNegativeMsg ))
+            .replace(/{\s*(received)\s*}/, received)
+            .replace(/{\s*(expected)\s*}/, expected)
         
         if (!(Boolean(result) === this.control)) {
             throw new ExpectError(
-                msg.replace('{received}', received.toString ? received : '').replace('{expected}', expected.toString ? expected : ''), 
+                msg, 
                 method, 
                 received !== '' ? received : this.received, 
                 expected
