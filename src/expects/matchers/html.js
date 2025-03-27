@@ -1,5 +1,3 @@
-import {ExpectError} from "../error/errors.js";
-
 export default {
     /**
      * Asserts that the actual value is an HTML element.

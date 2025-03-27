@@ -1,4 +1,3 @@
-import {ExpectError} from "../error/errors.js";
 import checkArraySorted from "../../helpers/check-array-sorted.js";
 
 export default {

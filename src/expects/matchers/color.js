@@ -1,4 +1,3 @@
-import {ExpectError} from "../error/errors.js";
 import {testValue} from "../../helpers/test-value.js";
 
 export default {

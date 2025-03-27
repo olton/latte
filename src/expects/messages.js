@@ -404,4 +404,29 @@ export default {
         positive: 'Value is not a valid Base64 string',
         negative: 'Value is a valid Base64 string',
     },
+    
+    'toHaveAriaAttributes': {
+        positive: 'Element does not have expected aria attributes',
+        negative: 'Element has expected aria attributes',
+    },
+    'toHaveAriaAttribute': {
+        positive: 'Element does not have expected aria attribute',
+        negative: 'Element has expected aria attribute',
+    },
+    'toHaveAriaRole': {
+        positive: 'Element does not have expected aria role',
+        negative: 'Element has expected aria role',
+    },
+    'toHaveAriaLabel': {
+        positive: 'Element does not have expected aria label',
+        negative: 'Element has expected aria label',
+    },
+    'toHaveAltText': {
+        positive: 'Element does not have expected alt text',
+        negative: 'Element has expected alt text',
+    },
+    'toBeKeyboardAccessible': {
+        positive: 'Element is not keyboard accessible',
+        negative: 'Element is keyboard accessible',
+    },
 }
