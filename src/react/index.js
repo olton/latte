@@ -1,21 +1,14 @@
-// import { createRequire } from 'module';
-//
-// const localRequire = createRequire(import.meta.url);
-
 let React, ReactDOM, ReactTestUtils;
 
 // Функція ініціалізації модуля
 export const initReact = () => {
     try {
-        // Динамічний імпорт React, щоб не вимагати його наявності 
-        // для тих, хто не використовує React тестування
+        // method "require" added globally in registry.js
         React = require('react');
         ReactDOM = require('react-dom/client');
-        ReactTestUtils = require('react-dom/test-utils');
 
         global.React = React;
         global.ReactDOM = ReactDOM;
-        global.ReactTestUtils = ReactTestUtils;
         
         return true;
     } catch (error) {
@@ -44,6 +37,7 @@ export const initReact = () => {
  * }>}
  */
 export const render = async (Component, props = {}, container = null) => {
+    let root
     
     if (!React || !ReactDOM) {
         throw new Error('React not initialized. Make sure to call initReact() first.');
@@ -51,13 +45,17 @@ export const render = async (Component, props = {}, container = null) => {
 
     // Якщо контейнер не передано, створюємо новий
     if (!container) {
-        container = document.createElement('div');
-        document.body.appendChild(container);
+        container = document.getElementById('root');
+        if (!container) {
+            container = document.createElement('div');
+            document.body.appendChild(container);
+            container.setAttribute('id', 'root');
+        }
     }
 
     // Перевірка, чи є createRoot в ReactDOM (React 18+)
     if (ReactDOM.createRoot) {
-        const root = ReactDOM.createRoot(container);
+        root = ReactDOM.createRoot(container);
         await new Promise(resolve => {
             root.render(Component);
             setTimeout(resolve, 10); // Даємо час для завершення рендерингу
@@ -73,7 +71,6 @@ export const render = async (Component, props = {}, container = null) => {
             try {
                 if (ReactDOM.createRoot) {
                     // Для React 18+
-                    const root = ReactDOM.createRoot(container);
                     root.unmount();
                 } else {
                     // Для React < 18
@@ -83,9 +80,6 @@ export const render = async (Component, props = {}, container = null) => {
             } catch (e) {
                 console.error('Error when removing the component:', e);
             }
-        },
-        rerender: (newProps) => {
-            ReactDOM.render(React.createElement(Component, newProps), container);
         },
         // Допоміжні методи для пошуку елементів
         getByText: (text) => {
@@ -111,16 +105,69 @@ export const render = async (Component, props = {}, container = null) => {
         // Допомога з подіями
         fireEvent: {
             click: (element) => {
-                ReactTestUtils.act(() => {
-                    element.click();
+                React.act(() => {
+                    element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
                 });
             },
             change: (element, value) => {
-                ReactTestUtils.act(() => {
+                React.act(() => {
                     element.value = value;
-                    ReactTestUtils.Simulate.change(element);
+                    const event = new Event('change', { bubbles: true });
+                    element.dispatchEvent(event);
                 });
-            }
+            },
+            focus: (element) => {
+                React.act(() => {
+                    element.focus();
+                });
+            },
+            blur: (element) => {
+                React.act(() => {
+                    element.blur();
+                });
+            },
+            keyDown: (element, key) => {
+                React.act(() => {
+                    const event = new KeyboardEvent('keydown', { key });
+                    element.dispatchEvent(event);
+                });
+            },
+            keyUp: (element, key) => {
+                React.act(() => {
+                    const event = new KeyboardEvent('keyup', { key });
+                    element.dispatchEvent(event);
+                });
+            },
+            keyPress: (element, key) => {
+                React.act(() => {
+                    const event = new KeyboardEvent('keypress', { key });
+                    element.dispatchEvent(event);
+                });
+            },
+            submit: (element) => {
+                React.act(() => {
+                    const event = new Event('submit', { bubbles: true });
+                    element.dispatchEvent(event);
+                });
+            },
+            invalid: (element) => {
+                React.act(() => {
+                    const event = new Event('invalid', { bubbles: true });
+                    element.dispatchEvent(event);
+                });
+            },
+            reset: (element) => {
+                React.act(() => {
+                    const event = new Event('reset', { bubbles: true });
+                    element.dispatchEvent(event);
+                });
+            },
+            select: (element) => {
+                React.act(() => {
+                    const event = new Event('select', { bubbles: true });
+                    element.dispatchEvent(event);
+                });
+            },
         },
         debug: () => {
             console.log(container.innerHTML);

@@ -10,6 +10,8 @@ import ColorExpect from "./matchers/color.js";
 import ArrayExpect from "./matchers/array.js";
 import MockExpect from "./matchers/mock.js";
 import ValidatorExpect from "./matchers/validator.js";
+import AccessibilityExpect from "./matchers/a11y.js";
+import ReactExpect from "./matchers/react.js";
 
 class Expect {
     received = null
@@ -24,6 +26,14 @@ class Expect {
     
     get not() {
         return new this.constructor(this.received, this.messages, !this.control)
+    }
+    
+    get react(){
+        if (!React || !ReactDOM) {
+            throw new ExpectError('React not initialized. Add --react flag to the command line.');
+        }
+        
+        return new this.constructor(this.received, this.messages, this.control)
     }
     
     assert(result, msg = null, method = null, expected = '', received = '') {
@@ -65,6 +75,8 @@ Object.assign(Expect.prototype,
     ArrayExpect,
     MockExpect,
     ValidatorExpect,
+    AccessibilityExpect,
+    ReactExpect,
 )
 
 /**

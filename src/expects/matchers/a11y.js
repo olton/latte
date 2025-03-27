@@ -1,4 +1,10 @@
 export default {
+    /**
+     * Check if an element has aria attribute
+     * @param expected
+     * @param msg
+     * @returns {this}
+     */
     hasAriaAttribute(expected, msg = null) {
         let received = this.received
         let result = received.hasAttribute(`aria-${expected}`)
@@ -12,20 +18,27 @@ export default {
 
         return this
     },
-    
-    hasAriaAttributes(msg = null) {
+
+    /**
+     * Check if an element has aria attributes
+     * @param expected - space separated list of aria attributes
+     * @param msg
+     * @returns {this}
+     */
+    hasAriaAttributes(expected, msg = null) {
         let received = this.received
-        let result = false
+        let result = 0
+        const names = expected.split(` `)
 
         for (const attr of received.attributes) {
-            if (attr.name.startsWith(`aria-`)) {
-                result = true
-                break
+            const attrName = attr.name
+            if (attrName.startsWith(`aria-`) && names.includes(attrName)) {
+                result++
             }
         }
         
         this.assert(
-            result,
+            result === names.length,
             msg,
             'toHaveAriaAttributes',
             `aria-*`,
@@ -33,7 +46,13 @@ export default {
 
         return this
     },
-    
+
+    /**
+     * Check if an element has an aria role
+     * @param expected
+     * @param msg
+     * @returns {this}
+     */
     hasAriaRole(expected, msg = null) {
         let received = this.received
         let result = received.getAttribute(`role`) === expected
@@ -47,7 +66,12 @@ export default {
 
         return this
     },
-    
+
+    /**
+     * Check if an element has an aria label
+     * @param msg
+     * @returns {this}
+     */
     hasAriaLabel(msg = null) {
         let received = this.received
         let result = received.hasAttribute(`aria-label`)
@@ -61,7 +85,12 @@ export default {
 
         return this
     },
-    
+
+    /**
+     * Check if an element has an alt text
+     * @param msg
+     * @returns {this}
+     */
     hasAltText(msg = null) {
         let received = this.received
         let alt = received.getAttribute(`alt`)
@@ -76,11 +105,15 @@ export default {
 
         return this
     },
-    
+
+    /**
+     * Check if an element is keyboard-accessible
+     * @param msg
+     * @returns {this}
+     */
     toBeKeyboardAccessible(msg = null) {
         let received = this.received;
         let result = false;
-        let reason = '';
 
         // Елементи, які за замовчуванням отримують фокус
         const nativelyFocusable = [
