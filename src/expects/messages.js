@@ -405,23 +405,23 @@ export default {
         negative: 'Value is a valid Base64 string',
     },
     
-    'toHaveAriaAttributes': {
+    'hasAriaAttributes': {
         positive: 'Element does not have expected aria attributes',
         negative: 'Element has expected aria attributes',
     },
-    'toHaveAriaAttribute': {
+    'hasAriaAttribute': {
         positive: 'Element does not have expected aria attribute',
         negative: 'Element has expected aria attribute',
     },
-    'toHaveAriaRole': {
+    'hasAriaRole': {
         positive: 'Element does not have expected aria role',
         negative: 'Element has expected aria role',
     },
-    'toHaveAriaLabel': {
+    'hasAriaLabel': {
         positive: 'Element does not have expected aria label',
         negative: 'Element has expected aria label',
     },
-    'toHaveAltText': {
+    'hasAltText': {
         positive: 'Element does not have expected alt text',
         negative: 'Element has expected alt text',
     },

@@ -1,5 +1,5 @@
 export default {
-    toHaveAriaAttribute(expected, msg = null) {
+    hasAriaAttribute(expected, msg = null) {
         let received = this.received
         let result = received.hasAttribute(`aria-${expected}`)
 
@@ -13,7 +13,7 @@ export default {
         return this
     },
     
-    toHaveAriaAttributes(msg = null) {
+    hasAriaAttributes(msg = null) {
         let received = this.received
         let result = false
 
@@ -34,7 +34,7 @@ export default {
         return this
     },
     
-    toHaveAriaRole(expected, msg = null) {
+    hasAriaRole(expected, msg = null) {
         let received = this.received
         let result = received.getAttribute(`role`) === expected
 
@@ -48,7 +48,7 @@ export default {
         return this
     },
     
-    toHaveAriaLabel(msg = null) {
+    hasAriaLabel(msg = null) {
         let received = this.received
         let result = received.hasAttribute(`aria-label`)
 
@@ -62,7 +62,7 @@ export default {
         return this
     },
     
-    toHaveAltText(msg = null) {
+    hasAltText(msg = null) {
         let received = this.received
         let alt = received.getAttribute(`alt`)
         let result = alt && alt !== '' 
