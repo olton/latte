@@ -66,6 +66,7 @@ export const render = async (Component, props = {}, container = null) => {
     }
 
     return {
+        root,
         container,
         unmount: () => {
             try {
@@ -105,68 +106,38 @@ export const render = async (Component, props = {}, container = null) => {
         // Допомога з подіями
         fireEvent: {
             click: (element) => {
-                React.act(() => {
-                    element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-                });
+                element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
             },
             change: (element, value) => {
-                React.act(() => {
-                    element.value = value;
-                    const event = new Event('change', { bubbles: true });
-                    element.dispatchEvent(event);
-                });
+                element.value = value;
+                element.dispatchEvent(new Event('change', { bubbles: true }));
             },
             focus: (element) => {
-                React.act(() => {
-                    element.focus();
-                });
+                element.focus();
             },
             blur: (element) => {
-                React.act(() => {
-                    element.blur();
-                });
+                element.blur();
             },
-            keyDown: (element, key) => {
-                React.act(() => {
-                    const event = new KeyboardEvent('keydown', { key });
-                    element.dispatchEvent(event);
-                });
+            keyDown: (element, key = "") => {
+                element.dispatchEvent(new KeyboardEvent('keydown', { key }));
             },
-            keyUp: (element, key) => {
-                React.act(() => {
-                    const event = new KeyboardEvent('keyup', { key });
-                    element.dispatchEvent(event);
-                });
+            keyUp: (element, key = "") => {
+                element.dispatchEvent(new KeyboardEvent('keyup', { key }));
             },
-            keyPress: (element, key) => {
-                React.act(() => {
-                    const event = new KeyboardEvent('keypress', { key });
-                    element.dispatchEvent(event);
-                });
+            keyPress: (element, key = "") => {
+                element.dispatchEvent(new KeyboardEvent('keypress', { key }));
             },
             submit: (element) => {
-                React.act(() => {
-                    const event = new Event('submit', { bubbles: true });
-                    element.dispatchEvent(event);
-                });
+                element.dispatchEvent(new Event('submit', { bubbles: true }));
             },
             invalid: (element) => {
-                React.act(() => {
-                    const event = new Event('invalid', { bubbles: true });
-                    element.dispatchEvent(event);
-                });
+                element.dispatchEvent(new Event('invalid', { bubbles: true }));
             },
             reset: (element) => {
-                React.act(() => {
-                    const event = new Event('reset', { bubbles: true });
-                    element.dispatchEvent(event);
-                });
+                element.dispatchEvent(new Event('reset', { bubbles: true }));
             },
             select: (element) => {
-                React.act(() => {
-                    const event = new Event('select', { bubbles: true });
-                    element.dispatchEvent(event);
-                });
+                element.dispatchEvent(new Event('select', { bubbles: true }));
             },
         },
         debug: () => {
