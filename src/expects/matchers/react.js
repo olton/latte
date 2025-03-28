@@ -19,8 +19,8 @@ export default {
         }
 
         this.assert(
-            !result,
-            msg,
+            result,
+            msg || errorMessage,
             'toRenderWithoutErrors',
             null,
             errorMessage
