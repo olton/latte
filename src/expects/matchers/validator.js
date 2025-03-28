@@ -5,7 +5,7 @@ export default {
     /**
      * Asserts that the actual value is true.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeTrue(msg = null) {
         let received = this.received
@@ -23,7 +23,7 @@ export default {
     /**
      * Asserts that the actual value is false.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeFalse(msg = null) {
         let received = this.received
@@ -43,7 +43,7 @@ export default {
      * Asserts that the actual value matches the expected pattern.
      * @param expected - The expected pattern.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toMatch(expected, msg = null) {
         let received = this.received
@@ -73,7 +73,7 @@ export default {
      * Asserts that the actual value is greater than the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeGreaterThan(expected, msg = null) {
         let received = this.received
@@ -93,7 +93,7 @@ export default {
      * Asserts that the actual value is greater than or equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeGreaterThanOrEqual(expected, msg = null) {
         let received = this.received
@@ -113,7 +113,7 @@ export default {
      * Asserts that the actual value is less than the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeLessThan(expected, msg = null) {
         let received = this.received
@@ -133,7 +133,7 @@ export default {
      * Asserts that the actual value is less than or equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeLessThanOrEqual(expected, msg = null) {
         let received = this.received
@@ -154,7 +154,7 @@ export default {
      * @param min - The minimum value.
      * @param max - The maximum value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBetween(min, max, msg = null) {
         let received = this.received
@@ -173,7 +173,7 @@ export default {
     /**
      * Asserts that the actual value is positive.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBePositive(msg = null) {
         let received = this.received
@@ -191,7 +191,7 @@ export default {
     /**
      * Asserts that the actual value is negative.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeNegative(msg = null) {
         let received = this.received
@@ -209,7 +209,7 @@ export default {
     /**
      * Asserts that the actual value is finite.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeFinite(msg = null) {
         let received = this.received
@@ -230,7 +230,7 @@ export default {
      * @param {number} expected - The expected value to compare against.
      * @param {number} [precision=2] - The number of decimal places to consider in the comparison.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     toBeCloseTo(expected, precision = 2, msg = null) {
         let received = this.received
@@ -250,7 +250,7 @@ export default {
     /**
      * Asserts that the actual value is a valid IP address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeIP(msg = null) {
         let received = this.received
@@ -268,7 +268,7 @@ export default {
     /**
      * Asserts that the actual value is a valid IPv4 address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeIPv4(msg = null) {
         let received = this.received
@@ -286,7 +286,7 @@ export default {
     /**
      * Asserts that the actual value is a valid IPv6 address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeIPv6(msg = null) {
         let received = this.received
@@ -304,7 +304,7 @@ export default {
     /**
      * Asserts that the actual value is a valid email address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeEmail(msg = null) {
         let received = this.received
@@ -322,7 +322,7 @@ export default {
     /**
      * Asserts that the actual value is a valid URL.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeUrl(msg = null) {
         let received = this.received
@@ -341,7 +341,7 @@ export default {
     /**
      * Asserts that the actual value is a Base64 encoded string.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeBase64(msg = null) {
         let received = this.received

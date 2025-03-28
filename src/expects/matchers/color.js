@@ -4,7 +4,7 @@ export default {
     /**
      * Asserts that the actual value is a HEX color.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeHEXColor(msg = null) {
         let received = this.received
@@ -23,7 +23,7 @@ export default {
     /**
      * Asserts that the actual value is an RGB color.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeRGBColor(msg = null) {
         let received = this.received
@@ -42,7 +42,7 @@ export default {
     /**
      * Asserts that the actual value is an RGBA color.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeRGBAColor(msg = null) {
         let received = this.received
@@ -61,7 +61,7 @@ export default {
     /**
      * Asserts that the actual value is an HSL color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     toBeHSVColor(msg = null) {
         let received = this.received
@@ -80,7 +80,7 @@ export default {
     /**
      * Asserts that the actual value is an HSL color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     toBeHSLColor(msg = null) {
         let received = this.received
@@ -99,7 +99,7 @@ export default {
     /**
      * Asserts that the actual value is an HSLA color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     toBeHSLAColor(msg = null) {
         let received = this.received
@@ -118,7 +118,7 @@ export default {
     /**
      * Asserts that the actual value is a CMYK color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     toBeCMYKColor(msg = null) {
         let received = this.received
@@ -137,7 +137,7 @@ export default {
     /**
      * Asserts that the actual value is a valid color (HEX, RGB, RGBA, HSL, HSLA, or CMYK).
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     toBeColor(msg = null) {
         let received = this.received

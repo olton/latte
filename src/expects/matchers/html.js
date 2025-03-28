@@ -2,7 +2,7 @@ export default {
     /**
      * Asserts that the actual value is an HTML element.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toBeHtmlElement(msg = null) {
         let received = this.received
@@ -20,7 +20,7 @@ export default {
     /**
      * Asserts that the actual value is an HTML node.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toBeNode(msg = null) {
         let received = this.received
@@ -38,7 +38,7 @@ export default {
     /**
      * Asserts that the actual value is an HTML document.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toBeDocument(msg = null) {
         let received = this.received
@@ -56,7 +56,7 @@ export default {
     /**
      * Asserts that the actual value is an HTML collection.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toBeHtmlCollection(msg = null) {
         let received = this.received
@@ -74,7 +74,7 @@ export default {
     /**
      * Asserts that the actual value is a Window object.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toBeWindow(msg = null) {
         let received = this.received
@@ -92,7 +92,7 @@ export default {
     /**
      * Asserts that the actual value is a Text node.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toBeTextNode(msg = null) {
         let received = this.received
@@ -111,7 +111,7 @@ export default {
      * Asserts that the HTML element has the specified class.
      * @param {string} expected - The expected class name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     hasClass(expected, msg = null) {
         let received = this.received
@@ -132,7 +132,7 @@ export default {
      * Asserts that the HTML element has the specified attribute.
      * @param {string} expected - The expected attribute name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     hasAttribute(expected, msg = null) {
         let received = this.received
@@ -152,7 +152,7 @@ export default {
     /**
      * Asserts that the HTML element has children.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     hasChildren(msg = null) {
         let received = this.received
@@ -170,7 +170,7 @@ export default {
     /**
      * Asserts that the HTML element has a parent.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     hasParent(msg = null) {
         let received = this.received
@@ -190,6 +190,7 @@ export default {
      * @param prop
      * @param val
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasStyle(prop, val, msg = null) {
         let received = this.received
@@ -212,6 +213,7 @@ export default {
      * Asserts that the HTML element has the specified style in style property.
      * @param expected
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasStyleProperty(expected, msg = null) {
         let received = this.received
@@ -231,6 +233,7 @@ export default {
      * Asserts that the HTML element has the specified computed styles.
      * @param styles
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasStyles(styles, msg = null) {
         let received = this.received
@@ -265,6 +268,7 @@ export default {
     /**
      * Asserts that the HTML element has siblings.
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasSiblings(msg = null) {
         let received = this.received
@@ -283,6 +287,7 @@ export default {
      * Asserts that the HTML element has the specified sibling.
      * @param expected
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasSibling(expected, msg = null) {
         let received = this.received
@@ -304,6 +309,7 @@ export default {
     /**
      * Asserts that the HTML element has a prev siblings.
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasPrev(msg = null){
         let received = this.received
@@ -321,6 +327,7 @@ export default {
     /**
      * Asserts that the HTML element has a next siblings.
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasNext(msg = null){
         let received = this.received
@@ -339,6 +346,7 @@ export default {
      * Asserts that the HTML element has the specified text.
      * @param expected
      * @param msg
+     * @returns {this} The result of the test.
      */
     hasText(expected, msg = null) {
         let received = this.received
@@ -359,6 +367,7 @@ export default {
      * Asserts that the HTML element contains the specified element.
      * @param expected
      * @param msg
+     * @returns {this} The result of the test.
      */
     containsElement(expected, msg = null) {
         let received = this.received
@@ -379,6 +388,7 @@ export default {
      * Asserts that the HTML element contains the specified element deeply.
      * @param expected
      * @param msg
+     * @returns {this} The result of the test.
      */
     containsElementDeep(expected, msg = null) {
         let received = this.received

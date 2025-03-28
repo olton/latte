@@ -3,7 +3,7 @@ export default {
      * Asserts that the actual value is equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBe(expected, msg = null) {
         let received = this.received
@@ -23,7 +23,7 @@ export default {
      * Asserts that the actual value is strict equal (using ===) to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeStrictEqual(expected, msg = null) {
         let received = this.received
@@ -43,7 +43,7 @@ export default {
      * Asserts that the actual value is equal (using ==) to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeEqual(expected, msg = null) {
         let received = this.received

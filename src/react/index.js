@@ -139,6 +139,15 @@ export const render = async (Component, props = {}, container = null) => {
             select: (element) => {
                 element.dispatchEvent(new Event('select', { bubbles: true }));
             },
+            mouseEnter: (element) => {
+                element.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+            },
+            mouseLeave: (element) => {
+                element.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+            },
+            mouseOver: (element) => {
+                element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+            },
         },
         debug: () => {
             console.log(container.innerHTML);

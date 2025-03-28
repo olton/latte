@@ -4,7 +4,7 @@ export default {
     /**
      * Asserts that the actual value is empty.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeEmpty(msg = null) {
         let received = this.received
@@ -23,7 +23,7 @@ export default {
      * Asserts that the array-like object has the expected length.
      * @param {number} expected - The expected length.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Object} {this}.
      */
     hasLength(expected, msg = null) {
         let received = this.received
@@ -43,7 +43,7 @@ export default {
     /**
      * Asserts that values in the array are unique.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeArrayUnique(msg = null) {
         let received = this.received
@@ -61,7 +61,7 @@ export default {
     /**
      * Asserts that the actual value is sorted.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeArraySorted(msg = null) {
         let received = this.received
@@ -82,7 +82,7 @@ export default {
      * Asserts that the actual value contains the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toContain(expected, msg = null) {
         let received = this.received
@@ -114,7 +114,7 @@ export default {
      * Asserts that the actual array is equal to the expected array.
      * @param expected - The expected array.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeArrayEqual(expected, msg = null) {
         let received = this.received
@@ -140,7 +140,7 @@ export default {
     /**
      * Asserts that the actual value is an array.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeArray(msg = null) {
         let received = this.received

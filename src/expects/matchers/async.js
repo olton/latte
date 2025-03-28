@@ -5,7 +5,7 @@ export default {
      * Asserts that the actual value is resolved with the expected value.
      * @param expected
      * @param msg
-     * @returns {Promise<void>}
+     * @returns {this}
      */
     async toBeResolvedWith(expected, msg = null) {
         let received = this.received
@@ -33,7 +33,7 @@ export default {
      * Asserts that the actual value is rejected with the expected value.
      * @param expected
      * @param msg
-     * @returns {Promise<void>}
+     * @returns {this}
      */
     async toBeRejectedWith(expected, msg = null) {
         let received = this.received

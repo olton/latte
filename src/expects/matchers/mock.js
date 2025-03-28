@@ -12,7 +12,7 @@ export default {
     /**
      * Asserts the mock function was called at least once
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toHaveBeenCalled(msg = null) {
         let received = this.received
@@ -38,7 +38,7 @@ export default {
      * Asserts the mock function was called at least once
      * @param expected
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toHaveBeenCalledTimes(expected, msg = null) {
         let received = this.received
@@ -64,7 +64,7 @@ export default {
      * Asserts that the mock function was called with specified arguments.
      * @param {Array} expected - The expected arguments.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toHaveBeenCalledWith(expected, msg = null) {
         let received = this.received
@@ -90,7 +90,7 @@ export default {
      * Asserts that the mock function was called last with specified arguments.
      * @param {Array} expected - The expected arguments.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this} The result of the test.
      */
     toHaveBeenLastCalledWith(expected, msg = null) {
         let received = this.received

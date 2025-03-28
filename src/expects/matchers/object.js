@@ -17,7 +17,7 @@ export default {
      * Asserts that the actual object is equal to the expected object.
      * @param expected - The expected object.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeObject(expected, msg = null) {
         let received = this.received
@@ -54,7 +54,7 @@ export default {
      * With this method you can compare objects with circular references.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeDeepEqual(expected, msg = null) {
         let received = this.received
@@ -79,7 +79,7 @@ export default {
      * With this method you can compare objects with circular references.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeDeepEqualSafe(expected, msg = null) {
         let received = this.received
@@ -103,7 +103,7 @@ export default {
      * Asserts that the actual structure is equal to the expected structure.
      * @param expected - The expected structure.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {this}.
      */
     toBeObjectStructureEqual(expected, msg = null) {
         let received = this.received
@@ -124,23 +124,65 @@ export default {
     },
 
     /**
-     * Asserts that the actual value has the specified property.
-     * @param {string} expected - The expected property name.
+     * Asserts that the object has the specified property.
+     * @param {string} property - The expected property name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {this}.
      */
-    hasProperty(expected, msg = null) {
+    hasProperty(property, msg = null) {
         let received = this.received
 
         check(received, 'hasProperty')
 
-        let result = received[expected] !== undefined
+        const parts = property.split('.');
+        let currentValue = received;
+
+        for (const part of parts) {
+            if (currentValue === null || currentValue === undefined) break;
+            currentValue = currentValue[part];
+        }
+        
+        let result = currentValue !== undefined
 
         this.assert(
             result,
             msg,
             'hasProperty',
-            expected,
+            property,
+            currentValue
+        )
+        
+        return this
+    },
+
+    /**
+     * Asserts that the object has the specified property with value.
+     * @param {string} property - The expected property name.
+     * @param {any} value
+     * @param {string|null} [msg=null] - The message to display if the assertion fails.
+     * @returns {this}.
+     */
+    hasPropertyValue(property, value, msg = null) {
+        let received = this.received
+
+        check(received, 'hasPropertyValue')
+
+        const parts = property.split('.');
+        let currentValue = received;
+
+        for (const part of parts) {
+            if (currentValue === null || currentValue === undefined) break;
+            currentValue = currentValue[part];
+        }
+        
+        let result = currentValue === value
+
+        this.assert(
+            result,
+            msg,
+            'hasProperty',
+            `${property}: ${value}`,
+            currentValue
         )
         
         return this
