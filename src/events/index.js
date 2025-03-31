@@ -4,11 +4,11 @@
  * @param {string} eventName - event name
  * @param {Object} options - event options
  */
-export function fire(element, eventName, options = {}) {
-    const event = new Event(eventName, {
-        bubbles: true,
-        cancelable: true,
-        ...options
-    });
-    element.dispatchEvent(event);
+export function fire (element, eventName, options = {}) {
+  const event = new Event(eventName, {
+    bubbles: true,
+    cancelable: true,
+    ...options
+  })
+  element.dispatchEvent(event)
 }

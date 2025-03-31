@@ -2,6 +2,13 @@
 
 # 🥛 Latte
 
+[![NPM Version](https://img.shields.io/npm/v/@olton/latte?color=green)](https://www.npmjs.com/package/@olton/latte)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?color=7852a9)](https://opensource.org/licenses/MIT)
+![NPM Downloads](https://img.shields.io/npm/dw/%40olton%2Flatte?color=blue)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
+
 Latte (an abbreviation from `laconic testing`) is a testing framework for JavaScript and TypeScript, written in pure JavaScript.
 
 </div>
@@ -55,16 +62,12 @@ Core features:
 - Watching mode.
 - Different Reporters: `lcov`, `console`, `html`, and `junit`.
 - Open source and MIT license.
+
 ---
 
 Support for PayPal to **serhii@pimenov.com.ua**
 
 ---
-
-[![NPM Version](https://img.shields.io/npm/v/@olton/latte?color=green)](https://www.npmjs.com/package/@olton/latte)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?color=7852a9)](https://opensource.org/licenses/MIT)
-![NPM Downloads](https://img.shields.io/npm/dw/%40olton%2Flatte)
-
 
 ## Installation
 
@@ -182,3 +185,7 @@ Use issue tracker to report bugs or request new features.
 ---
 ### Copyright
 © 2025 [Serhii Pimenov](https://pimenov.com.ua). All rights reserved.
+
+---
+### Code Standards
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)

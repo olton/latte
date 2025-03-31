@@ -1,200 +1,200 @@
-import chokidar from 'chokidar';
-import path from 'path';
-import { run } from './index.js';
-import { clearConsole } from './helpers/console.js';
-import chalk from 'chalk';
-import fs from 'fs';
-import { testQueue } from './core/queue.js';
-import { hooksRegistry } from './core/hooks.js';
-import {glob} from 'glob';
+import chokidar from 'chokidar'
+import path from 'path'
+import { run } from './index.js'
+import { clearConsole } from './helpers/console.js'
+import chalk from 'chalk'
+import fs from 'fs'
+import { testQueue } from './core/queue.js'
+import { hooksRegistry } from './core/hooks.js'
+import { glob } from 'glob'
 
-let isFirstRun = true;
-let runningTests = false;
-let watcher = null;
+let isFirstRun = true
+let runningTests = false
+let watcher = null
 
 const help = () => {
-    console.log("\n")
-    console.log(chalk.yellow('- Press "q" to exit'));
-    console.log(chalk.yellow('- Press "a" to launch all tests'));
-    console.log(chalk.yellow('- Press "f" to launch failed tests'));
-    console.log(chalk.yellow('- Press "c" to clean the console'));
-    console.log(chalk.yellow('- Press "h" this help'));
-    console.log("\n")
+  console.log('\n')
+  console.log(chalk.yellow('- Press "q" to exit'))
+  console.log(chalk.yellow('- Press "a" to launch all tests'))
+  console.log(chalk.yellow('- Press "f" to launch failed tests'))
+  console.log(chalk.yellow('- Press "c" to clean the console'))
+  console.log(chalk.yellow('- Press "h" this help'))
+  console.log('\n')
 }
 
-export async function startWatchMode(root, options) {
-    if (!options.watch) {
-        return run(root, options);
+export async function startWatchMode (root, options) {
+  if (!options.watch) {
+    return run(root, options)
+  }
+
+  global.failedTests = []
+
+  console.log(chalk.cyan('\n=== Latte Watch Mode ==='))
+
+  const includePatterns = options.include
+    ? (Array.isArray(options.include) ? options.include : [options.include])
+    : ['**/__tests__/**/*.test.js', '**/*.test.js']
+
+  const excludePatterns = options.exclude
+    ? (Array.isArray(options.exclude) ? options.exclude : [options.exclude])
+    : []
+
+  const fileExtensions = ['.js', '.ts', '.tsx', '.jsx']
+
+  const ignorePatterns = [
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/build/**',
+    '**/coverage/**',
+    '.git',
+    ...excludePatterns
+  ]
+
+  help()
+
+  // Check the existence of files from Includepatterns
+  const validPatterns = includePatterns.filter(pattern => {
+    // Если это точный путь к файлу
+    if (!pattern.includes('*')) {
+      try {
+        const fullPath = path.resolve(root, pattern)
+        return fs.existsSync(fullPath)
+      } catch (e) {
+        return false
+      }
     }
+    return true
+  })
 
-    global.failedTests = [];
-    
-    console.log(chalk.cyan('\n=== Latte Watch Mode ==='));
+  if (validPatterns.length === 0) {
+    console.warn(chalk.yellow('Attention: these inclusions templates do not correspond to existing files!'))
+    console.log(chalk.cyan('The standard template is used: **/__tests__/**/*.test.js, **/*.test.js'))
+    validPatterns.push('**/__tests__/**/*.test.js', '**/*.test.js')
+  }
 
-    const includePatterns = options.include ?
-        (Array.isArray(options.include) ? options.include : [options.include]) :
-        ['**/__tests__/**/*.test.js', '**/*.test.js'];
+  // We create an observer for all supported file types
+  watcher = chokidar.watch(await glob([
+    ...validPatterns,
+    '**/*.js',
+    '**/*.ts',
+    '**/*.tsx',
+    '**/*.jsx'
+  ], { ignore: excludePatterns }), {
+    depth: 10,
+    awaitWriteFinish: {
+      stabilityThreshold: 2000,
+      pollInterval: 100
+    },
+    ignored: ignorePatterns,
+    persistent: true,
+    ignoreInitial: true,
+    cwd: '.'
+  })
 
-    const excludePatterns = options.exclude ?
-        (Array.isArray(options.exclude) ? options.exclude : [options.exclude]) :
-        [];
+  setupInteractiveMode(watcher, root, options)
 
-    const fileExtensions = ['.js', '.ts', '.tsx', '.jsx'];
+  // Launch tests at the first start
+  if (isFirstRun) {
+    console.log(chalk.cyan('Starting tests...'))
+    runTests(root, options)
+    isFirstRun = false
+  }
 
-    const ignorePatterns = [
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/coverage/**',
-        '.git',
-        ...excludePatterns
-    ];
+  watcher.on('ready', () => {
 
-    help()
+  })
 
-    // Check the existence of files from Includepatterns
-    const validPatterns = includePatterns.filter(pattern => {
-        // Если это точный путь к файлу
+  // We process file changes
+  watcher.on('all', (event, filePath) => {
+    const extension = path.extname(filePath)
+
+    // We check that this is a supported file and other tests are not currently executed
+    if (fileExtensions.includes(extension) && !runningTests) {
+      clearConsole()
+
+      console.log(chalk.cyan(`File ${filePath} was ${event}\n`))
+
+      // Check if the file corresponds to the power patterns
+      const isTestFile = validPatterns.some(pattern => {
+        // If this is an accurate way to a file
         if (!pattern.includes('*')) {
-            try {
-                const fullPath = path.resolve(root, pattern);
-                return fs.existsSync(fullPath);
-            } catch (e) {
-                return false;
-            }
+          return pattern === filePath
         }
-        return true;
-    });
+        // Support for Glob Patterns
+        return new RegExp(pattern
+          .replace(/\./g, '\\.')
+          .replace(/\*\*\//g, '.*')
+          .replace(/\*/g, '[^/]*')).test(filePath)
+      })
 
-    if (validPatterns.length === 0) {
-        console.warn(chalk.yellow('Attention: these inclusions templates do not correspond to existing files!'));
-        console.log(chalk.cyan('The standard template is used: **/__tests__/**/*.test.js, **/*.test.js'));
-        validPatterns.push('**/__tests__/**/*.test.js', '**/*.test.js');
-    }
-
-    // We create an observer for all supported file types
-    watcher = chokidar.watch(await glob([
-        ...validPatterns,
-        '**/*.js', 
-        '**/*.ts', 
-        '**/*.tsx', 
-        '**/*.jsx'
-    ], { ignore: excludePatterns }), {
-        depth: 10,
-        awaitWriteFinish: {
-            stabilityThreshold: 2000,
-            pollInterval: 100
-        },
-        ignored: ignorePatterns,
-        persistent: true,
-        ignoreInitial: true,
-        cwd: "."
-    });
-
-    setupInteractiveMode(watcher, root, options);
-
-    // Launch tests at the first start
-    if (isFirstRun) {
-        console.log(chalk.cyan('Starting tests...'));
-        runTests(root, options);
-        isFirstRun = false;
-    }
-
-    watcher.on('ready', () => {
-        
-    });
-    
-    // We process file changes
-    watcher.on('all', (event, filePath) => {
-        const extension = path.extname(filePath);
-
-        // We check that this is a supported file and other tests are not currently executed
-        if (fileExtensions.includes(extension) && !runningTests) {
-            clearConsole();
-
-            console.log(chalk.cyan(`File ${filePath} was ${event}\n`)); 
-
-            // Check if the file corresponds to the power patterns
-            const isTestFile = validPatterns.some(pattern => {
-                // If this is an accurate way to a file
-                if (!pattern.includes('*')) {
-                    return pattern === filePath;
-                }
-                // Support for Glob Patterns
-                return new RegExp(pattern
-                    .replace(/\./g, '\\.')
-                    .replace(/\*\*\//g, '.*')
-                    .replace(/\*/g, '[^/]*')).test(filePath);
-            });
-
-            // If it is a test file, we only start it
-            if (isTestFile && event !== 'unlink') {
-                const testOptions = { ...options };
-                testOptions.files = [path.join(root, filePath)];
-                runTests(root, testOptions);
-            } else {
-                // For the source files, we're looking for related tests
-                const relatedTestFile = findRelatedTestFile(root, filePath);
-                if (relatedTestFile) {
-                    const testOptions = { ...options };
-                    testOptions.files = [relatedTestFile];
-                    runTests(root, testOptions);
-                } else {
-                    // If you haven't found a related test, we start all the tests
-                    runTests(root, options); 
-                }
-            }
+      // If it is a test file, we only start it
+      if (isTestFile && event !== 'unlink') {
+        const testOptions = { ...options }
+        testOptions.files = [path.join(root, filePath)]
+        runTests(root, testOptions)
+      } else {
+        // For the source files, we're looking for related tests
+        const relatedTestFile = findRelatedTestFile(root, filePath)
+        if (relatedTestFile) {
+          const testOptions = { ...options }
+          testOptions.files = [relatedTestFile]
+          runTests(root, testOptions)
+        } else {
+          // If you haven't found a related test, we start all the tests
+          runTests(root, options)
         }
-    });
+      }
+    }
+  })
 
-    return new Promise((resolve) => {
-        // This promise will never be resolved so that the process continues to work
-        // The output will occur only on an obvious call process.exit()
-    });
+  return new Promise((resolve) => {
+    // This promise will never be resolved so that the process continues to work
+    // The output will occur only on an obvious call process.exit()
+  })
 }
 
 /**
  * Setting an interactive console regime
  */
-function setupInteractiveMode(watcher, root, options) {
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', async (key) => {
-        // The exit from Watch-mode when pressed 'q'
-        if (key === 'q') {
-            watcher.close().then(() => {
-                console.log(chalk.green('\nWatch mode is completed. Bye!\n'));
-                process.exit(0);
-            });
-        }
+function setupInteractiveMode (watcher, root, options) {
+  process.stdin.setRawMode(true)
+  process.stdin.resume()
+  process.stdin.setEncoding('utf8')
+  process.stdin.on('data', async (key) => {
+    // The exit from Watch-mode when pressed 'q'
+    if (key === 'q') {
+      watcher.close().then(() => {
+        console.log(chalk.green('\nWatch mode is completed. Bye!\n'))
+        process.exit(0)
+      })
+    }
 
-        // Launch of all tests when pressing 'a'
-        if (key === 'a' && !runningTests) {
-            clearConsole();
-            console.log(chalk.cyan('Launch all tests ...'));
-            await runTests(root, options);
-        }
+    // Launch of all tests when pressing 'a'
+    if (key === 'a' && !runningTests) {
+      clearConsole()
+      console.log(chalk.cyan('Launch all tests ...'))
+      await runTests(root, options)
+    }
 
-        // Launching only failed tests when pressing 'f'
-        if (key === 'f' && !runningTests && global.failedTests) {
-            clearConsole();
-            console.log(chalk.cyan('The launch failed tests ...'));
-            const failedOptions = { ...options, include: global.failedTests, watch: false };
-            await runTests(root, failedOptions);
-        }
+    // Launching only failed tests when pressing 'f'
+    if (key === 'f' && !runningTests && global.failedTests) {
+      clearConsole()
+      console.log(chalk.cyan('The launch failed tests ...'))
+      const failedOptions = { ...options, include: global.failedTests, watch: false }
+      await runTests(root, failedOptions)
+    }
 
-        // Cleaning the console when pressed 'c'
-        if (key === 'c') {
-            clearConsole();
-            console.log(chalk.cyan('The console is cleaned. Waiting for changes...'));
-        }
-        
-        if (key === 'h') {
-            clearConsole();
-            help();
-        }
-    });
+    // Cleaning the console when pressed 'c'
+    if (key === 'c') {
+      clearConsole()
+      console.log(chalk.cyan('The console is cleaned. Waiting for changes...'))
+    }
+
+    if (key === 'h') {
+      clearConsole()
+      help()
+    }
+  })
 }
 
 /**
@@ -203,28 +203,28 @@ function setupInteractiveMode(watcher, root, options) {
  * @param {string} sourceFile - Way to the source file
  * @returns {string|null} - The path to a null or null test file
  */
-function findRelatedTestFile(root, sourceFile) {
-    // We get a file name without extension
-    const basename = path.basename(sourceFile, path.extname(sourceFile));
-    const dirname = path.dirname(sourceFile);
+function findRelatedTestFile (root, sourceFile) {
+  // We get a file name without extension
+  const basename = path.basename(sourceFile, path.extname(sourceFile))
+  const dirname = path.dirname(sourceFile)
 
-    // Possible test options for tests
-    const possibleTestLocations = [
-        path.join(dirname, '__tests__', `${basename}.test.js`),
-        path.join(dirname, '__tests__', `${basename}.test.ts`),
-        path.join(dirname, `${basename}.test.js`),
-        path.join(dirname, `${basename}.test.ts`)
-    ];
+  // Possible test options for tests
+  const possibleTestLocations = [
+    path.join(dirname, '__tests__', `${basename}.test.js`),
+    path.join(dirname, '__tests__', `${basename}.test.ts`),
+    path.join(dirname, `${basename}.test.js`),
+    path.join(dirname, `${basename}.test.ts`)
+  ]
 
-    // We check every possible way
-    for (const testPath of possibleTestLocations) {
-        const fullPath = path.resolve(root, testPath);
-        if (fs.existsSync(fullPath)) {
-            return testPath;
-        }
+  // We check every possible way
+  for (const testPath of possibleTestLocations) {
+    const fullPath = path.resolve(root, testPath)
+    if (fs.existsSync(fullPath)) {
+      return testPath
     }
+  }
 
-    return null;
+  return null
 }
 
 /**
@@ -232,51 +232,51 @@ function findRelatedTestFile(root, sourceFile) {
  * @param {string} root - The root directory of the project
  * @param {object} options - Options for starting tests
  */
-async function runTests(root, options) {
-    try {
-        runningTests = true;
-        // const startTime = Date.now();
+async function runTests (root, options) {
+  try {
+    runningTests = true
+    // const startTime = Date.now();
 
-        // We keep the Watch flag to avoid recursive launch of Watch-mode
-        const watchMode = options.watch;
-        const newOptions = { ...options, watch: false };
+    // We keep the Watch flag to avoid recursive launch of Watch-mode
+    const watchMode = options.watch
+    const newOptions = { ...options, watch: false }
 
-        clearTestRegistry();
-        
-        // Запускаем тесты
-        const result = await run(root, newOptions);
+    clearTestRegistry()
 
-        for (const file in result) {
-            const fileName = path.basename(file);
-            if (!result[file].completed && !global.failedTests.includes(`**/${fileName}`)) {
-                global.failedTests.push(`**/${fileName}`);
-            }
-        }
+    // Запускаем тесты
+    const result = await run(root, newOptions)
 
-        // const endTime = Date.now();
-        // const duration = ((endTime - startTime) / 1000).toFixed(2); 
-
-        // console.log(chalk.cyan(`\nCompleted for ${duration} seconds`));
-        console.log(chalk.yellow('\nWaiting for changes...'));
-    } catch (error) {
-        console.error(chalk.red('\nError when starting tests:'));
-        console.error(error);
-    } finally {
-        runningTests = false;
+    for (const file in result) {
+      const fileName = path.basename(file)
+      if (!result[file].completed && !global.failedTests.includes(`**/${fileName}`)) {
+        global.failedTests.push(`**/${fileName}`)
+      }
     }
+
+    // const endTime = Date.now();
+    // const duration = ((endTime - startTime) / 1000).toFixed(2);
+
+    // console.log(chalk.cyan(`\nCompleted for ${duration} seconds`));
+    console.log(chalk.yellow('\nWaiting for changes...'))
+  } catch (error) {
+    console.error(chalk.red('\nError when starting tests:'))
+    console.error(error)
+  } finally {
+    runningTests = false
+  }
 }
 
-function clearTestRegistry() {
-    // Clean the test queue
-    if (typeof testQueue !== 'undefined' && testQueue.clearQueue) {
-        testQueue.clearQueue();
-    }
+function clearTestRegistry () {
+  // Clean the test queue
+  if (typeof testQueue !== 'undefined' && testQueue.clearQueue) {
+    testQueue.clearQueue()
+  }
 
-    // Clean the register of Khukov
-    if (typeof hooksRegistry !== 'undefined' && hooksRegistry.clearAllHooks) {
-        hooksRegistry.clearAllHooks();
-    }
+  // Clean the register of Khukov
+  if (typeof hooksRegistry !== 'undefined' && hooksRegistry.clearAllHooks) {
+    hooksRegistry.clearAllHooks()
+  }
 
-    // We drop the test results
-    global.testResults = {};
+  // We drop the test results
+  global.testResults = {}
 }

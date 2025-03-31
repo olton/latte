@@ -1,6 +1,6 @@
-describe(`DOM tests`, () => {
-    it(`Create div`, () => {
-        const div = document.createElement('div')
-        expect(div).toBeHtmlElement()
-    })
+describe('DOM tests', () => {
+  it('Create div', () => {
+    const div = document.createElement('div')
+    expect(div).toBeHtmlElement()
+  })
 })

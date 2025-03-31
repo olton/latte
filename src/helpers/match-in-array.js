@@ -1,3 +1,3 @@
 export default (val, array) => {
-    return array.filter(item => val.includes(item)).length > 0
+  return array.filter(item => val.includes(item)).length > 0
 }
