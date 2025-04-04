@@ -53,7 +53,8 @@ export const runner = async (queue, options) => {
       completeMessageColor: 'gray',
       processMessageColor: 'whiteBright',
       processMessage: '',
-      showCompleteMessage: true
+      showCompleteMessage: true,
+      unitName: 'test',
     })
   }
 
