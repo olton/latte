@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@happy-dom/global-registrator": "^17.4.4",
-    "@olton/progress": "^0.3.0",
+    "@olton/progress": "^0.4.2",
     "chalk": "^5.4.1",
     "chokidar": "^4.0.3",
     "glob": "^11.0.1",
