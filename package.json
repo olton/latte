@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
