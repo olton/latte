@@ -1,15 +1,15 @@
-import chalk from 'chalk'
 import { stringify } from '../helpers/json.js'
 import matchInArray from '../helpers/match-in-array.js'
 import { Progress } from '@olton/progress'
+import {term} from '@olton/terminal'
 
 const log = console.log
 
 const logExpect = (name, { result, message, expected, received }, duration = 0) => {
-  log(`      ${result ? chalk.green('🟢 ' + name + ` 🕑 ${chalk.whiteBright(`${duration} ms`)}`) : chalk.red('🔴 ' + name + ' (' + message + ')')}`)
+  log(`      ${result ? term('🟢 ' + name + ` 🕑 ${term(`${duration} ms`, {color: 'whiteBright'})}`, {color: 'green'}) : term('🔴 ' + name + ' (' + message + ')', {color: 'red'})}`)
   if (!result) {
-    log(`        ${chalk.magentaBright('Expected:')} ${chalk.magentaBright.bold(stringify(expected))}`)
-    log(`        ${chalk.cyanBright('Received:')} ${chalk.cyanBright.bold(stringify(received))}`)
+    log(`        ${term('Expected:', {color: 'magentaBright'})} ${term(stringify(expected), {style: 'bold', color: 'magentaBright'})}`)
+    log(`        ${term('Received:', {color: 'cyanBright'})} ${term(stringify(received), {style: 'bold', color: 'cyanBright'})}`)
   }
 }
 
@@ -19,7 +19,7 @@ const setupAndTeardown = async (funcs, type) => {
       try {
         await fn()
       } catch (error) {
-        log(` The ${type} function throw error with message: ${chalk.red('🔴 ' + error.message)}`)
+        log(` The ${type} function throw error with message: ${term('🔴 ' + error.message, {color: 'red'})}`)
       }
     }
   }
@@ -66,7 +66,7 @@ export const runner = async (queue, options) => {
     let testFilePassed = 0
     let testFileFailed = 0
 
-    if (verbose) log(`📜 ${chalk.gray('Test file:')} ${chalk.bold.yellow(file)}...`)
+    if (verbose) log(`📜 ${term('Test file:', {color: 'gray'})} ${term(file, {style: 'bold', color: 'yellow'})}...`)
 
     global.testResults[file] = {
       describes: [],
@@ -78,7 +78,7 @@ export const runner = async (queue, options) => {
     if (jobs.describes.length) {
       if (verbose) log(`  Tests  Suites ${jobs.describes.length}:`)
       for (const describe of jobs.describes) {
-        if (verbose) log(`    ${chalk.blue(describe.name)} (${describe.it.length} tests):`)
+        if (verbose) log(`    ${term(describe.name, {color: 'blue'})} (${describe.it.length} tests):`)
 
         await setupAndTeardown(describe.beforeAll, 'beforeAll')
 
@@ -147,7 +147,7 @@ export const runner = async (queue, options) => {
             logExpect(test.name, expect, testDuration)
           } else {
             if (!parallel) {
-              progressBar && progressBar.process(1, `${chalk.yellow('[{{percent}}%]')} ${file}`)
+              progressBar && progressBar.process(1, `${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
             }
           }
         }
@@ -212,7 +212,7 @@ export const runner = async (queue, options) => {
           logExpect(test.name, expect)
         } else {
           if (!parallel) {
-            progressBar && progressBar.process(1, `${chalk.yellow('[{{percent}}%]')} ${file}`)
+            progressBar && progressBar.process(1, `${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
           }
         }
       }
@@ -231,8 +231,8 @@ export const runner = async (queue, options) => {
     if (result.completed) {
       continue
     }
-    const fileStatus = result.completed ? chalk.green('🟢') : chalk.red('🔴')
-    log(`${fileStatus} ${file}...${result.completed ? chalk.green('OK') : chalk.red('FAIL')} 🕑 ${chalk.whiteBright(`${result.duration} ms`)}`)
+    const fileStatus = result.completed ? term('🟢', {color: 'green'}) : term('🔴', {color: 'red'})
+    log(`${fileStatus} ${file}...${result.completed ? term('OK', {color: 'green'}) : term('FAIL', {color: 'red'})} 🕑 ${term(`${result.duration} ms`, {color: 'whiteBright'})}`)
     for (const desc of result.describes) {
       const testsCount = desc.tests.length
       if (desc.result) {
@@ -245,7 +245,7 @@ export const runner = async (queue, options) => {
           continue
         }
         const s = testIndex === testsCount ? '└──' : '├──'
-        log(chalk.white(` ${s} ${chalk.white(test.name)} >>> ${chalk.gray(test.message)} <<<`))
+        log(term(` ${s} ${term(test.name, {color: 'whiteBright'})} >>> ${term(test.message, {color: 'gray'})} <<<`, {color: 'white'}))
       }
     }
     let testIndex = 0
@@ -255,13 +255,13 @@ export const runner = async (queue, options) => {
         continue
       }
       const s = testIndex === result.tests.length ? '└──' : '├──'
-      log(chalk.white(` ${s} ${chalk.white(test.name)} >>> ${chalk.gray(test.message)} <<<`))
+      log(term(` ${s} ${term(test.name, {color: 'whiteBright'})} >>> ${term(test.message, {color: 'gray'})} <<<`, {color: 'white'}))
     }
   }
 
   if (!parallel) {
-    log(chalk.gray('\n-----------------------------------------------------------------'))
-    log(`${chalk.gray('Total')}: ${chalk.blue.bold(totalTests)}, ${chalk.gray('Passed')}: ${chalk.green.bold(passedTests)}, ${chalk.gray('Failed')}: ${chalk.red.bold(failedTests)}`)
+    log(term('\n-----------------------------------------------------------------', {color: 'gray'}))
+    log(`${term('Total', {color: 'gray'})}: ${term(totalTests, {style: 'bold', color: 'blue'})}, ${term('Passed', {color: 'gray'})}: ${term(passedTests, {style: 'bold', color: 'green'})}, ${term('Failed', {color: 'gray'})}: ${term(failedTests, {style: 'bold', color: 'red'})}, ${term('Duration', {color: 'gray'})}: ${term(`${duration} ms`, {color: 'whiteBright'})}`)
     log(' ')
   }
 

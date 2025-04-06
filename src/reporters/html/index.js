@@ -1,7 +1,6 @@
-import fs, { writeFileSync, mkdirSync, readFileSync } from 'fs'
+import { writeFileSync, mkdirSync, readFileSync } from 'fs'
 import { htmlTemplate } from './template.js'
 import { basename } from 'node:path'
-import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
 /**

@@ -1,8 +1,8 @@
 import { basename, isAbsolute, normalize } from 'node:path'
 import { fileURLToPath } from 'url'
 import fs from 'node:fs'
-import chalk from 'chalk'
 import { table } from 'table'
+import {term} from '@olton/terminal'
 
 const log = console.log
 
@@ -38,14 +38,14 @@ export const generateReport = (filename, sourceCode, functions) => {
   const coveredLines = totalLines - uncoveredLines.length
 
   const _baseName = basename(filename)
-  const _fileName = chalk.gray(filename.replace(_baseName, ''))
+  const _fileName = term(filename.replace(_baseName, ''), {color: 'gray'})
   const _coveredLinesPercent = (coveredLines * 100 / totalLines).toFixed(2)
   const complete = '' + _coveredLinesPercent === '100.00'
 
   return [
     _fileName,
-    complete ? chalk.green(_baseName) : chalk.red(_baseName),
-    (complete ? chalk.green(_coveredLinesPercent) : chalk.red(_coveredLinesPercent)),
+    complete ? term(_baseName, {color: 'green'}) : term(_baseName, {color: 'red'}),
+    (complete ? term(_coveredLinesPercent, {color: 'green'}) : term(_coveredLinesPercent, {color: 'red'})),
     totalLines,
     coveredLines,
     uncoveredLines
@@ -114,13 +114,13 @@ export function displayReport (coverage) {
   }
 
   log('\nCoverage report for:')
-  log(chalk.yellow.bold(root))
+  log(term(root, {style: 'bold', color: 'yellowBright'}))
   log('------------------------------------')
-  log(`Files:          ${chalk.magenta.bold(totalFiles)}`)
-  log(`Lines of code:  ${chalk.blue.bold(totalLines)}`)
-  log(`Covered Lines:  ${chalk.green.bold(coveredLines)}`)
+  log(`Files:          ${term(totalFiles, {style: 'bold', color: 'magenta'})}`)
+  log(`Lines of code:  ${term(totalLines, {style: 'bold', color: 'blue'})}`)
+  log(`Covered Lines:  ${term(coveredLines, {style: 'bold', color: 'green'})}`)
   const totalProgress = Math.round(coveredLines * 100 / totalLines)
-  log(`Total coverage: ${totalProgress < 50 ? chalk.red.bold(totalProgress) : totalProgress < 80 ? chalk.yellow.bold(totalProgress) : chalk.green.bold(totalProgress)} %`)
+  log(`Total coverage: ${totalProgress < 50 ? term(totalProgress, {style: 'bold', color: 'red'}) : totalProgress < 80 ? term(totalProgress, {style: 'bold', color: 'yellow'}) : term(totalProgress, {style: 'bold', color: 'green'})} %`)
   log('------------------------------------')
   log(table(data, tableConfig))
 }

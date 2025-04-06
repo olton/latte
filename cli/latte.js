@@ -2,7 +2,7 @@
 
 import { registerGlobals, run } from '../src/index.js'
 import { startWatchMode } from '../src/watcher.js'
-import chalk from 'chalk'
+import {term} from '@olton/terminal'
 import { BOT, FAIL, LOGO, processArgv, testJSX, updateConfig } from '../src/config/index.js'
 import { clearConsole } from '../src/helpers/console.js'
 import { getProjectName } from '../src/helpers/project.js'
@@ -28,7 +28,7 @@ try {
   banner()
 
   const projectName = getProjectName(root)
-  console.log(`${chalk.cyan('🚀 Executing tests for project:')} ${chalk.bold(projectName)}\n`)
+  console.log(`${term('🚀 Executing tests for project:', {color: 'cyan'})} ${term(projectName, {style: 'bold'})}\n`)
 
   if (argv.init) {
     const configFileName = argv.config || 'latte.json'
@@ -38,7 +38,7 @@ try {
   }
 
   if (argv.loader) {
-    console.log(chalk.yellow(`${BOT} Experimental loader mode is enabled!`))
+    console.log(term(`${BOT} Experimental loader mode is enabled!`, {color: 'yellow'}))
     const resolverPath = resolve(__dirname, '../src/resolver/index.js')
     register(pathToFileURL(resolverPath).href)
   }
@@ -47,11 +47,11 @@ try {
 
   if (argv.ts || argv.react) {
     if (!checkTsx(root)) {
-      console.log(chalk.red(`${BOT} To use TypeScript or test React Components you need to install TSX (https://tsx.is)!`))
-      console.log(chalk.red(`${BOT} └── After use: NODE_OPTIONS="--import tsx" latte ...`))
+      console.log(term(`${BOT} To use TypeScript or test React Components you need to install TSX (https://tsx.is)!`, {color: 'red'}))
+      console.log(term(`${BOT} └── After use: NODE_OPTIONS="--import tsx" latte ...`, {color: 'red'}))
       process.exit(1)
     } else {
-      console.log(chalk.green(`${BOT} TSX found! TypeScript and JSX/TSX support is enabled!`))
+      console.log(term(`${BOT} TSX found! TypeScript and JSX/TSX support is enabled!`, {color: 'green'}))
     }
   }
 
@@ -65,16 +65,16 @@ try {
 } catch (error) {
   if (error.message.includes('Directory import') && error.message.includes('is not supported')
   ) {
-    console.error(chalk.red(`\n${FAIL} Import of the Directory has been identified!`))
-    console.error(chalk.yellow('Please change import from: import {} from \'./directory\''))
-    console.error(chalk.green('To: import {} from \'./directory/index.js\''))
-    console.error(chalk.cyan('Or create package.json in this Directory with Field "exports"\n'))
-    console.error(`${chalk.gray('Original message:')} ${error.message}\n`)
+    console.error(term(`\n${FAIL} Import of the Directory has been identified!`, {color: 'red'}))
+    console.error(term('Please change import from: import {} from \'./directory\'', {color: 'yellow'}))
+    console.error(term('To: import {} from \'./directory/index.js\'', {color: 'yellow'}))
+    console.error(term('Or create package.json in this Directory with Field "exports"\n', {color: 'yellow'}))
+    console.error(`${term('Original message:', {color: 'gray'})} ${error.message}\n`)
     process.exit(1)
   } else {
-    console.error(chalk.red(`\n${FAIL} Latte executing stopped with message: ${error.message}`))
-    if (argv.errorStack) {
-      console.error(chalk.gray(error.stack))
+    console.error(term(`\n${FAIL} Latte executing stopped with message: ${error.message}`, {color: 'red'}))
+    if (argv.verbose) {
+      console.error(term(error.stack, {color: 'gray'}))
     }
     process.exit(1)
   }

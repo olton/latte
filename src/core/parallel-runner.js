@@ -1,8 +1,8 @@
 import { Worker } from 'worker_threads'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import chalk from 'chalk'
 import { FAIL } from '../config/index.js'
+import {term} from '@olton/terminal'
 
 // Отримуємо правильний шлях до worker.js відносно поточного модуля
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -32,7 +32,7 @@ export async function parallel (testQueue, maxWorkers = 4) {
 
         worker.on('message', (data) => {
           if (data.error) {
-            console.log(chalk.red(`${FAIL} Error in file ${file}:`), data.error.message)
+            console.log(term(`${FAIL} Error in file ${file}:`, {color: 'red'}), data.error.message)
           }
 
           if (data.coverage) {
@@ -43,7 +43,7 @@ export async function parallel (testQueue, maxWorkers = 4) {
         })
 
         worker.on('error', (err) => {
-          console.log(chalk.red(`Worker error for file ${file}:`), err)
+          console.log(term(`Worker error for file ${file}:`, {color: 'red'}), err)
           reject(err)
         })
 

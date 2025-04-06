@@ -10,7 +10,7 @@ import { hooksRegistry } from './core/hooks.js'
 import { DOM } from './core/registry.js'
 
 import path from 'path'
-import chalk from 'chalk'
+import {term} from '@olton/terminal'
 import { checkReactDependencies } from './react/check-deps.js'
 import { cleanup, initReact, render, snapshot } from './react/index.js'
 import { BOT } from './config/index.js'
@@ -47,37 +47,37 @@ export const run = async (root, options = {}) => {
   const inspectPort = options.debug ? (options.debugPort || 9229) : undefined
 
   if (options.debug) {
-    console.log(chalk.yellow('[Debug] Waiting for debugger to attach...'))
+    console.log(term('[Debug] Waiting for debugger to attach...', {color: 'yellow'}))
     process.execArgv.push(`--inspect-brk=${inspectPort}`)
     await new Promise(resolve => setTimeout(resolve, 1000))
-    console.log(chalk.green(`[Debug] Starting in debug mode on port ${inspectPort}`))
+    console.log(term(`[Debug] Starting in debug mode on port ${inspectPort}`, {color: 'green'}))
   }
 
   if (findJsxTests(files) && !options.react) {
-    console.log(chalk.yellow(`${BOT} We found JSX/TSX tests in your scope! --dom and --react options activated!`))
+    console.log(term(`${BOT} We found JSX/TSX tests in your scope! --dom and --react options activated!`, {color: 'yellow'}))
     options.react = true
     options.dom = true
   }
 
   if (findTypeScriptTests(files) && !options.ts) {
-    console.log(chalk.yellow(`${BOT} We found TypeScript tests in your scope! --ts option activated!`))
+    console.log(term(`${BOT} We found TypeScript tests in your scope! --ts option activated!`, {color: 'yellow'}))
     options.ts = true
   }
 
   if (options.dom || options.react) {
-    console.log(chalk.green(`${BOT} Preparing test environment...`))
+    console.log(term(`${BOT} Preparing test environment...`, {color: 'green'}))
   }
 
-  console.log(chalk.green(`   ${options.dom || options.react ? '├' : '└'}── ⚙️ Global objects ready!`))
+  console.log(term(`   ${options.dom || options.react ? '├' : '└'}── ⚙️ Global objects ready!`, {color: 'green'}))
 
   if (options.dom) {
     await DOM.setup()
-    console.log(chalk.green(`   ${options.react ? '├' : '└'}── 📦 DOM ready!`))
+    console.log(term(`   ${options.react ? '├' : '└'}── 📦 DOM ready!`, {color: 'green'}))
   }
 
   if (options.react) {
     if (!checkReactDependencies(root)) {
-      console.error(chalk.red('   └── ⚛️ React cannot be initialized due to missing dependencies.'))
+      console.error(term('   └── ⚛️ React cannot be initialized due to missing dependencies.', {color: 'red'}))
       process.exit(1)
     }
     const reactInitialized = initReact()
@@ -88,7 +88,7 @@ export const run = async (root, options = {}) => {
         snapshot
       }
     }
-    console.log(chalk.green('   └── ⚛️ React ready!'))
+    console.log(term('   └── ⚛️ React ready!', {color: 'green'}))
   }
 
   // Инициализация сессии для измерения покрытия кода

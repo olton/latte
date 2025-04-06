@@ -8,9 +8,7 @@ import { delay, getFileUrl } from '../helpers/delay.js'
 import { describe, it, test } from './api.js'
 import { beforeEach, afterEach, beforeAll, afterAll } from './hooks.js'
 import { waitFor } from '../utils/index.js'
-import chalk from 'chalk'
-
-import { initReact, render, cleanup, snapshot } from '../react/index.js'
+import {term} from '@olton/terminal'
 
 export const DOM = {
   setup: setupDom,
@@ -49,24 +47,24 @@ export const register = (name, component) => {
 export const registerGlobalEvents = () => {
   // Глобальная обработка ошибок
   process.on('uncaughtException', (error) => {
-    console.error(chalk.red(`\n⛔ Unprocessed exception: ${error.message}\n`))
-    console.error(chalk.gray(error.stack))
+    console.error(term(`\n⛔ Unprocessed exception: ${error.message}\n`, { color: 'red' }))
+    console.error(term(error.stack, { color: 'gray' }))
     process.exit(1)
   })
 
   process.on('unhandledRejection', (reason, promise) => {
-    console.error(chalk.red(`\n⛔ Unprocessed promise reject: ${reason}\n`))
+    console.error(term(`\n⛔ Unprocessed promise reject: ${reason}\n`, { color: 'red' }))
     process.exit(1)
   })
 
   // Обработка сигналов завершения
   process.on('SIGINT', () => {
-    console.log(chalk.yellow('\n⛔ The testing process was interrupted by the user!\n'))
+    console.log(term('\n⛔ The testing process was interrupted by the user!\n', { color: 'yellow' }))
     process.exit(0)
   })
 
   process.on('SIGTERM', () => {
-    console.log(chalk.yellow('\n⛔ The testing process was interrupted by the system!\n'))
+    console.log(term('\n⛔ The testing process was interrupted by the system!\n', { color: 'yellow' }))
     process.exit(0)
   })
 }

@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
-import chalk from 'chalk'
 import { FAIL, BOT } from '../config/index.js'
+import {term} from '@olton/terminal'
 
 export const checkReactDependencies = (projectRoot) => {
   try {
     const packageJsonPath = path.join(projectRoot, 'package.json')
     if (!fs.existsSync(packageJsonPath)) {
-      console.error(chalk.red(`${FAIL} Cannot find package.json in the project root`))
+      console.error(term(`${FAIL} Cannot find package.json in the project root`, {color: 'red'}))
       return false
     }
 
@@ -28,14 +28,14 @@ export const checkReactDependencies = (projectRoot) => {
     }
 
     if (missingDeps.length > 0) {
-      console.error(chalk.red(`${FAIL} Missing required dependencies for React testing: ${missingDeps.join(', ')}`))
-      console.log(chalk.yellow(`${BOT} Please install them using: npm install ${missingDeps.join(' ')}`))
+      console.error(term(`${FAIL} Missing required dependencies for React testing: ${missingDeps.join(', ')}`, {color: 'red'}))
+      console.log(term(`${BOT} Please install them using: npm install ${missingDeps.join(' ')}`, {color: 'yellow'}))
       return false
     }
 
     return true
   } catch (error) {
-    console.error(chalk.red(`${FAIL} Error checking React dependencies: ${error.message}`))
+    console.error(term(`${FAIL} Error checking React dependencies: ${error.message}`, {color: 'red'}))
     return false
   }
 }

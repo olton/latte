@@ -1,7 +1,7 @@
 import fs, { existsSync, writeFileSync } from 'fs'
-import chalk from 'chalk'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
+import {term} from '@olton/terminal'
 
 export const LOGO = '🥛'
 export const BOT = '🤖'
@@ -35,19 +35,19 @@ export const updateConfig = (args) => {
 
   const configFileName = args.config ?? 'latte.json'
 
-  console.log(chalk.gray('🔍 Searching for a config file...'))
+  console.log(term('🔍 Searching for a config file...', { color: 'gray' }))
   if (fs.existsSync(configFileName)) {
-    console.log(chalk.gray('✅ Config file found!'))
-    console.log(chalk.gray(`   └── We use ${chalk.cyanBright(configFileName)} to configure Latte`))
+    console.log(term('✅ Config file found!', { color: 'green' }))
+    console.log(term(`   └── We use ${term(configFileName, {color: 'cyanBright'})} to configure Latte`, { color: 'gray' }))
     const userConfig = JSON.parse(fs.readFileSync(configFileName, 'utf-8'))
     Object.assign(config, userConfig)
   } else {
-    console.log(chalk.gray(`${BOT} Config file not found! We use default settings and CLI arguments!`))
-    console.log(chalk.gray(`   └── You can create ${chalk.cyanBright(configFileName)} to configure Latte`))
+    console.log(term(`${BOT} Config file not found! We use default settings and CLI arguments!`, { color: 'gray' }))
+    console.log(term(`   └── You can create ${term(configFileName, {color: 'cyanBright'})} to configure Latte`, { color: 'gray' }))
   }
 
   if (args.react && !args.dom) {
-    console.log(chalk.yellow(`${BOT} Option --react requires --dom. Enabling DOM emulation automatically.`))
+    console.log(term(`${BOT} Option --react requires --dom. Enabling DOM emulation automatically.`, { color: 'yellow' }))
     args.dom = true
   }
 
@@ -72,7 +72,7 @@ export const updateConfig = (args) => {
   if (args.progress) { config.progress = args.progress }
 
   if (config.reportType && !['console', 'lcov', 'html', 'junit'].includes(config.reportType)) {
-    console.log(chalk.yellow(`${BOT} Unknown type of report: ${config.reportType}. Console will be used.`))
+    console.log(term(`${BOT} Unknown type of report: ${config.reportType}. Console will be used.`, { color: 'yellow' }))
     config.reportType = 'console'
   }
 }
@@ -80,8 +80,8 @@ export const updateConfig = (args) => {
 export const createConfigFile = (configFileName = 'latte.json') => {
   // Проверка существования файла
   if (existsSync(configFileName)) {
-    console.log(chalk.yellow(`${BOT} Config file ${chalk.cyanBright(configFileName)} already exists.`))
-    console.log(chalk.gray('   └── If you want to create a new file, delete the existing one.'))
+    console.log(term(`${BOT} Config file ${term(configFileName, {color: 'cyanBright'})} already exists.`, { color: 'yellow' }))
+    console.log(term('   └── If you want to create a new file, delete the existing one.', { color: 'gray' }))
     console.log('\n')
     return false
   }
@@ -89,12 +89,12 @@ export const createConfigFile = (configFileName = 'latte.json') => {
   // Создание файла с настройками по умолчанию
   try {
     writeFileSync(configFileName, JSON.stringify(defaultConfig, null, 2), 'utf-8')
-    console.log(chalk.green(`✅ Config file ${chalk.cyanBright(configFileName)} created successfully!`))
-    console.log(chalk.gray('   └── Now you can change the settings in this file.'))
+    console.log(term(`✅ Config file ${term(configFileName, {color: 'cyanBright'})} created successfully!`, { color: 'green' }))
+    console.log(term('   └── Now you can change the settings in this file.', { color: 'gray' }))
     console.log('\n')
     return true
   } catch (error) {
-    console.error(chalk.red(`${FAIL} Failed to create a configuration file: ${error.message}`))
+    console.error(term(`${FAIL} Failed to create a configuration file: ${error.message}`, { color: 'red' }))
     console.log('\n')
     return false
   }

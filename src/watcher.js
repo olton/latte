@@ -2,11 +2,11 @@ import chokidar from 'chokidar'
 import path from 'path'
 import { run } from './index.js'
 import { clearConsole } from './helpers/console.js'
-import chalk from 'chalk'
 import fs from 'fs'
 import { testQueue } from './core/queue.js'
 import { hooksRegistry } from './core/hooks.js'
 import { glob } from 'glob'
+import {term} from '@olton/terminal'
 
 let isFirstRun = true
 let runningTests = false
@@ -14,11 +14,11 @@ let watcher = null
 
 const help = () => {
   console.log('\n')
-  console.log(chalk.yellow('- Press "q" to exit'))
-  console.log(chalk.yellow('- Press "a" to launch all tests'))
-  console.log(chalk.yellow('- Press "f" to launch failed tests'))
-  console.log(chalk.yellow('- Press "c" to clean the console'))
-  console.log(chalk.yellow('- Press "h" this help'))
+  console.log(term('- Press "q" to exit', {color: 'yellow'}))
+  console.log(term('- Press "a" to launch all tests', {color: 'yellow'}))
+  console.log(term('- Press "f" to launch failed tests', {color: 'yellow'}))
+  console.log(term('- Press "c" to clean the console', {color: 'yellow'}))
+  console.log(term('- Press "h" this help', {color: 'yellow'}))
   console.log('\n')
 }
 
@@ -29,7 +29,7 @@ export async function startWatchMode (root, options) {
 
   global.failedTests = []
 
-  console.log(chalk.cyan('\n=== Latte Watch Mode ==='))
+  console.log(term('\n=== Latte Watch Mode ===', {color: 'cyan'}))
 
   const includePatterns = options.include
     ? (Array.isArray(options.include) ? options.include : [options.include])
@@ -67,8 +67,8 @@ export async function startWatchMode (root, options) {
   })
 
   if (validPatterns.length === 0) {
-    console.warn(chalk.yellow('Attention: these inclusions templates do not correspond to existing files!'))
-    console.log(chalk.cyan('The standard template is used: **/__tests__/**/*.test.js, **/*.test.js'))
+    console.warn(term('Attention: these inclusions templates do not correspond to existing files!', {color: 'yellow'}))
+    console.log(term('The standard template is used: **/__tests__/**/*.test.js, **/*.test.js', {color: 'cyan'}))
     validPatterns.push('**/__tests__/**/*.test.js', '**/*.test.js')
   }
 
@@ -95,7 +95,7 @@ export async function startWatchMode (root, options) {
 
   // Launch tests at the first start
   if (isFirstRun) {
-    console.log(chalk.cyan('Starting tests...'))
+    console.log(term('Starting tests...', {color: 'cyan'}))
     runTests(root, options)
     isFirstRun = false
   }
@@ -112,7 +112,7 @@ export async function startWatchMode (root, options) {
     if (fileExtensions.includes(extension) && !runningTests) {
       clearConsole()
 
-      console.log(chalk.cyan(`File ${filePath} was ${event}\n`))
+      console.log(term(`File ${filePath} was ${event}\n`, {color: 'cyan'}))
 
       // Check if the file corresponds to the power patterns
       const isTestFile = validPatterns.some(pattern => {
@@ -164,7 +164,7 @@ function setupInteractiveMode (watcher, root, options) {
     // The exit from Watch-mode when pressed 'q'
     if (key === 'q') {
       watcher.close().then(() => {
-        console.log(chalk.green('\nWatch mode is completed. Bye!\n'))
+        console.log(term('\nWatch mode is completed. Bye!\n', {color: 'green'}))
         process.exit(0)
       })
     }
@@ -172,14 +172,14 @@ function setupInteractiveMode (watcher, root, options) {
     // Launch of all tests when pressing 'a'
     if (key === 'a' && !runningTests) {
       clearConsole()
-      console.log(chalk.cyan('Launch all tests ...'))
+      console.log(term('Launch all tests ...', {color: 'cyan'}))
       await runTests(root, options)
     }
 
     // Launching only failed tests when pressing 'f'
     if (key === 'f' && !runningTests && global.failedTests) {
       clearConsole()
-      console.log(chalk.cyan('The launch failed tests ...'))
+      console.log(term('The launch failed tests ...', {color: 'cyan'}))
       const failedOptions = { ...options, include: global.failedTests, watch: false }
       await runTests(root, failedOptions)
     }
@@ -187,7 +187,7 @@ function setupInteractiveMode (watcher, root, options) {
     // Cleaning the console when pressed 'c'
     if (key === 'c') {
       clearConsole()
-      console.log(chalk.cyan('The console is cleaned. Waiting for changes...'))
+      console.log(term('The console is cleaned. Waiting for changes...', {color: 'cyan'}))
     }
 
     if (key === 'h') {
@@ -256,10 +256,9 @@ async function runTests (root, options) {
     // const endTime = Date.now();
     // const duration = ((endTime - startTime) / 1000).toFixed(2);
 
-    // console.log(chalk.cyan(`\nCompleted for ${duration} seconds`));
-    console.log(chalk.yellow('\nWaiting for changes...'))
+    console.log(term('\nWaiting for changes...', {color: 'yellow'}))
   } catch (error) {
-    console.error(chalk.red('\nError when starting tests:'))
+    console.error(term('\nError when starting tests:', {color: 'red'}))
     console.error(error)
   } finally {
     runningTests = false

@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import {term} from '@olton/terminal'
 
 export default function diff (expected, actual) {
   const stringifyValue = (value) => {
@@ -23,9 +23,9 @@ export default function diff (expected, actual) {
   const actualStr = stringifyValue(actual)
 
   if (expectedStr === actualStr) {
-    return `${chalk.green(expectedStr)} === ${chalk.green(actualStr)}`
+    return `${term(expectedStr, {color: 'green'})} === ${term(actualStr, {color: 'green'})}`
   }
 
   // Простое форматирование различий
-  return `Expected: ${chalk.green(expectedStr)}\nReceived: ${chalk.red(actualStr)}`
+  return `Expected: ${term(expectedStr, {color: 'green'})}\nReceived: ${term(actualStr, {color: 'red'})}`
 }

@@ -1,10 +1,10 @@
-import chalk from "chalk";
+import {term} from "@olton/terminal";
 import pkg from "../../package.json" with { type: "json" };
 import {LOGO} from "../config/index.js";
 
 export const banner = () => {
-    console.log(chalk.gray(`-----------------------------------------------------------------`))
-    console.log(`${chalk.bold(`${LOGO} Latte`)} ${chalk.bold.cyanBright(`v${pkg.version}`)}. ${chalk.gray("Copyright (c) 2025 by")} ${chalk.bold.whiteBright("Serhii Pimenov")}.💙💛 Maid in Ukraine!`)
-    console.log(`${chalk.gray("Support Latte by PayPal to")} ${chalk.bold.cyan("serhii@pimenov.com.ua")}. ${chalk.gray('Thank you!')}`)
-    console.log(chalk.gray(`-----------------------------------------------------------------`))
+    console.log(term(`-----------------------------------------------------------------`, {color: 'gray'}))
+    console.log(`${term(`${LOGO} Latte`, {style: 'bold'})} ${term(`v${pkg.version}`, {color: 'cyanBright', style: 'bold'})}. ${term("Copyright (c) 2025 by", {color: 'gray'})} ${term("Serhii Pimenov", {color: 'whiteBright', style: 'bold'})}.💙💛 `)
+    console.log(`${term("Support Latte by PayPal to", {color: 'gray'})} ${term("serhii@pimenov.com.ua", {color: 'cyan', style: 'bold'})}. ${term('Thank you!', {color: 'gray'})}`)
+    console.log(term(`-----------------------------------------------------------------`, {color: 'gray'}))
 };
