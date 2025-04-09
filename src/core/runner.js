@@ -55,6 +55,7 @@ export const runner = async (queue, options) => {
       processMessage: '',
       showCompleteMessage: true,
       unitName: 'test',
+      barColor: 'blueBright',
     })
   }
 
