@@ -12,6 +12,7 @@ import { pathToFileURL, fileURLToPath } from 'url'
 import { register } from 'node:module'
 import { registerGlobalEvents } from '../src/core/registry.js'
 import { checkTsx } from '../src/typescript/index.js'
+import { Cursor } from '@olton/terminal'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -28,7 +29,7 @@ try {
   banner()
 
   const projectName = getProjectName(root)
-  console.log(`${term('🚀 Executing tests for project:', {color: 'cyan'})} ${term(projectName, {style: 'bold'})}\n`)
+  console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}\n`)
 
   if (argv.init) {
     const configFileName = argv.config || 'latte.json'
@@ -62,6 +63,8 @@ try {
   } else {
     await run(root, config)
   }
+  
+  Cursor.show()
 } catch (error) {
   if (error.message.includes('Directory import') && error.message.includes('is not supported')
   ) {
@@ -70,12 +73,14 @@ try {
     console.error(term('To: import {} from \'./directory/index.js\'', {color: 'yellow'}))
     console.error(term('Or create package.json in this Directory with Field "exports"\n', {color: 'yellow'}))
     console.error(`${term('Original message:', {color: 'gray'})} ${error.message}\n`)
+    Cursor.show()
     process.exit(1)
   } else {
     console.error(term(`\n${FAIL} Latte executing stopped with message: ${error.message}`, {color: 'red'}))
     if (argv.verbose) {
       console.error(term(error.stack, {color: 'gray'}))
     }
+    Cursor.show()
     process.exit(1)
-  }
+  }  
 }

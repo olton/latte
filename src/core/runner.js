@@ -43,20 +43,20 @@ export const runner = async (queue, options) => {
   }
   if (!verbose && !parallel) {
     log(' ')
-    // progressBar = new Progress(totalTestCount);
     progressBar = new Progress({
       total: totalTestCount,
       width: 30,
       mode: options.progress,
-      startMessageColor: 'whiteBright',
       completeMessage: 'Tests completed in {{elapsed}}s',
       completeMessageColor: 'gray',
-      processMessageColor: 'whiteBright',
-      processMessage: '',
-      showCompleteMessage: true,
+      messageColor: 'whiteBright',
+      message: '',
       unitName: 'test',
       barColor: 'blueBright',
+      cursor: false,
     })
+    
+    await progressBar.here()
   }
 
   for (const [file, jobs] of queue) {
@@ -148,7 +148,7 @@ export const runner = async (queue, options) => {
             logExpect(test.name, expect, testDuration)
           } else {
             if (!parallel) {
-              progressBar && progressBar.process(1, `${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+              progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
             }
           }
         }
@@ -213,7 +213,7 @@ export const runner = async (queue, options) => {
           logExpect(test.name, expect)
         } else {
           if (!parallel) {
-            progressBar && progressBar.process(1, `${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+            progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
           }
         }
       }
