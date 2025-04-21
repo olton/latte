@@ -1,7 +1,7 @@
 import { stringify } from '../helpers/json.js'
 import matchInArray from '../helpers/match-in-array.js'
 import { Progress } from '@olton/progress'
-import {term} from '@olton/terminal'
+import { term, termx } from '@olton/terminal'
 
 const log = console.log
 
@@ -27,7 +27,7 @@ const setupAndTeardown = async (funcs, type) => {
 
 export const runner = async (queue, options) => {
   const startTime = process.hrtime()
-  const { verbose, test: spec, skip, parallel } = options
+  const { verbose, test: spec, skip, parallel, idea } = options
 
   let passedTests = 0
   let failedTests = 0
@@ -41,7 +41,7 @@ export const runner = async (queue, options) => {
     }
     totalTestCount += q[1].tests.length
   }
-  if (!verbose && !parallel) {
+  if (!idea && !verbose && !parallel) {
     log(' ')
     progressBar = new Progress({
       total: totalTestCount,
@@ -55,7 +55,7 @@ export const runner = async (queue, options) => {
       barColor: 'blueBright',
       cursor: false,
     })
-    
+
     await progressBar.here()
   }
 
@@ -147,8 +147,11 @@ export const runner = async (queue, options) => {
           if (verbose) {
             logExpect(test.name, expect, testDuration)
           } else {
-            if (!parallel) {
+            if (!idea && !parallel) {
               progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+            }
+            if (idea) {
+              termx.yellow.write(`\r${file}`)
             }
           }
         }
@@ -212,8 +215,11 @@ export const runner = async (queue, options) => {
         if (verbose) {
           logExpect(test.name, expect)
         } else {
-          if (!parallel) {
+          if (!idea && !parallel) {
             progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+          }
+          if (idea) {
+            termx.yellow.write(`\r${file}`)
           }
         }
       }

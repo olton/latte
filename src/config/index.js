@@ -6,6 +6,7 @@ import {term} from '@olton/terminal'
 export const LOGO = '🥛'
 export const BOT = '🤖'
 export const FAIL = '💀'
+export const SEARCH = '🔍'
 
 const defaultInclude = ['**/*.{test,spec}.{js,ts,jsx,tsx}']
 const defaultExclude = ['node_modules/**']
@@ -27,7 +28,9 @@ export const defaultConfig = {
   reportDir: 'coverage',
   reportFile: '',
   maxWorkers: 4,
-  progress: 'default'
+  progress: 'default',
+  skipConfigFile: false,
+  idea: false,
 }
 
 export const updateConfig = (args) => {
@@ -35,15 +38,17 @@ export const updateConfig = (args) => {
 
   const configFileName = args.config ?? 'latte.json'
 
-  console.log(term('🔍 Searching for a config file...', { color: 'gray' }))
-  if (fs.existsSync(configFileName)) {
-    console.log(term('✅ Config file found!', { color: 'green' }))
-    console.log(term(`   └── We use ${term(configFileName, {color: 'cyanBright'})} to configure Latte`, { color: 'gray' }))
-    const userConfig = JSON.parse(fs.readFileSync(configFileName, 'utf-8'))
-    Object.assign(config, userConfig)
-  } else {
-    console.log(term(`${BOT} Config file not found! We use default settings and CLI arguments!`, { color: 'gray' }))
-    console.log(term(`   └── You can create ${term(configFileName, {color: 'cyanBright'})} to configure Latte`, { color: 'gray' }))
+  if (!args.skipConfigFile) {
+    console.log(term(`${SEARCH} Searching for a config file...`, { color: 'gray' }))
+    if (fs.existsSync(configFileName)) {
+      console.log(term(`${BOT} Config file found!`, { color: 'green' }))
+      console.log(term(`   └── We use ${term(configFileName, { color: 'cyanBright' })} to configure Latte`, { color: 'gray' }))
+      const userConfig = JSON.parse(fs.readFileSync(configFileName, 'utf-8'))
+      Object.assign(config, userConfig)
+    } else {
+      console.log(term(`${BOT} Config file not found! We use default settings and CLI arguments!`, { color: 'gray' }))
+      console.log(term(`   └── You can create ${term(configFileName, { color: 'cyanBright' })} to configure Latte`, { color: 'gray' }))
+    }
   }
 
   if (args.react && !args.dom) {
@@ -70,6 +75,9 @@ export const updateConfig = (args) => {
   if (args.reportFile) { config.reportDir = args.reportFile }
   if (args.maxWorkers) { config.maxWorkers = args.maxWorkers }
   if (args.progress) { config.progress = args.progress }
+  if (args.clear) { config.clear = true }
+  if (args.idea) { config.idea = true }
+  if (args.skipConfigFile) { config.skipConfigFile = true }
 
   if (config.reportType && !['console', 'lcov', 'html', 'junit'].includes(config.reportType)) {
     console.log(term(`${BOT} Unknown type of report: ${config.reportType}. Console will be used.`, { color: 'yellow' }))
@@ -89,7 +97,7 @@ export const createConfigFile = (configFileName = 'latte.json') => {
   // Создание файла с настройками по умолчанию
   try {
     writeFileSync(configFileName, JSON.stringify(defaultConfig, null, 2), 'utf-8')
-    console.log(term(`✅ Config file ${term(configFileName, {color: 'cyanBright'})} created successfully!`, { color: 'green' }))
+    console.log(term(`${BOT} Config file ${term(configFileName, {color: 'cyanBright'})} created successfully!`, { color: 'green' }))
     console.log(term('   └── Now you can change the settings in this file.', { color: 'gray' }))
     console.log('\n')
     return true
@@ -123,6 +131,7 @@ export const processArgv = () => {
       description: 'Enable React testing support'
     })
     .option('ts', {
+      alias: 't',
       type: 'boolean',
       description: 'Enable TypeScript support'
     })
@@ -132,7 +141,7 @@ export const processArgv = () => {
       description: 'Run tests in debug mode'
     })
     .option('verbose', {
-      alias: 'b',
+      alias: 'v',
       type: 'boolean',
       description: 'Detailed report'
     })

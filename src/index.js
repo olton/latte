@@ -44,9 +44,15 @@ export const run = async (root, options = {}) => {
     files = await glob(includePattern, { ignore: excludePattern })
   }
 
-  const inspectPort = options.debug ? (options.debugPort || 9229) : undefined
+  if (!files.length) {
+    console.log(term(`${BOT} No tests found!`, {color: 'red'}))
+    process.exit(1)
+  } else {
+    console.log(term(`${BOT} We found ${files.length} tests`, {color: 'cyanBright'}))
+  }
 
   if (options.debug) {
+    const inspectPort = options.debug ? (options.debugPort || 9229) : undefined
     console.log(term('[Debug] Waiting for debugger to attach...', {color: 'yellow'}))
     process.execArgv.push(`--inspect-brk=${inspectPort}`)
     await new Promise(resolve => setTimeout(resolve, 1000))
@@ -114,7 +120,6 @@ export const run = async (root, options = {}) => {
     if (options.watch) {
       delete require.cache[require.resolve(file)]
     }
-
     await import(fileUrl + `?t=${Date.now()}`)
   }
 

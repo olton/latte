@@ -2,7 +2,7 @@
 
 import { registerGlobals, run } from '../src/index.js'
 import { startWatchMode } from '../src/watcher.js'
-import {term} from '@olton/terminal'
+import { term, termx } from '@olton/terminal'
 import { BOT, FAIL, LOGO, processArgv, testJSX, updateConfig } from '../src/config/index.js'
 import { clearConsole } from '../src/helpers/console.js'
 import { getProjectName } from '../src/helpers/project.js'
@@ -10,7 +10,7 @@ import { banner } from '../src/helpers/banner.js'
 import { dirname, resolve } from 'path'
 import { pathToFileURL, fileURLToPath } from 'url'
 import { register } from 'node:module'
-import { registerGlobalEvents } from '../src/core/registry.js'
+import { registerGlobalEvents } from '../src/index.js'
 import { checkTsx } from '../src/typescript/index.js'
 import { Cursor } from '@olton/terminal'
 
@@ -24,12 +24,12 @@ try {
   registerGlobalEvents()
 
   const root = process.cwd()
-
-  clearConsole()
+  if (argv.clear) clearConsole()
   banner()
 
   const projectName = getProjectName(root)
-  console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}\n`)
+  console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}`)
+  console.log(`${term(`📂 Tests root directory: ${term(root, {color: 'whiteBright'})}`, {color: 'blueBright'})}`)
 
   if (argv.init) {
     const configFileName = argv.config || 'latte.json'
@@ -58,13 +58,23 @@ try {
 
   registerGlobals()
 
+  let result = null
+  
   if (argv.watch) {
     await startWatchMode(root, config)
   } else {
-    await run(root, config)
+    result = await run(root, config)
   }
   
   Cursor.show()
+
+  for(const file in result) {
+    if (result[file].completed === false) {
+      console.error(termx.error(`${FAIL} Tests not completed!`))
+      if (argv.idea) process.exit(1)
+    }
+  }
+  console.log(termx.green.write('All tests completed!'))
 } catch (error) {
   if (error.message.includes('Directory import') && error.message.includes('is not supported')
   ) {

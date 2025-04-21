@@ -157,7 +157,7 @@ export async function startWatchMode (root, options) {
  * Setting an interactive console regime
  */
 function setupInteractiveMode (watcher, root, options) {
-  process.stdin.setRawMode(true)
+  process.stdin.setRawMode && process.stdin.setRawMode(true)
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', async (key) => {
