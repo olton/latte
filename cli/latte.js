@@ -22,9 +22,10 @@ const argv = processArgv()
 
 try {
   registerGlobalEvents()
-
+  updateConfig(argv)
+  
   const root = process.cwd()
-  if (argv.clear) clearConsole()
+  if (config.clearConsole) clearConsole()
   banner()
 
   const projectName = getProjectName(root)
@@ -43,8 +44,6 @@ try {
     const resolverPath = resolve(__dirname, '../src/resolver/index.js')
     register(pathToFileURL(resolverPath).href)
   }
-
-  updateConfig(argv)
 
   if (argv.ts || argv.react) {
     if (!checkTsx(root)) {

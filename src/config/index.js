@@ -31,6 +31,7 @@ export const defaultConfig = {
   progress: 'default',
   skipConfigFile: false,
   idea: false,
+  clearConsole: false,
 }
 
 export const updateConfig = (args) => {
@@ -75,7 +76,7 @@ export const updateConfig = (args) => {
   if (args.reportFile) { config.reportDir = args.reportFile }
   if (args.maxWorkers) { config.maxWorkers = args.maxWorkers }
   if (args.progress) { config.progress = args.progress }
-  if (args.clear) { config.clear = true }
+  if (args.clearConsole) { config.clearConsole = true }
   if (args.idea) { config.idea = true }
   if (args.skipConfigFile) { config.skipConfigFile = true }
 

@@ -1,7 +1,8 @@
 import { stringify } from '../helpers/json.js'
 import matchInArray from '../helpers/match-in-array.js'
 import { Progress } from '@olton/progress'
-import { term, termx } from '@olton/terminal'
+import { term, termx, Screen, Cursor } from '@olton/terminal'
+import { BOT } from '../config/index.js'
 
 const log = console.log
 
@@ -27,7 +28,7 @@ const setupAndTeardown = async (funcs, type) => {
 
 export const runner = async (queue, options) => {
   const startTime = process.hrtime()
-  const { verbose, test: spec, skip, parallel, idea } = options
+  const { verbose, test: spec, skip, parallel, idea, progress } = options
 
   let passedTests = 0
   let failedTests = 0
@@ -41,8 +42,10 @@ export const runner = async (queue, options) => {
     }
     totalTestCount += q[1].tests.length
   }
-  if (!idea && !verbose && !parallel) {
-    log(' ')
+
+  log(' ')
+
+  if (progress !== "none" && !verbose && !parallel) {
     progressBar = new Progress({
       total: totalTestCount,
       width: 30,
@@ -58,7 +61,7 @@ export const runner = async (queue, options) => {
 
     await progressBar.here()
   }
-
+  
   for (const [file, jobs] of queue) {
     // const fileHash = await getFileHash(realpathSync(file))
 
@@ -147,11 +150,11 @@ export const runner = async (queue, options) => {
           if (verbose) {
             logExpect(test.name, expect, testDuration)
           } else {
-            if (!idea && !parallel) {
+            if (progress === 'none') {
+              process.stdout.write(term(`\r⚙️ Processed: ${file}...`))
+              Screen.clearRight()
+            } else if (!parallel) {
               progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
-            }
-            if (idea) {
-              termx.yellow.write(`\r${file}`)
             }
           }
         }
@@ -215,11 +218,10 @@ export const runner = async (queue, options) => {
         if (verbose) {
           logExpect(test.name, expect)
         } else {
-          if (!idea && !parallel) {
+          if (progress === 'none') {
+            process.stdout.write(term(`\r⚙️ Processed: ${file}...`))
+          } else if (!parallel) {
             progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
-          }
-          if (idea) {
-            termx.yellow.write(`\r${file}`)
           }
         }
       }
@@ -229,6 +231,11 @@ export const runner = async (queue, options) => {
     global.testResults[file].duration = (seconds * 1e9 + nanoseconds) / 1e6
   }
 
+  if (progress === "none") {
+    process.stdout.write(termx.blue.write(`\r${BOT} Process completed. Add tests executed!`))
+    Screen.clearRight()
+  }
+  
   const [seconds, nanoseconds] = process.hrtime(startTime)
   const duration = (seconds * 1e9 + nanoseconds) / 1e6
 
@@ -238,8 +245,8 @@ export const runner = async (queue, options) => {
     if (result.completed) {
       continue
     }
-    const fileStatus = result.completed ? term('🟢', {color: 'green'}) : term('🔴', {color: 'red'})
-    log(`${fileStatus} ${file}...${result.completed ? term('OK', {color: 'green'}) : term('FAIL', {color: 'red'})} 🕑 ${term(`${result.duration} ms`, {color: 'whiteBright'})}`)
+    const fileStatus = term('🔴', {color: 'red'})
+    log(`${fileStatus} ${file}...${term('FAIL', {color: 'red'})} 🕑 ${term(`${result.duration} ms`, {color: 'whiteBright'})}`)
     for (const desc of result.describes) {
       const testsCount = desc.tests.length
       if (desc.result) {
@@ -268,7 +275,8 @@ export const runner = async (queue, options) => {
 
   if (!parallel) {
     log(term('\n-----------------------------------------------------------------', {color: 'gray'}))
-    log(`${term('Total', {color: 'gray'})}: ${term(totalTests, {style: 'bold', color: 'blue'})}, ${term('Passed', {color: 'gray'})}: ${term(passedTests, {style: 'bold', color: 'green'})}, ${term('Failed', {color: 'gray'})}: ${term(failedTests, {style: 'bold', color: 'red'})}, ${term('Duration', {color: 'gray'})}: ${term(`${duration} ms`, {color: 'whiteBright'})}`)
+    log(termx.gray.write(`Total files processed: ${termx.whiteBright.write(Object.entries(global.testResults).length)}`))
+    log(`${term('Total Tests', {color: 'gray'})}: ${term(totalTests, {style: 'bold', color: 'blue'})}, ${term('Passed', {color: 'gray'})}: ${term(passedTests, {style: 'bold', color: 'green'})}, ${term('Failed', {color: 'gray'})}: ${term(failedTests, {style: 'bold', color: 'red'})}, ${term('Duration', {color: 'gray'})}: ${term(`${duration} ms`, {color: 'yellow'})}`)
     log(' ')
   }
 
