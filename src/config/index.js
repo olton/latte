@@ -7,6 +7,7 @@ export const LOGO = '🥛'
 export const BOT = '🤖'
 export const FAIL = '💀'
 export const SEARCH = '🔍'
+export const DIVIDER = '-----------------------------------------------------------------'
 
 const defaultInclude = ['**/*.{test,spec}.{js,ts,jsx,tsx}']
 const defaultExclude = ['node_modules/**']
@@ -24,6 +25,7 @@ export const defaultConfig = {
   exclude: defaultExclude,
   skip: '',
   test: '',
+  suite: '',
   reportType: 'console',
   reportDir: 'coverage',
   reportFile: '',
@@ -68,8 +70,8 @@ export const updateConfig = (args) => {
   if (args.parallel) { config.parallel = true }
 
   if (args.test) { config.test = args.test.split(',') }
-  if (args.include) { config.include = args.include.split(',') }
-  if (args.exclude) { config.exclude = args.exclude.split(',') }
+  if (args.include) { config.include = args.include.split(';') }
+  if (args.exclude !== undefined) { config.exclude = args.exclude.split(';') }
   if (args.skip) { config.skip = args.skip.split(',') }
   if (args.reportType) { config.reportType = args.reportType }
   if (args.reportDir) { config.reportDir = args.reportDir }
@@ -79,6 +81,7 @@ export const updateConfig = (args) => {
   if (args.clearConsole) { config.clearConsole = true }
   if (args.idea) { config.idea = true }
   if (args.skipConfigFile) { config.skipConfigFile = true }
+  if (args.suite) { config.suite = args.suite }
 
   if (config.reportType && !['console', 'lcov', 'html', 'junit'].includes(config.reportType)) {
     console.log(term(`${BOT} Unknown type of report: ${config.reportType}. Console will be used.`, { color: 'yellow' }))

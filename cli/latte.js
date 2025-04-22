@@ -3,7 +3,7 @@
 import { registerGlobals, run } from '../src/index.js'
 import { startWatchMode } from '../src/watcher.js'
 import { term, termx } from '@olton/terminal'
-import { BOT, FAIL, LOGO, processArgv, testJSX, updateConfig } from '../src/config/index.js'
+import { BOT, DIVIDER, FAIL, LOGO, processArgv, testJSX, updateConfig } from '../src/config/index.js'
 import { clearConsole } from '../src/helpers/console.js'
 import { getProjectName } from '../src/helpers/project.js'
 import { banner } from '../src/helpers/banner.js'
@@ -22,15 +22,18 @@ const argv = processArgv()
 
 try {
   registerGlobalEvents()
+  if (argv.clearConsole) clearConsole()
+  banner()
   updateConfig(argv)
   
   const root = process.cwd()
-  if (config.clearConsole) clearConsole()
-  banner()
 
   const projectName = getProjectName(root)
+  console.log(`${term(DIVIDER, {color: 'gray'})}`)
   console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}`)
-  console.log(`${term(`📂 Tests root directory: ${term(root, {color: 'whiteBright'})}`, {color: 'blueBright'})}`)
+  console.log(`${term(DIVIDER, {color: 'gray'})}`)
+  console.log(`${term(`🏠 Project directory: ${term(root, {color: 'whiteBright'})}`, {color: 'gray'})}`)
+  console.log(`${term(`⚙️ Tests included: ${term(config.include, {color: 'yellowBright'})}`, {color: 'gray'})}`)
 
   if (argv.init) {
     const configFileName = argv.config || 'latte.json'

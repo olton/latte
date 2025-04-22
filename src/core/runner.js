@@ -28,7 +28,7 @@ const setupAndTeardown = async (funcs, type) => {
 
 export const runner = async (queue, options) => {
   const startTime = process.hrtime()
-  const { verbose, test: spec, skip, parallel, idea, progress } = options
+  const { verbose, test: testName, suite: suiteName, skip, parallel, idea, progress } = options
 
   let passedTests = 0
   let failedTests = 0
@@ -59,7 +59,15 @@ export const runner = async (queue, options) => {
       cursor: false,
     })
 
-    await progressBar.here()
+    if (!idea) await progressBar.here()
+  }
+  
+  const processTest = (file, count = 1) => {
+    if (progress !== 'none' && progressBar) {
+      for (let i = 0; i < count; i++) {
+        progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+      }
+    }
   }
   
   for (const [file, jobs] of queue) {
@@ -84,6 +92,13 @@ export const runner = async (queue, options) => {
       for (const describe of jobs.describes) {
         if (verbose) log(`    ${term(describe.name, {color: 'blue'})} (${describe.it.length} tests):`)
 
+        if (suiteName) {
+          if (matchInArray(describe.name, suiteName.split(";")) === false) {
+            processTest(file, describe.it.length)
+            continue
+          }
+        }
+        
         await setupAndTeardown(describe.beforeAll, 'beforeAll')
 
         const describes = {
@@ -97,13 +112,15 @@ export const runner = async (queue, options) => {
         for (const test of describe.it) {
           let expect = {}
 
-          if (spec && spec.length) {
-            if (matchInArray(test.name, spec) === false) {
+          if (testName) {
+            if (matchInArray(test.name, testName.split(";")) === false) {
+              processTest(file)
               continue
             }
           }
-          if (skip && skip.length) {
-            if (matchInArray(test.name, skip) === true) {
+          if (skip) {
+            if (matchInArray(test.name, skip.split(";")) === true) {
+              processTest(file)
               continue
             }
           }
@@ -154,7 +171,7 @@ export const runner = async (queue, options) => {
               process.stdout.write(term(`\r⚙️ Processed: ${file}...`))
               Screen.clearRight()
             } else if (!parallel) {
-              progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+              processTest(file)
             }
           }
         }
@@ -163,20 +180,20 @@ export const runner = async (queue, options) => {
       }
     }
 
-    if (jobs.tests.length) {
+    if (jobs.tests.length && !suiteName) {
       if (verbose) log(`  Simple tests ${jobs.tests.length}:`)
 
       for (const test of jobs.tests) {
         // console.log(test)
         let expect = {}
 
-        if (spec && spec.length) {
-          if (matchInArray(test.name, spec) === false) {
+        if (testName) {
+          if (matchInArray(test.name, testName.split(";")) === false) {
             continue
           }
         }
-        if (skip && skip.length) {
-          if (matchInArray(test.name, skip) === true) {
+        if (skip) {
+          if (matchInArray(test.name, skip.split(";")) === true) {
             continue
           }
         }
@@ -221,9 +238,13 @@ export const runner = async (queue, options) => {
           if (progress === 'none') {
             process.stdout.write(term(`\r⚙️ Processed: ${file}...`))
           } else if (!parallel) {
-            progressBar && progressBar.process(`${term('[{{percent}}%]', {color: 'yellow'})} ${file}`)
+            processTest(file)
           }
         }
+      }
+    } else {
+      if (!verbose) {
+        processTest(file, jobs.tests.length)
       }
     }
 
@@ -232,7 +253,7 @@ export const runner = async (queue, options) => {
   }
 
   if (progress === "none") {
-    process.stdout.write(termx.blue.write(`\r${BOT} Process completed. Add tests executed!`))
+    process.stdout.write(termx.blue.write(`\r${BOT} Process completed. All tests executed!`))
     Screen.clearRight()
   }
   

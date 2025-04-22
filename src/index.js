@@ -10,7 +10,7 @@ import { hooksRegistry } from './core/hooks.js'
 import { DOM } from './core/registry.js'
 
 import path from 'path'
-import {term} from '@olton/terminal'
+import { term, termx } from '@olton/terminal'
 import { checkReactDependencies } from './react/check-deps.js'
 import { cleanup, initReact, render, snapshot } from './react/index.js'
 import { BOT } from './config/index.js'
@@ -43,12 +43,19 @@ export const run = async (root, options = {}) => {
     const excludePattern = options.exclude || []
     files = await glob(includePattern, { ignore: excludePattern })
   }
-
+  
+  
   if (!files.length) {
     console.log(term(`${BOT} No tests found!`, {color: 'red'}))
     process.exit(1)
   } else {
-    console.log(term(`${BOT} We found ${files.length} tests`, {color: 'cyanBright'}))
+    console.log(term(`${BOT} We found ${termx.yellowBright.write(files.length)} test file(s)`, {color: 'gray'}))
+    if (config.suite) {
+      console.log(term(`${BOT} Running tests in suite: ${termx.yellowBright.write(config.suite)}`, {color: 'gray'}))
+    } 
+    if (config.test) {
+      console.log(term(`${BOT} Running test: ${termx.yellowBright.write(config.test)}`, {color: 'gray'}))
+    }
   }
 
   if (options.debug) {
