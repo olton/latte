@@ -8,8 +8,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
-
-Latte (an abbreviation from `laconic testing`) is a testing framework for JavaScript and TypeScript, written in pure JavaScript.
+Latte (an abbreviation from `laconic testing`) is a testing framework designed for testing applications written in JavaScript and TypeScript.
 
 </div>
 
@@ -20,14 +19,12 @@ It is designed to be straightforward to use, with a focus on speed, performance,
 </h2>
 
 
-Latte is an alternative to other testing frameworks like Jest, Mocha, and Jasmine with the following features:
+Latte is an alternative to other testing frameworks like Jest, Mocha, and Jasmine with the following core features:
 
-+ Built-in DOM support
-+ Built-in headless browser
-+ Testing HTML elements
++ Testing JavaScript and TypeScript
++ Testing HTML element with built-in DOM support
++ Testing Web pages with built-in headless browser
 + Testing React components
-+ Testing Vue components (in development) 
-+ Testing Angular components (in development) 
 
 ---
 <div align="center">

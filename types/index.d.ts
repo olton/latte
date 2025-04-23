@@ -414,6 +414,15 @@ export declare class DOM {
 export declare function describe(name: string, fn: () => void): void;
 
 /**
+ * Declares a test suite with a given name and test function.
+ *
+ * @param name - The name of the test suite.
+ * @param fn - The function containing the test cases to execute within the suite.
+ * @return void
+ */
+export declare function suite(name: string, fn: () => void): void;
+
+/**
  * Defines a test case with a given name and function. 
  * For usage in describe blocks.
  *
