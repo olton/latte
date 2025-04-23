@@ -44,7 +44,6 @@ export const run = async (root, options = {}) => {
     files = await glob(includePattern, { ignore: excludePattern })
   }
   
-  
   if (!files.length) {
     console.log(term(`${BOT} No tests found!`, {color: 'red'}))
     process.exit(1)

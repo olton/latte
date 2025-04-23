@@ -7,6 +7,7 @@ export const LOGO = '🥛'
 export const BOT = '🤖'
 export const FAIL = '💀'
 export const SEARCH = '🔍'
+export const STOP = '⛔'
 export const DIVIDER = '-----------------------------------------------------------------'
 
 const defaultInclude = ['**/*.{test,spec}.{js,ts,jsx,tsx}']
@@ -69,10 +70,10 @@ export const updateConfig = (args) => {
   if (args.debug) { config.debug = true }
   if (args.parallel) { config.parallel = true }
 
-  if (args.test) { config.test = args.test.split(',') }
+  if (args.test) { config.test = args.test }
   if (args.include) { config.include = args.include.split(';') }
   if (args.exclude !== undefined) { config.exclude = args.exclude.split(';') }
-  if (args.skip) { config.skip = args.skip.split(',') }
+  if (args.skip) { config.skip = args.skip }
   if (args.reportType) { config.reportType = args.reportType }
   if (args.reportDir) { config.reportDir = args.reportDir }
   if (args.reportFile) { config.reportDir = args.reportFile }

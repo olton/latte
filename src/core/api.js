@@ -36,6 +36,8 @@ export function describe (name, fn) {
   hooksRegistry.clearSuiteLevelHooks()
 }
 
+export function suite (name, fn) { describe(name, fn) }
+
 export async function it (name, fn) {
   const currentDescribe = testQueue.getCurrentDescribe()
 

@@ -93,7 +93,7 @@ export const runner = async (queue, options) => {
         if (verbose) log(`    ${term(describe.name, {color: 'blue'})} (${describe.it.length} tests):`)
 
         if (suiteName) {
-          if (matchInArray(describe.name, suiteName.split(";")) === false) {
+          if (describe.name.includes(suiteName) === false) {
             processTest(file, describe.it.length)
             continue
           }
@@ -113,13 +113,13 @@ export const runner = async (queue, options) => {
           let expect = {}
 
           if (testName) {
-            if (matchInArray(test.name, testName.split(";")) === false) {
+            if (testName && test.name.includes(testName) === false) {
               processTest(file)
               continue
             }
           }
           if (skip) {
-            if (matchInArray(test.name, skip.split(";")) === true) {
+            if (skip && test.name.includes(skip) === true) {
               processTest(file)
               continue
             }
@@ -187,15 +187,13 @@ export const runner = async (queue, options) => {
         // console.log(test)
         let expect = {}
 
-        if (testName) {
-          if (matchInArray(test.name, testName.split(";")) === false) {
-            continue
-          }
+        if (testName && test.name.includes(testName) === false) {
+          processTest(file)
+          continue
         }
-        if (skip) {
-          if (matchInArray(test.name, skip.split(";")) === true) {
-            continue
-          }
+        if (skip && test.name.includes(skip) === true) {
+          processTest(file)
+          continue
         }
 
         await setupAndTeardown(test.beforeEach, 'beforeEach')

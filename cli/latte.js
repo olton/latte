@@ -29,7 +29,6 @@ try {
   const root = process.cwd()
 
   const projectName = getProjectName(root)
-  console.log(`${term(DIVIDER, {color: 'gray'})}`)
   console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}`)
   console.log(`${term(DIVIDER, {color: 'gray'})}`)
   console.log(`${term(`🏠 Project directory: ${term(root, {color: 'whiteBright'})}`, {color: 'gray'})}`)
