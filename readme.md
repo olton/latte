@@ -51,22 +51,24 @@ Documentation: https://latte.org.ua/
 
 </div>
 
----
+<div align="center">
 
-Support for PayPal to **serhii@pimenov.com.ua**
+## Quick Reference
 
----
+</div>
 
-## Installation
+### Installation
 
 ```bash
 npm install @olton/latte -D
 ```
 
-## Usage
+### Usage
 
-To use `Latte` you don't need to import `it`, `test`, `describe` or `expect` in your test file. 
-All these functions are available globally.
+#### IntelliJ plugin
+You can use Latte with IntelliJ IDEA, WebStorm, PhpStorm, and other JetBrains IDEs. The plugin is available in the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/27190-latte-test-runner).
+
+#### Command line
 
 Create a test file with `*.test.js` or `*.test.ts` extension (for example).
 You can use both of them in the same project.
@@ -88,27 +90,6 @@ test(`Bad test 2 !== 1`, () => {
 
 ```
 
-### Async tests
-
-You can test async code with `async/await` syntax.
-
-```js
-async function fetchData() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Data received");
-        }, 1000);
-    });
-}
-
-describe('Async function tests', async () => {
-    it('should return data after 1 second', async () => {
-        const data = await fetchData();
-        return expect(data).toBe("Bad Data");
-    });
-});
-```
-
 Update `package.json` to run tests with `latte` command.
 ```json
 {
@@ -116,6 +97,20 @@ Update `package.json` to run tests with `latte` command.
         "test": "latte"
     }
 }
+```
+
+#### Run tests
+
+Now you can run tests with the following command:
+
+```bash
+npm test
+```
+
+or with `npx`:
+
+```bash
+npx latte
 ```
 
 ### Functions
@@ -171,9 +166,20 @@ Latte licensed under MIT license.
 Use issue tracker to report bugs or request new features.
 
 ---
-### Copyright
-© 2025 [Serhii Pimenov](https://pimenov.com.ua). All rights reserved.
-
----
 ### Code Standards
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+--- 
+## Support
+
+If you like this project, please consider supporting it by:
+
++ Star this repository on GitHub
++ Sponsor this project on GitHub Sponsors
++ **PayPal** to `serhii@pimenov.com.ua`.
++ [**Patreon**](https://www.patreon.com/metroui)
++ [**Buy me a coffee**](https://buymeacoffee.com/pimenov)
+
+---
+
+Copyright (c) 2025 by [Serhii Pimenov](https://pimenov.com.ua)
