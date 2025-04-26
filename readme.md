@@ -19,12 +19,24 @@ It is designed to be straightforward to use, with a focus on speed, performance,
 </h2>
 
 
-Latte is an alternative to other testing frameworks like Jest, Mocha, and Jasmine with the following core features:
+Latte is an alternative to other testing frameworks like Jest, Mocha, and Jasmine with the following **core features:**
 
-+ Testing JavaScript and TypeScript
-+ Testing HTML element with built-in DOM support
-+ Testing Web pages with built-in headless browser
-+ Testing React components
+- Config free.
+- Functions for creating test cases `it`, `test`, `describe`, `suite` or `expect`.
+- Setup and Teardown functions `beforeEach`, `afterEach`, `beforeAll`, `afterAll`.
+- React Components testing (`jsx` syntax supported).
+- HTML Components testing (DOM built-in).
+- Headless browser in scope `B` for test web pages and remote saites.
+- Asynchronous code testing with `async/await`.
+- Mock functions.
+- Big set (100+) of built-in matchers.
+- TypeScript testing out of the box. You can use both `js` and `ts` test files in the same project.
+- Simple extend `Expect` class for adding your matchers.
+- A lot of expects in one test case.
+- Built-in coverage tool.
+- `Verbose`, `Watching` and `Debug` mode.
+- Different Reporters: `lcov`, `console`, `html`, and `junit`.
+- Open source and MIT license.
 
 ---
 <div align="center">
@@ -38,27 +50,6 @@ Documentation: https://latte.org.ua/
 ![Demo](demo.gif)
 
 </div>
-
----
-
-Core features:
-- Config free. No need to create any config files, but you can create `latte.json` file to set up your own configuration.
-- No need to import `it`, `test`, `describe` or `expect` in your test file. These functions are available globally.
-- Built-in headless browser in scope `B` and `DOM` support with option `--dom` (you have access to global DOM objects).
-- You can use both `js` and `ts` test files in the same project.
-- React Components testing (`jsx` syntax supported).
-- Asynchronous code testing.
-- TypeScript testing out of the box.
-- Mock functions.
-- Big set of built-in matchers.
-- Extend `expect` function with your own matchers.
-- A lot of expects in one test case.
-- Setup and Teardown functions (`beforeEach`, `afterEach`, `beforeAll`, `afterAll`).
-- Built-in coverage tool.
-- Verbose or non verbose mode.
-- Watching mode.
-- Different Reporters: `lcov`, `console`, `html`, and `junit`.
-- Open source and MIT license.
 
 ---
 
