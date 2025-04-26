@@ -14,10 +14,11 @@ Latte (an abbreviation from `laconic testing`) is a testing framework designed f
 
 ---
 
-<h2>
-It is designed to be straightforward to use, with a focus on speed, performance, and user information.
-</h2>
+<div align="center">
 
+**It is designed to be straightforward to use, with a focus on speed, performance, and user information.**
+
+</div>
 
 Latte is an alternative to other testing frameworks like Jest, Mocha, and Jasmine with the following **core features:**
 
