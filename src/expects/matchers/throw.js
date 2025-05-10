@@ -2,7 +2,7 @@ export default {
   /**
      * Asserts that the actual function throws an error.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toThrow (msg = null) {
     const received = this.received
@@ -26,7 +26,7 @@ export default {
      * Asserts that the actual function throws an error matching the expected value.
      * @param expected - The expected error.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toThrowError (expected, msg = null) {
     const received = this.received

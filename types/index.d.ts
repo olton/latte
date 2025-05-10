@@ -114,135 +114,135 @@ export declare class B {
     /**
      * Get supported devices list
      * @type {Readonly<Record<
-     *      "Blackberry PlayBook" 
-     *      | "Blackberry PlayBook landscape" 
-     *      | "BlackBerry Z30" 
-     *      | "BlackBerry Z30 landscape" 
-     *      | "Galaxy Note 3" 
-     *      | "Galaxy Note 3 landscape" 
-     *      | "Galaxy Note II" 
-     *      | "Galaxy Note II landscape" 
-     *      | "Galaxy S III" 
-     *      | "Galaxy S III landscape" 
-     *      | "Galaxy S5" 
-     *      | "Galaxy S5 landscape" 
-     *      | "Galaxy S8" 
-     *      | "Galaxy S8 landscape" 
-     *      | "Galaxy S9+" 
-     *      | "Galaxy S9+ landscape" 
-     *      | "Galaxy Tab S4" 
-     *      | "Galaxy Tab S4 landscape" 
-     *      | "iPad" 
-     *      | "iPad landscape" 
-     *      | "iPad (gen 6)" 
-     *      | "iPad (gen 6) landscape" 
-     *      | "iPad (gen 7)" 
-     *      | "iPad (gen 7) landscape" 
-     *      | "iPad Mini" 
-     *      | "iPad Mini landscape" 
-     *      | "iPad Pro" 
-     *      | "iPad Pro landscape" 
-     *      | "iPad Pro 11" 
-     *      | "iPad Pro 11 landscape" 
-     *      | "iPhone 4" 
-     *      | "iPhone 4 landscape" 
-     *      | "iPhone 5" 
-     *      | "iPhone 5 landscape" 
-     *      | "iPhone 6" 
-     *      | "iPhone 6 landscape" 
-     *      | "iPhone 6 Plus" 
-     *      | "iPhone 6 Plus landscape" 
-     *      | "iPhone 7" 
-     *      | "iPhone 7 landscape" 
-     *      | "iPhone 7 Plus" 
-     *      | "iPhone 7 Plus landscape" 
-     *      | "iPhone 8" 
-     *      | "iPhone 8 landscape" 
-     *      | "iPhone 8 Plus" 
-     *      | "iPhone 8 Plus landscape" 
-     *      | "iPhone SE" 
-     *      | "iPhone SE landscape" 
-     *      | "iPhone X" 
-     *      | "iPhone X landscape" 
-     *      | "iPhone XR" 
-     *      | "iPhone XR landscape" 
-     *      | "iPhone 11" 
-     *      | "iPhone 11 landscape" 
-     *      | "iPhone 11 Pro" 
-     *      | "iPhone 11 Pro landscape" 
-     *      | "iPhone 11 Pro Max" 
-     *      | "iPhone 11 Pro Max landscape" 
-     *      | "iPhone 12" | "iPhone 12 landscape" 
-     *      | "iPhone 12 Pro" 
-     *      | "iPhone 12 Pro landscape" 
-     *      | "iPhone 12 Pro Max" 
-     *      | "iPhone 12 Pro Max landscape" 
-     *      | "iPhone 12 Mini" 
-     *      | "iPhone 12 Mini landscape" 
-     *      | "iPhone 13" 
-     *      | "iPhone 13 landscape" 
-     *      | "iPhone 13 Pro" 
-     *      | "iPhone 13 Pro landscape" 
-     *      | "iPhone 13 Pro Max" 
-     *      | "iPhone 13 Pro Max landscape" 
-     *      | "iPhone 13 Mini" 
-     *      | "iPhone 13 Mini landscape" 
-     *      | "iPhone 14" 
-     *      | "iPhone 14 landscape" 
-     *      | "iPhone 14 Plus" 
-     *      | "iPhone 14 Plus landscape" 
-     *      | "iPhone 14 Pro" 
-     *      | "iPhone 14 Pro landscape" 
-     *      | "iPhone 14 Pro Max" 
-     *      | "iPhone 14 Pro Max landscape" 
-     *      | "iPhone 15" 
-     *      | "iPhone 15 landscape" 
-     *      | "iPhone 15 Plus" 
-     *      | "iPhone 15 Plus landscape" 
-     *      | "iPhone 15 Pro" 
-     *      | "iPhone 15 Pro landscape" 
-     *      | "iPhone 15 Pro Max" 
-     *      | "iPhone 15 Pro Max landscape" 
-     *      | "JioPhone 2" 
-     *      | "JioPhone 2 landscape" 
-     *      | "Kindle Fire HDX" 
-     *      | "Kindle Fire HDX landscape" 
-     *      | "LG Optimus L70" 
-     *      | "LG Optimus L70 landscape" 
-     *      | "Microsoft Lumia 550" 
-     *      | "Microsoft Lumia 950" 
-     *      | "Microsoft Lumia 950 landscape" 
-     *      | "Nexus 10" 
-     *      | "Nexus 10 landscape" 
-     *      | "Nexus 4" 
-     *      | "Nexus 4 landscape" 
-     *      | "Nexus 5" 
+     *      "Blackberry PlayBook"
+     *      | "Blackberry PlayBook landscape"
+     *      | "BlackBerry Z30"
+     *      | "BlackBerry Z30 landscape"
+     *      | "Galaxy Note 3"
+     *      | "Galaxy Note 3 landscape"
+     *      | "Galaxy Note II"
+     *      | "Galaxy Note II landscape"
+     *      | "Galaxy S III"
+     *      | "Galaxy S III landscape"
+     *      | "Galaxy S5"
+     *      | "Galaxy S5 landscape"
+     *      | "Galaxy S8"
+     *      | "Galaxy S8 landscape"
+     *      | "Galaxy S9+"
+     *      | "Galaxy S9+ landscape"
+     *      | "Galaxy Tab S4"
+     *      | "Galaxy Tab S4 landscape"
+     *      | "iPad"
+     *      | "iPad landscape"
+     *      | "iPad (gen 6)"
+     *      | "iPad (gen 6) landscape"
+     *      | "iPad (gen 7)"
+     *      | "iPad (gen 7) landscape"
+     *      | "iPad Mini"
+     *      | "iPad Mini landscape"
+     *      | "iPad Pro"
+     *      | "iPad Pro landscape"
+     *      | "iPad Pro 11"
+     *      | "iPad Pro 11 landscape"
+     *      | "iPhone 4"
+     *      | "iPhone 4 landscape"
+     *      | "iPhone 5"
+     *      | "iPhone 5 landscape"
+     *      | "iPhone 6"
+     *      | "iPhone 6 landscape"
+     *      | "iPhone 6 Plus"
+     *      | "iPhone 6 Plus landscape"
+     *      | "iPhone 7"
+     *      | "iPhone 7 landscape"
+     *      | "iPhone 7 Plus"
+     *      | "iPhone 7 Plus landscape"
+     *      | "iPhone 8"
+     *      | "iPhone 8 landscape"
+     *      | "iPhone 8 Plus"
+     *      | "iPhone 8 Plus landscape"
+     *      | "iPhone SE"
+     *      | "iPhone SE landscape"
+     *      | "iPhone X"
+     *      | "iPhone X landscape"
+     *      | "iPhone XR"
+     *      | "iPhone XR landscape"
+     *      | "iPhone 11"
+     *      | "iPhone 11 landscape"
+     *      | "iPhone 11 Pro"
+     *      | "iPhone 11 Pro landscape"
+     *      | "iPhone 11 Pro Max"
+     *      | "iPhone 11 Pro Max landscape"
+     *      | "iPhone 12" | "iPhone 12 landscape"
+     *      | "iPhone 12 Pro"
+     *      | "iPhone 12 Pro landscape"
+     *      | "iPhone 12 Pro Max"
+     *      | "iPhone 12 Pro Max landscape"
+     *      | "iPhone 12 Mini"
+     *      | "iPhone 12 Mini landscape"
+     *      | "iPhone 13"
+     *      | "iPhone 13 landscape"
+     *      | "iPhone 13 Pro"
+     *      | "iPhone 13 Pro landscape"
+     *      | "iPhone 13 Pro Max"
+     *      | "iPhone 13 Pro Max landscape"
+     *      | "iPhone 13 Mini"
+     *      | "iPhone 13 Mini landscape"
+     *      | "iPhone 14"
+     *      | "iPhone 14 landscape"
+     *      | "iPhone 14 Plus"
+     *      | "iPhone 14 Plus landscape"
+     *      | "iPhone 14 Pro"
+     *      | "iPhone 14 Pro landscape"
+     *      | "iPhone 14 Pro Max"
+     *      | "iPhone 14 Pro Max landscape"
+     *      | "iPhone 15"
+     *      | "iPhone 15 landscape"
+     *      | "iPhone 15 Plus"
+     *      | "iPhone 15 Plus landscape"
+     *      | "iPhone 15 Pro"
+     *      | "iPhone 15 Pro landscape"
+     *      | "iPhone 15 Pro Max"
+     *      | "iPhone 15 Pro Max landscape"
+     *      | "JioPhone 2"
+     *      | "JioPhone 2 landscape"
+     *      | "Kindle Fire HDX"
+     *      | "Kindle Fire HDX landscape"
+     *      | "LG Optimus L70"
+     *      | "LG Optimus L70 landscape"
+     *      | "Microsoft Lumia 550"
+     *      | "Microsoft Lumia 950"
+     *      | "Microsoft Lumia 950 landscape"
+     *      | "Nexus 10"
+     *      | "Nexus 10 landscape"
+     *      | "Nexus 4"
+     *      | "Nexus 4 landscape"
+     *      | "Nexus 5"
      *      | "Nexus 5 landscape"
-     *      | "Nexus 5X" 
-     *      | "Nexus 5X landscape" 
-     *      | "Nexus 6" 
-     *      | "Nexus 6 landscape" 
-     *      | "Nexus 6P" 
-     *      | "Nexus 6P landscape" 
-     *      | "Nexus 7" 
-     *      | "Nexus 7 landscape" 
-     *      | "Nokia Lumia 520" 
-     *      | "Nokia Lumia 520 landscape" 
-     *      | "Nokia N9" 
-     *      | "Nokia N9 landscape" 
-     *      | "Pixel 2" 
-     *      | "Pixel 2 landscape" 
-     *      | "Pixel 2 XL" 
-     *      | "Pixel 2 XL landscape" 
-     *      | "Pixel 3" 
-     *      | "Pixel 3 landscape" 
-     *      | "Pixel 4" 
-     *      | "Pixel 4 landscape" 
-     *      | "Pixel 4a (5G)" 
-     *      | "Pixel 4a (5G) landscape" 
-     *      | "Pixel 5" 
-     *      | "Pixel 5 landscape" 
-     *      | "Moto G4" 
+     *      | "Nexus 5X"
+     *      | "Nexus 5X landscape"
+     *      | "Nexus 6"
+     *      | "Nexus 6 landscape"
+     *      | "Nexus 6P"
+     *      | "Nexus 6P landscape"
+     *      | "Nexus 7"
+     *      | "Nexus 7 landscape"
+     *      | "Nokia Lumia 520"
+     *      | "Nokia Lumia 520 landscape"
+     *      | "Nokia N9"
+     *      | "Nokia N9 landscape"
+     *      | "Pixel 2"
+     *      | "Pixel 2 landscape"
+     *      | "Pixel 2 XL"
+     *      | "Pixel 2 XL landscape"
+     *      | "Pixel 3"
+     *      | "Pixel 3 landscape"
+     *      | "Pixel 4"
+     *      | "Pixel 4 landscape"
+     *      | "Pixel 4a (5G)"
+     *      | "Pixel 4a (5G) landscape"
+     *      | "Pixel 5"
+     *      | "Pixel 5 landscape"
+     *      | "Moto G4"
      *      | "Moto G4 landscape", Device
      *      >>}
      */
@@ -372,8 +372,8 @@ export declare class DOM {
     static flash: (html?: string) => void
 
     /**
-    * Evaluate script in the DOM environment.
-    */
+     * Evaluate script in the DOM environment.
+     */
     static eval: (js) => void
 
     /**
@@ -423,7 +423,7 @@ export declare function describe(name: string, fn: () => void): void;
 export declare function suite(name: string, fn: () => void): void;
 
 /**
- * Defines a test case with a given name and function. 
+ * Defines a test case with a given name and function.
  * For usage in describe blocks.
  *
  * @param {string} name - The name of the test case.
@@ -489,11 +489,21 @@ export declare function afterEach(fn: () => void): void;
  * Mocks a function or object to simulate a specific behavior.
  *
  * @param {Function} fn - The function to be mocked.
- * @return {function} 
+ * @param config {string | object}
+ * @param type {string} Can be default, fetch, ajax
+ * @return {function}
  */
-export declare function mock(fn: () => {}): any;
+export declare function mock(fn: () => {}, config: any, type: string): any;
 
-export declare class ExpectError extends Error{
+/**
+ * Waits for a specified amount of time before executing the next line of code.
+ *
+ * @return {function}
+ * @param timeout
+ */
+export declare function waitFor(timeout: number): any;
+
+export declare class ExpectError extends Error {
     constructor(message: string, matcher: string, received: any, expected: any)
 }
 
@@ -514,738 +524,757 @@ export declare class Expect {
      * get Expect class for negative tests
      */
     get not(): Expect
-    
+
     /**
      * Asserts that the actual value is equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
-     */
-    toBe(expected, msg?: string): void
+     * @returns {Expect}
+     * */
+    toBe(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is strict equal (using ===) to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeStrictEqual(expected, msg?: string): void
+    toBeStrictEqual(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is equal (using ==) to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeEqual(expected, msg?: string): void
-    
+    toBeEqual(expected: any, msg?: string): Expect
+
     /**
      * Asserts that the actual object is equal to the expected object.
      * @param expected - The expected object.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeObject(expected, msg?: string): void
+    toBeObject(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is true.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeTrue(msg?: string): void
+    toBeTrue(msg?: string): Expect
 
     /**
      * Asserts that the actual value is false.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeFalse(msg?: string): void
+    toBeFalse(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a boolean.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeBoolean(msg?: string): void
+    toBeBoolean(msg?: string): Expect
 
     /**
      * Asserts that the actual value matches the expected pattern.
      * @param expected - The expected pattern.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toMatch(expected, msg?: string): void
+    toMatch(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is defined.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeDefined(msg?: string): void
+    toBeDefined(msg?: string): Expect
 
     /**
      * Asserts that the actual value is undefined.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeUndefined(msg?: string): void
+    toBeUndefined(msg?: string): Expect
 
     /**
      * Asserts that the actual value is null.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeNull(msg?: string): void
+    toBeNull(msg?: string): Expect
 
     /**
      * Asserts that the actual value is greater than the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeGreaterThan(expected: number, msg?: string): void
+    toBeGreaterThan(expected: number, msg?: string): Expect
 
     /**
      * Asserts that the actual value is greater than or equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeGreaterThanOrEqual(expected: number, msg?: string): void
+    toBeGreaterThanOrEqual(expected: number, msg?: string): Expect
 
     /**
      * Asserts that the actual value is less than the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeLessThan(expected: number, msg?: string): void
+    toBeLessThan(expected: number, msg?: string): Expect
 
     /**
      * Asserts that the actual value is less than or equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeLessThanOrEqual(expected: number, msg?: string): void
+    toBeLessThanOrEqual(expected: number, msg?: string): Expect
 
     /**
      * Asserts that the actual value is between the specified minimum and maximum values.
      * @param min - The minimum value.
      * @param max - The maximum value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBetween(min: number, max: number, msg?: string): void
+    toBetween(min: number, max: number, msg?: string): Expect
 
     /**
      * Asserts that the actual value is an integer.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeInteger(msg?: string): void
+    toBeInteger(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a safe integer.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeSafeInteger(msg?: string): void
+    toBeSafeInteger(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a float.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeFloat(msg?: string): void
+    toBeFloat(msg?: string): Expect
 
     /**
      * Asserts that the actual value is positive.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBePositive(msg?: string): void
+    toBePositive(msg?: string): Expect
 
     /**
      * Asserts that the actual value is negative.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeNegative(msg?: string): void
+    toBeNegative(msg?: string): Expect
 
     /**
      * Asserts that the actual value is finite.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeFinite(msg?: string): void
+    toBeFinite(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a number and not is NaN.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeNumber(msg?: string): void
+    toBeNumber(msg?: string): Expect
 
     /**
      * Asserts that the actual value is NaN.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeNaN(msg?: string): void
+    toBeNaN(msg?: string): Expect
 
     /**
      * Asserts that the actual value is close to the expected value within a certain precision.
      * @param {number} expected - The expected value to compare against.
      * @param {number} [precision=2] - The number of decimal places to consider in the comparison.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeCloseTo(expected, precision?: number, msg?: string): void
+    toBeCloseTo(expected: any, precision?: number, msg?: string): Expect
 
     /**
      * Asserts that the actual function throws an error.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toThrow(msg?: string): void
+    toThrow(msg?: string): Expect
 
     /**
      * Asserts that the actual function throws an error matching the expected value.
      * @param expected - The expected error.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toThrowError(expected, msg?: string): void
+    toThrowError(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is a HEX color.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeHEXColor(msg?: string): void
+    toBeHEXColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an RGB color.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeRGBColor(msg?: string): void
+    toBeRGBColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an RGBA color.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeRGBAColor(msg?: string): void
+    toBeRGBAColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HSL color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeHSVColor(msg?: string): void
+    toBeHSVColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HSL color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeHSLColor(msg?: string): void
+    toBeHSLColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HSLA color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeHSLAColor(msg?: string): void
+    toBeHSLAColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a CMYK color.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeCMYKColor(msg?: string): void
+    toBeCMYKColor(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a valid color (HEX, RGB, RGBA, HSL, HSLA, or CMYK).
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeColor(msg?: string): void
+    toBeColor(msg?: string): Expect
 
     /**
      * Asserts the mock function was called at least once
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toHaveBeenCalled(msg?: string): void
+    toHaveBeenCalled(msg?: string): Expect
 
     /**
      * Asserts the mock function was called at least once
      * @param expected
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toHaveBeenCalledTimes(expected, msg?: string): void
+    toHaveBeenCalledTimes(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the mock function was called with specified arguments.
      * @param {Array} expected - The expected arguments.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toHaveBeenCalledWith(expected, msg?: string): void
+    toHaveBeenCalledWith(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the mock function was called last with specified arguments.
      * @param {Array} expected - The expected arguments.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toHaveBeenLastCalledWith(expected, msg?: string): void
+    toHaveBeenLastCalledWith(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value contains the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toContain(expected, msg?: string): void
+    toContain(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is deeply equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeDeepEqual(expected, msg?: string): void
+    toBeDeepEqual(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is deeply equal to the expected value using a safe comparison.
      * With this method you can compare objects with circular references.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeDeepEqualSafe(expected, msg?: string): void
+    toBeDeepEqualSafe(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual structure is equal to the expected structure.
      * @param expected - The expected structure.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeObjectStructureEqual(expected, msg?: string): void
+    toBeObjectStructureEqual(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual array is equal to the expected array.
      * @param expected - The expected array.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeArrayEqual(expected, msg?: string): void
+    toBeArrayEqual(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is an array.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeArray(msg?: string): void
+    toBeArray(msg?: string): Expect
 
     /**
      * Asserts that the actual value is sorted.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeArraySorted(msg?: string): void
+    toBeArraySorted(msg?: string): Expect
 
     /**
      * Asserts that values in the array are unique.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeArrayUnique(msg?: string): void
+    toBeArrayUnique(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a valid IP address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeIP(msg?: string): void
+    toBeIP(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a valid IPv4 address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeIPv4(msg?: string): void
+    toBeIPv4(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a valid IPv6 address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeIPv6(msg?: string): void
+    toBeIPv6(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a valid email address.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeEmail(msg?: string): void
+    toBeEmail(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a valid URL.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeUrl(msg?: string): void
+    toBeUrl(msg?: string): Expect
 
     /**
      * Asserts that the actual value is empty.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeEmpty(msg?: string): void
+    toBeEmpty(msg?: string): Expect
 
     /**
      * Asserts that the array-like object has the expected length.
      * @param {number} expected - The expected length.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasLength(expected, msg?: string): void
+    hasLength(expected: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is a Base64 encoded string.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeBase64(msg?: string): void
+    toBeBase64(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a JSON string.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeJson(msg?: string): void
+    toBeJson(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an XML string.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeXml(msg?: string): void
+    toBeXml(msg?: string): Expect
 
     /**
      * Asserts that the actual value has the specified property.
      * @param {string} expected - The expected property name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasProperty(expected, msg?: string): void
-    
+    hasProperty(expected: any, msg?: string): Expect
+
     /**
      * Asserts that the actual value is of the specified type.
      * @param type - The expected type.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeType(type, msg?: string): void
+    toBeType(type: any, msg?: string): Expect
 
     /**
      * Asserts that the actual value is an instance of the specified type.
      * @param type - The expected type.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeInstanceOf(type, msg?: string): void
+    toBeInstanceOf(type: any, msg?: string): Expect
 
 
     /**
      * Asserts that the actual value is a string.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeString(msg?: string): void
+    toBeString(msg?: string): Expect
 
 
     /**
      * Asserts that the actual value is a function.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeFunction(msg?: string): void
+    toBeFunction(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an async function.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeAsyncFunction(msg?: string): void
+    toBeAsyncFunction(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a date.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeDate(msg?: string): void
+    toBeDate(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a date.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeDateObject(msg?: string): void
+    toBeDateObject(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a regular expression.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeRegExp(msg?: string): void
+    toBeRegExp(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a symbol.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeSymbol(msg?: string): void
+    toBeSymbol(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a BigInt.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeBigInt(msg?: string): void
+    toBeBigInt(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a Map.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeMap(msg?: string): void
+    toBeMap(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a Set.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeSet(msg?: string): void
+    toBeSet(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a WeakMap.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeWeakMap(msg?: string): void
+    toBeWeakMap(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a WeakSet.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeWeakSet(msg?: string): void
+    toBeWeakSet(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an ArrayBuffer.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBeArrayBuffer(msg?: string): void
+    toBeArrayBuffer(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a Promise.
      * @param msg - The message to display if the assertion fails.
-     * @returns The result of the test.
+     * @returns {Expect}
      */
-    toBePromise(msg?: string): void
+    toBePromise(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HTML element.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeHtmlElement(msg?: string): void
+    toBeHtmlElement(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HTML node.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeNode(msg?: string): void
+    toBeNode(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HTML document.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeDocument(msg?: string): void
+    toBeDocument(msg?: string): Expect
 
     /**
      * Asserts that the actual value is an HTML collection.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeHtmlCollection(msg?: string): void
+    toBeHtmlCollection(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a Window object.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeWindow(msg?: string): void
+    toBeWindow(msg?: string): Expect
 
     /**
      * Asserts that the actual value is a Text node.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeTextNode(msg?: string): void
+    toBeTextNode(msg?: string): Expect
 
     /**
      * Asserts that the HTML element has the specified class.
      * @param {string} expected - The expected class name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasClass(expected: string, msg?: string): void
+    hasClass(expected: string, msg?: string): Expect
 
     /**
      * Asserts that the HTML element has the specified attribute.
      * @param {string} expected - The expected attribute name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasAttribute(expected: string, msg?: string): void
+    hasAttribute(expected: string, msg?: string): Expect
 
     /**
      * Asserts that the HTML element has children.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasChildren(msg?: string): void
+    hasChildren(msg?: string): Expect
 
     /**
      * Asserts that the HTML element has a parent.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasParent(msg?: string): void
+    hasParent(msg?: string): Expect
 
     /**
      * Asserts that the HTML element has the specified style in style property.
      * @param {string} expected - The expected style.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasStyleProperty(expected: string, msg?: string): void
+    hasStyleProperty(expected: string, msg?: string): Expect
 
     /**
      * Asserts that the HTML element has the specified style property with value.
      * @param {string} prop - The expected style property name.
      * @param {string} val - The expected style property value.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasStyle(prop: string, val: string, msg?: string): void
-    
+    hasStyle(prop: string, val: string, msg?: string): Expect
+
     /**
      * Asserts that the HTML element has the specified styles.
      * @param {Object} styles - The expected styles.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    hasStyles(styles: object, msg?: string): void
+    hasStyles(styles: object, msg?: string): Expect
 
     /**
      * Asserts that the HTML element has siblings.
      * @param msg
+     * @returns {Expect}
      */
-    hasSiblings(msg?: string): void
+    hasSiblings(msg?: string): Expect
 
     /**
      * Asserts that the HTML element has a specified sibling.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    hasSibling(expected: HTMLElement, msg?: string): void
-    
+    hasSibling(expected: HTMLElement, msg?: string): Expect
+
     /**
      * Asserts that the HTML element has a prev siblings.
      * @param msg
+     * @returns {Expect}
      */
-    hasPrev(msg?: string): void
-    
+    hasPrev(msg?: string): Expect
+
     /**
      * Asserts that the HTML element has a next siblings.
      * @param msg
+     * @returns {Expect}
      */
-    hasNext(msg?: string): void
-    
+    hasNext(msg?: string): Expect
+
     /**
      * Asserts that the HTML element has a specified text in textContent.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    hasText(expected: string, msg?: string): void
+    hasText(expected: string, msg?: string): Expect
 
     /**
      * Asserts that the HTML element contains the specified element.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    containsElement(expected: HTMLElement, msg?: string): void
-    
+    containsElement(expected: HTMLElement, msg?: string): Expect
+
     /**
      * Asserts that the HTML element contains the specified element deeply.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    containsElementDeep(expected: HTMLElement, msg?: string): void
-    
+    containsElementDeep(expected: HTMLElement, msg?: string): Expect
+
     /**
      * Asserts that the HTML element has the specified value in ID.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    hasId(expected: string, msg?: string): void
-    
+    hasId(expected: string, msg?: string): Expect
+
     /**
      * Asserts that the HTML element has the specified name.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    hasName(expected: string, msg?: string): void
-    
+    hasName(expected: string, msg?: string): Expect
+
     /**
      * Asserts that the HTML element has the specified value in src.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    hasSrc(expected: string, msg?: string): void
-    
+    hasSrc(expected: string, msg?: string): Expect
+
     /**
      * Asserts that the HTML element has the specified value in href.
      * @param expected
      * @param msg
+     * @returns {Expect}
      */
-    hasHref(expected: string, msg?: string): void
-    
+    hasHref(expected: string, msg?: string): Expect
+
     /**
      * Asserts that the actual value is resolved with the expected value.
      * @param {any} expected - The expected text content.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeResolvedWith(expected: any, msg?: string): void
-    
+    toBeResolvedWith(expected: any, msg?: string): Expect
+
     /**
      * Asserts that the actual value is rejected with the expected value.
      * @param {any} expected - The expected text content.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {Object} The result of the test.
+     * @returns {Expect}
      */
-    toBeRejectedWith(expected: any, msg?: string): void
+    toBeRejectedWith(expected: any, msg?: string): Expect
+
+    /**
+     * Asserts that the actual value is an instance of the expected type.
+     * @param type
+     * @param msg
+     * @returns {Expect}
+     * */
+    any(type: any, msg?: string): Expect
 }

@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "pub": "npm publish --access public",
-    "test": "cross-env NODE_OPTIONS=\"--import tsx\" latte --progress=none --include=__tests__/*.test.*",
+    "test": "cross-env NODE_OPTIONS=\"--import tsx\" latte --progress=default -v --include=__tests__/*.test.*",
     "test:watch": "cross-env NODE_OPTIONS=\"--import tsx\" latte --watch --include=__tests__/*.test.jsx"
   },
   "keywords": [
@@ -34,14 +34,14 @@
     "email": "serhii@pimenov.com.ua"
   },
   "dependencies": {
-    "@happy-dom/global-registrator": "^17.4.4",
+    "@happy-dom/global-registrator": "^17.4.6",
     "@olton/progress": "^0.8.1",
     "@olton/terminal": "^0.5.1",
     "chokidar": "^4.0.3",
-    "glob": "^11.0.1",
-    "happy-dom": "^17.4.4",
+    "glob": "^11.0.2",
+    "happy-dom": "^17.4.6",
     "html-escaper": "^3.0.3",
-    "puppeteer": "^24.6.1",
+    "puppeteer": "^24.8.2",
     "table": "^6.9.0",
     "yargs": "^17.7.2"
   },
@@ -61,6 +61,6 @@
     "cross-env": "^7.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tsx": "^4.19.3"
+    "tsx": "^4.19.4"
   }
 }

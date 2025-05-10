@@ -4,7 +4,7 @@ export default {
   /**
      * Asserts that the actual value is a HEX color.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeHEXColor (msg = null) {
     const received = this.received
@@ -23,7 +23,7 @@ export default {
   /**
      * Asserts that the actual value is an RGB color.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeRGBColor (msg = null) {
     const received = this.received
@@ -42,7 +42,7 @@ export default {
   /**
      * Asserts that the actual value is an RGBA color.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeRGBAColor (msg = null) {
     const received = this.received

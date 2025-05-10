@@ -2,7 +2,7 @@ export default {
   /**
      * Check if the component renders without errors.
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   async toRenderWithoutError (msg = null) {
     const Component = this.received
@@ -33,7 +33,7 @@ export default {
      * Check if the component renders a specific text.
      * @param expected
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   async toRenderText (expected, msg = null) {
     const Component = this.received
@@ -61,7 +61,7 @@ export default {
      * Check if the component contains a specific element.
      * @param selector
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   async toContainElement (selector, msg = null) {
     const Component = this.received
@@ -91,7 +91,7 @@ export default {
      * @param selector
      * @param expectedCount
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   async toHaveElementCount (selector, expectedCount, msg = null) {
     const Component = this.received
@@ -125,7 +125,7 @@ export default {
      * @param callback
      * @param data
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   async toTriggerEvent (selector, event, callback, data, msg = null) {
     const Component = this.received
@@ -177,7 +177,7 @@ export default {
      * @param selector
      * @param timeout
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   async toEventuallyContain (selector, timeout = 1000, msg = null) {
     const Component = this.received

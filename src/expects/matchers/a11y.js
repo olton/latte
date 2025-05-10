@@ -3,7 +3,7 @@ export default {
      * Check if an element has aria attribute
      * @param expected
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   hasAriaAttribute (expected, msg = null) {
     const received = this.received
@@ -23,7 +23,7 @@ export default {
      * Check if an element has aria attributes
      * @param expected - space separated list of aria attributes
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   hasAriaAttributes (expected, msg = null) {
     const received = this.received
@@ -51,7 +51,7 @@ export default {
      * Check if an element has an aria role
      * @param expected
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   hasAriaRole (expected, msg = null) {
     const received = this.received
@@ -70,7 +70,7 @@ export default {
   /**
      * Check if an element has an aria label
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   hasAriaLabel (msg = null) {
     const received = this.received
@@ -89,7 +89,7 @@ export default {
   /**
      * Check if an element has an alt text
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   hasAltText (msg = null) {
     const received = this.received
@@ -109,7 +109,7 @@ export default {
   /**
      * Check if an element is keyboard-accessible
      * @param msg
-     * @returns {this}
+     * @returns {Expect}
      */
   toBeKeyboardAccessible (msg = null) {
     const received = this.received

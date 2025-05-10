@@ -17,7 +17,7 @@ export default {
      * Asserts that the actual object is equal to the expected object.
      * @param expected - The expected object.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeObject (expected, msg = null) {
     const received = this.received
@@ -54,7 +54,7 @@ export default {
      * With this method you can compare objects with circular references.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeDeepEqual (expected, msg = null) {
     const received = this.received
@@ -79,7 +79,7 @@ export default {
      * With this method you can compare objects with circular references.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeDeepEqualSafe (expected, msg = null) {
     const received = this.received
@@ -103,7 +103,7 @@ export default {
      * Asserts that the actual structure is equal to the expected structure.
      * @param expected - The expected structure.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeObjectStructureEqual (expected, msg = null) {
     const received = this.received
@@ -127,7 +127,7 @@ export default {
      * Asserts that the object has the specified property.
      * @param {string} property - The expected property name.
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   hasProperty (property, msg = null) {
     const received = this.received
@@ -160,7 +160,7 @@ export default {
      * @param {string} property - The expected property name.
      * @param {any} value
      * @param {string|null} [msg=null] - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   hasPropertyValue (property, value, msg = null) {
     const received = this.received

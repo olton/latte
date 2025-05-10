@@ -5,7 +5,7 @@ export default {
   /**
      * Asserts that the actual value is true.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeTrue (msg = null) {
     const received = this.received
@@ -23,7 +23,7 @@ export default {
   /**
      * Asserts that the actual value is false.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeFalse (msg = null) {
     const received = this.received
@@ -42,7 +42,7 @@ export default {
      * Asserts that the actual value matches the expected pattern.
      * @param expected - The expected pattern.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toMatch (expected, msg = null) {
     const received = this.received
@@ -72,7 +72,7 @@ export default {
      * Asserts that the actual value is greater than the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeGreaterThan (expected, msg = null) {
     const received = this.received
@@ -92,7 +92,7 @@ export default {
      * Asserts that the actual value is greater than or equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeGreaterThanOrEqual (expected, msg = null) {
     const received = this.received
@@ -112,7 +112,7 @@ export default {
      * Asserts that the actual value is less than the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeLessThan (expected, msg = null) {
     const received = this.received
@@ -132,7 +132,7 @@ export default {
      * Asserts that the actual value is less than or equal to the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeLessThanOrEqual (expected, msg = null) {
     const received = this.received
@@ -153,7 +153,7 @@ export default {
      * @param min - The minimum value.
      * @param max - The maximum value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBetween (min, max, msg = null) {
     const received = this.received
@@ -172,7 +172,7 @@ export default {
   /**
      * Asserts that the actual value is positive.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBePositive (msg = null) {
     const received = this.received
@@ -190,7 +190,7 @@ export default {
   /**
      * Asserts that the actual value is negative.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeNegative (msg = null) {
     const received = this.received
@@ -208,7 +208,7 @@ export default {
   /**
      * Asserts that the actual value is finite.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeFinite (msg = null) {
     const received = this.received
@@ -248,7 +248,7 @@ export default {
   /**
      * Asserts that the actual value is a valid IP address.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeIP (msg = null) {
     const received = this.received
@@ -266,7 +266,7 @@ export default {
   /**
      * Asserts that the actual value is a valid IPv4 address.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeIPv4 (msg = null) {
     const received = this.received
@@ -284,7 +284,7 @@ export default {
   /**
      * Asserts that the actual value is a valid IPv6 address.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeIPv6 (msg = null) {
     const received = this.received
@@ -302,7 +302,7 @@ export default {
   /**
      * Asserts that the actual value is a valid email address.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeEmail (msg = null) {
     const received = this.received
@@ -320,7 +320,7 @@ export default {
   /**
      * Asserts that the actual value is a valid URL.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeUrl (msg = null) {
     const received = this.received
@@ -338,7 +338,7 @@ export default {
   /**
      * Asserts that the actual value is a Base64 encoded string.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeBase64 (msg = null) {
     const received = this.received

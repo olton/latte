@@ -4,7 +4,7 @@ export default {
   /**
      * Asserts that the actual value is empty.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeEmpty (msg = null) {
     const received = this.received
@@ -43,7 +43,7 @@ export default {
   /**
      * Asserts that values in the array are unique.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeArrayUnique (msg = null) {
     const received = this.received
@@ -61,7 +61,7 @@ export default {
   /**
      * Asserts that the actual value is sorted.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeArraySorted (msg = null) {
     const received = this.received
@@ -82,7 +82,7 @@ export default {
      * Asserts that the actual value contains the expected value.
      * @param expected - The expected value.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toContain (expected, msg = null) {
     const received = this.received
@@ -114,7 +114,7 @@ export default {
      * Asserts that the actual array is equal to the expected array.
      * @param expected - The expected array.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeArrayEqual (expected, msg = null) {
     const received = this.received
@@ -140,7 +140,7 @@ export default {
   /**
      * Asserts that the actual value is an array.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeArray (msg = null) {
     const received = this.received

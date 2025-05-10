@@ -118,7 +118,7 @@ export const run = async (root, options = {}) => {
   // Загрузка и выполнение тестовых файлов
   for (const file of files) {
     testQueue.setCurrentFile(file)
-    hooksRegistry.clearFileLevelHooks()
+    // hooksRegistry.clearAllHooks()
 
     const fileUrl = pathToFileURL(realpathSync(file)).href
 
@@ -126,7 +126,7 @@ export const run = async (root, options = {}) => {
     if (options.watch) {
       delete require.cache[require.resolve(file)]
     }
-    await import(fileUrl + `?t=${Date.now()}`)
+    await import(fileUrl)
   }
 
   // Запуск тестов

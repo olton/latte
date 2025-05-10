@@ -428,5 +428,9 @@ export default {
   toBeKeyboardAccessible: {
     positive: 'Element is not keyboard accessible',
     negative: 'Element is keyboard accessible'
-  }
+  },
+  any: {
+    positive: 'Element does not have expected any',
+    negative: 'Element has expected any'
+  },
 }

@@ -4,7 +4,7 @@ export default {
   /**
      * Asserts that the actual value is a boolean.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeBoolean (msg = null) {
     const received = this.received
@@ -22,7 +22,7 @@ export default {
   /**
      * Asserts that the actual value is defined.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeDefined (msg = null) {
     const received = this.received
@@ -40,7 +40,7 @@ export default {
   /**
      * Asserts that the actual value is undefined.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeUndefined (msg = null) {
     const received = this.received
@@ -58,7 +58,7 @@ export default {
   /**
      * Asserts that the actual value is null.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeNull (msg = null) {
     const received = this.received
@@ -76,7 +76,7 @@ export default {
   /**
      * Asserts that the actual value is an integer.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeInteger (msg = null) {
     const received = this.received
@@ -94,7 +94,7 @@ export default {
   /**
      * Asserts that the actual value is a safe integer.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeSafeInteger (msg = null) {
     const received = this.received
@@ -112,7 +112,7 @@ export default {
   /**
      * Asserts that the actual value is a float.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeFloat (msg = null) {
     const received = this.received
@@ -130,7 +130,7 @@ export default {
   /**
      * Asserts that the actual value is a number and not is NaN.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeNumber (msg = null) {
     const received = Number(this.received)
@@ -148,7 +148,7 @@ export default {
   /**
      * Asserts that the actual value is NaN.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeNaN (msg = null) {
     const received = this.received
@@ -166,7 +166,7 @@ export default {
   /**
      * Asserts that the actual value is a JSON string.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeJson (msg = null) {
     const received = this.received
@@ -189,7 +189,7 @@ export default {
   /**
      * Asserts that the actual value is an XML string.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeXml (msg = null) {
     const received = this.received
@@ -208,7 +208,7 @@ export default {
      * Asserts that the actual value is of the specified type.
      * @param type - The expected type.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeType (type, msg = null) {
     const received = this.received
@@ -229,7 +229,7 @@ export default {
      * Asserts that the actual value is an instance of the specified type.
      * @param type - The expected type.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeInstanceOf (type, msg = null) {
     const received = this.received
@@ -249,7 +249,7 @@ export default {
   /**
      * Asserts that the actual value is a string.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeString (msg = null) {
     const received = this.received
@@ -267,7 +267,7 @@ export default {
   /**
      * Asserts that the actual value is a function.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeFunction (msg = null) {
     const received = this.received
@@ -287,7 +287,7 @@ export default {
   /**
      * Asserts that the actual value is an async function.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeAsyncFunction (msg = null) {
     const received = this.received
@@ -307,7 +307,7 @@ export default {
   /**
      * Asserts that the actual value is a date.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeDate (msg = null) {
     const received = this.received
@@ -325,7 +325,7 @@ export default {
   /**
      * Asserts that the actual value is a date.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeDateObject (msg = null) {
     const received = this.received
@@ -345,7 +345,7 @@ export default {
   /**
      * Asserts that the actual value is a regular expression.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeRegExp (msg = null) {
     const received = this.received
@@ -365,7 +365,7 @@ export default {
   /**
      * Asserts that the actual value is a symbol.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeSymbol (msg = null) {
     const received = this.received
@@ -385,7 +385,7 @@ export default {
   /**
      * Asserts that the actual value is a BigInt.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeBigInt (msg = null) {
     const received = this.received
@@ -405,7 +405,7 @@ export default {
   /**
      * Asserts that the actual value is a Map.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeMap (msg = null) {
     const received = this.received
@@ -425,7 +425,7 @@ export default {
   /**
      * Asserts that the actual value is a Set.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeSet (msg = null) {
     const received = this.received
@@ -445,7 +445,7 @@ export default {
   /**
      * Asserts that the actual value is a WeakMap.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeWeakMap (msg = null) {
     const received = this.received
@@ -465,7 +465,7 @@ export default {
   /**
      * Asserts that the actual value is a WeakSet.
      * @param msg - The message to display if the assertion fails.
-     * @returns {this}.
+     * @returns {Expect}.
      */
   toBeWeakSet (msg = null) {
     const received = this.received

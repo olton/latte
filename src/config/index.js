@@ -35,6 +35,7 @@ export const defaultConfig = {
   skipConfigFile: false,
   idea: false,
   clearConsole: false,
+  showStack: false,
 }
 
 export const updateConfig = (args) => {
@@ -82,6 +83,7 @@ export const updateConfig = (args) => {
   if (args.clearConsole) { config.clearConsole = true }
   if (args.idea) { config.idea = true }
   if (args.skipConfigFile) { config.skipConfigFile = true }
+  if (args.showStack) { config.showStack = true }
   if (args.suite) { config.suite = args.suite }
 
   if (config.reportType && !['console', 'lcov', 'html', 'junit'].includes(config.reportType)) {
@@ -159,6 +161,11 @@ export const processArgv = () => {
       alias: 'l',
       type: 'boolean',
       description: 'Use experimental resolver for imports'
+    })
+    .option('show-stack', {
+      alias: 's',
+      type: 'boolean',
+      description: 'Show stack trace for failed tests (required verbose mode)'
     })
     .option('max-workers', {
       type: 'string',

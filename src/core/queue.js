@@ -46,7 +46,8 @@ export class TestQueue {
 
   clearQueue () {
     this.queue = new Map()
-    this.currentFile = null
+    this.currentTestFile = null
+    this.currentDescribe = {}
   }
 }
 

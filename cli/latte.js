@@ -71,11 +71,9 @@ try {
 
   for(const file in result) {
     if (result[file].completed === false) {
-      console.error(termx.error(`${FAIL} Tests not completed!`))
       if (argv.idea) process.exit(1)
     }
   }
-  console.log(termx.green.write('All tests completed!'))
 } catch (error) {
   if (error.message.includes('Directory import') && error.message.includes('is not supported')
   ) {

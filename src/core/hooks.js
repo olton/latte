@@ -28,8 +28,14 @@ class HooksRegistry {
   }
 
   clearAllHooks () {
-    this.clearFileLevelHooks()
-    this.clearSuiteLevelHooks()
+    this.beforeEachFile = []
+    this.afterEachFile = []
+    this.beforeEachSuite = []
+    this.afterEachSuite = []
+    this.beforeAllFile = []
+    this.afterAllFile = []
+    this.beforeAllSuite = []
+    this.afterAllSuite = []
   }
 }
 
