@@ -118,7 +118,7 @@ export const run = async (root, options = {}) => {
   // Загрузка и выполнение тестовых файлов
   for (const file of files) {
     testQueue.setCurrentFile(file)
-    // hooksRegistry.clearAllHooks()
+    hooksRegistry.clearAllHooks()
 
     const fileUrl = pathToFileURL(realpathSync(file)).href
 

@@ -71,7 +71,7 @@ export const runner = async (queue, options) => {
     }
 
     for (const [file, jobs] of queue) {
-        hooksRegistry.clearAllHooks()
+        // hooksRegistry.clearAllHooks()
 
         // const fileHash = await getFileHash(realpathSync(file))
 
