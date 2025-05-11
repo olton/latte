@@ -75,15 +75,14 @@ try {
     }
   }
 } catch (error) {
-  if (error.message.includes('Directory import') && error.message.includes('is not supported')
-  ) {
+  if (error.message.includes('Directory import') && error.message.includes('is not supported')) {
     console.error(term(`\n${FAIL} Import of the Directory has been identified!`, {color: 'red'}))
     console.error(term('Please change import from: import {} from \'./directory\'', {color: 'yellow'}))
     console.error(term('To: import {} from \'./directory/index.js\'', {color: 'yellow'}))
     console.error(term('Or create package.json in this Directory with Field "exports"\n', {color: 'yellow'}))
     console.error(`${term('Original message:', {color: 'gray'})} ${error.message}\n`)
     Cursor.show()
-    process.exit(1)
+    process.exit(1) 
   } else {
     console.error(term(`\n${FAIL} Latte executing stopped with message: ${error.message}`, {color: 'red'}))
     if (argv.verbose) {

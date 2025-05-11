@@ -2,6 +2,7 @@ import { createRequire } from 'module'
 
 import { expect as expectFn } from '../expects/expect.js'
 import mockFn from './mock.js'
+import spyFn from './spy.js'
 import { Browser } from '../browser/browser.js'
 import { setup as setupDom, bye as byeDom, js, css, html } from '../dom/index.js'
 import { delay, getFileUrl } from '../helpers/delay.js'
@@ -31,6 +32,7 @@ export function registerGlobals () {
   global.beforeAll = beforeAll
   global.afterAll = afterAll
   global.mock = mockFn
+  global.spy = spyFn
   global.fetch = mockFn(() => Promise.resolve({ json: () => ({}) }))
   global.delay = delay
   global.getFileUrl = getFileUrl
@@ -70,6 +72,7 @@ export const registerGlobalEvents = () => {
 
 export const expect = expectFn
 export const mock = mockFn
+export const spy = spyFn
 export const fetch = mockFn(() => Promise.resolve({ json: () => ({}) }))
 export const B = Browser
 
