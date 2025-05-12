@@ -488,22 +488,19 @@ export declare function afterEach(fn: () => void): void;
 /**
  * Mocks a function or object to simulate a specific behavior.
  *
- * @param {Function} fn - The function to be mocked.
- * @param config {string | object}
- * @param type {string} Can be default, fetch, ajax
+ * @param {Function | Object} fn - The function to be mocked or config object for ajax or fetch.
+ * @param name {string} The name of the mock function or "ajax", "fetch".
  * @return {function}
  */
-export declare function mock(fn: () => {}, config?: any, type?: string): any;
+export declare function mock(fn: any, name?: string): any;
 
 /**
  * Spies on a function or object to track its calls and arguments.
  *
  * @param {Function} fn - The function to be spied on.
- * @param config {string | object}
- * @param type {string} Can be default, fetch, ajax
- * @return {function}
+ * @return {function} The spy function that can be used to track calls and arguments and method to reset.
  */
-export declare function spy(fn: () => {}, config?: any, type?: string): any;
+export declare function spy(fn: () => {}): any;
 
 /**
  * Waits for a specified amount of time before executing the next line of code.

@@ -11,7 +11,7 @@ describe('Fetch Mocking', () => {
     
     it('Fetch must process successful requests', async () => {
         // Настраиваем мок для fetch
-        mockHelper = mock(null, {
+        mockHelper = mock({
             status: 200,
             responseData: { data: 'test' }
         }, 'fetch');
@@ -29,7 +29,7 @@ describe('Fetch Mocking', () => {
     });
     
     it('Fetch supports different URLs and delays', async () => {
-        mockHelper = mock(null, [
+        mockHelper = mock([
             { url: '/api/users', status: 200, responseData: [{ id: 1 }] },
             { url: '/api/error', status: 500, responseText: 'Error' },
             { url: /\/api\/products\/\d+/, responseData: { id: 42 } }

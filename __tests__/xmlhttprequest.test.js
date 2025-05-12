@@ -19,7 +19,7 @@ describe('XMLHttpRequest Mocking', () => {
         }
 
         // Вызываем mock с флагом isXhr = true
-        mockHelper = mock(null, mockConfig, "ajax")
+        mockHelper = mock(mockConfig, "ajax")
 
         // Создаем экземпляр XHR (обратите внимание на оператор new)
         const xhr = new Window.XMLHttpRequest()
@@ -46,7 +46,7 @@ describe('XMLHttpRequest Mocking', () => {
 
     it('Must correctly process errors', async () => {
         // Настраиваем мок с ошибкой
-        mockHelper = mock(null, {
+        mockHelper = mock({
             responseStatus: 500,
             responseText: 'Server Error'
         }, "ajax")

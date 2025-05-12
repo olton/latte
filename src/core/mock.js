@@ -127,21 +127,21 @@ function mockAjax(config) {
 
 /**
  * Mock function
- * @param fn
- * @param config - name of the function or object with XMLHttpRequest methods
- * @param type
+ * @param fn - function to be mocked or config object for XMLHttpRequest or fetch
+ * @param name - name of the function or "fetch" or "ajax"
  * @returns {(function(...[*]): null)|{reset: *}}
  */
-const mock = (fn = () => {}, config = 'mockFn', type = "default") => {
-    switch (type) {
-        case 'fetch':
-            return mockFetch(config);
-        case 'ajax':
-            return mockAjax(config);
-        default:
-            break;
+const mock = (fn = () => {}, name = 'mockFn') => {
+    if (typeof fn === "object") {
+        switch (name) {
+            case 'fetch':
+                return mockFetch(fn);
+            case 'ajax':
+                return mockAjax(fn);
+            default:
+                return () => fn
+        }
     }
-    
     const mockFn = function (...args) {
         mockFn.mock.calls.push(args)
         mockFn.mock.contexts.push(this)
@@ -170,7 +170,7 @@ const mock = (fn = () => {}, config = 'mockFn', type = "default") => {
         return result.value
     }
 
-    Object.defineProperty(mockFn, 'name', { value: config })
+    Object.defineProperty(mockFn, 'name', { value: name })
 
     mockFn.mock = {
         time: 0,
