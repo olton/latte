@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "pub": "npm publish --access public",
-    "test": "cross-env NODE_OPTIONS=\"--import tsx\" latte --progress=default",
+    "test": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte --progress=default",
     "test:watch": "cross-env NODE_OPTIONS=\"--import tsx\" latte --watch"
   },
   "keywords": [
