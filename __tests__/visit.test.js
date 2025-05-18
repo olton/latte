@@ -10,12 +10,6 @@ afterAll(async () => {
   await B.bye()
 })
 
-beforeEach(async () => {
-})
-
-afterEach(async () => {
-})
-
 describe('Browser tests', () => {
   it('Visit example.com', async () => {
     await B.visit(url)

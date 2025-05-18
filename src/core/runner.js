@@ -43,9 +43,8 @@ export const runner = async (queue, options) => {
         totalTestCount += q[1].tests.length
     }
 
-    log(' ')
-
     if (progress !== 'none' && !verbose && !parallel) {
+        // process.stdout.write(term(`\n\r `))
         progressBar = new Progress({
             total: totalTestCount,
             width: 30,
@@ -57,9 +56,12 @@ export const runner = async (queue, options) => {
             unitName: 'test',
             barColor: 'blueBright',
             cursor: false,
+            spaceBefore: 0,
         })
 
         if (!idea) await progressBar.here()
+    } else {
+        log(' ')
     }
 
     const processTest = (file, count = 1) => {
