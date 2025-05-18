@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "pub": "npm publish --access public",
-    "test": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte --progress=default",
+    "test": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte --progress=none",
     "test:watch": "cross-env NODE_OPTIONS=\"--import tsx\" latte --watch"
   },
   "keywords": [
