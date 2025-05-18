@@ -1,6 +1,5 @@
 import { stringify, safeStringify } from '../helpers/json.js'
-import { Progress } from '@olton/progress'
-import { Screen, term, termx } from '@olton/terminal'
+import { Screen, term, termx, Progress } from '@olton/terminal'
 import { BOT } from '../config/index.js'
 import { hooksRegistry } from './hooks.js'
 

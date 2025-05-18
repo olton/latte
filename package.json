@@ -35,8 +35,7 @@
   },
   "dependencies": {
     "@happy-dom/global-registrator": "^17.4.7",
-    "@olton/progress": "^0.8.4",
-    "@olton/terminal": "^0.5.2",
+    "@olton/terminal": "^0.6.0",
     "chokidar": "^4.0.3",
     "glob": "^11.0.2",
     "happy-dom": "^17.4.7",
