@@ -36,6 +36,7 @@ export const defaultConfig = {
   idea: false,
   clearConsole: false,
   showStack: false,
+  domEnv: 'jsdom',
 }
 
 export const updateConfig = (args) => {
@@ -85,6 +86,7 @@ export const updateConfig = (args) => {
   if (args.skipConfigFile) { config.skipConfigFile = true }
   if (args.showStack) { config.showStack = true }
   if (args.suite) { config.suite = args.suite }
+  if (args.domEnv) { config.domEnv = args.domEnv }
 
   if (config.reportType && !['console', 'lcov', 'html', 'junit'].includes(config.reportType)) {
     console.log(term(`${BOT} Unknown type of report: ${config.reportType}. Console will be used.`, { color: 'yellow' }))
@@ -131,6 +133,10 @@ export const processArgv = () => {
       alias: 'd',
       type: 'boolean',
       description: 'Enable DOM emulation'
+    })
+    .option('dom-env', {
+      type: 'string',
+      description: 'DOM environment: \'jsdom\' or \'happy-dom\''
     })
     .option('react', {
       alias: 'r',

@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.16.2",
+  "version": "0.17.0",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
@@ -10,6 +10,7 @@
   "scripts": {
     "pub": "npm publish --access public",
     "test": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte --progress=none",
+    "test:jsdom": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte -v --dom --dom-env=jsdom --progress=none",
     "test:watch": "cross-env NODE_OPTIONS=\"--import tsx\" latte --watch"
   },
   "keywords": [
@@ -38,10 +39,13 @@
     "@olton/terminal": "^0.6.0",
     "chokidar": "^4.0.3",
     "glob": "^11.0.2",
+    "global-jsdom": "^26.0.0",
     "happy-dom": "^17.4.7",
     "html-escaper": "^3.0.3",
-    "puppeteer": "^24.8.2",
+    "jsdom": "^26.1.0",
+    "puppeteer": "^24.9.0",
     "table": "^6.9.0",
+    "whatwg-fetch": "^3.6.20",
     "yargs": "^17.7.2"
   },
   "peerDependencies": {

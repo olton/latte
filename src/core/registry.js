@@ -4,7 +4,7 @@ import { expect as expectFn } from '../expects/expect.js'
 import mockFn from './mock.js'
 import spyFn from './spy.js'
 import { Browser } from '../browser/browser.js'
-import { setup as setupDom, bye as byeDom, js, css, html } from '../dom/index.js'
+import { setup as setupDom, bye as byeDom, js, css, html, waitFor as waitForElement, waitForObject, flush, $, $$ } from '../dom/index.js'
 import { delay, getFileUrl } from '../helpers/delay.js'
 import { describe, suite, it, test } from './api.js'
 import { beforeEach, afterEach, beforeAll, afterAll } from './hooks.js'
@@ -17,7 +17,12 @@ export const DOM = {
   bye: byeDom,
   js,
   css,
-  html
+  html,
+  $,
+  $$,
+  flush,
+  waitForElement,
+  waitForObject,
 }
 
 export function registerGlobals () {

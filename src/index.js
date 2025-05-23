@@ -30,7 +30,7 @@ export { messages }
 export const run = async (root, options = {}) => {
   global.testResults = {}
   options.root = root
-
+  
   let files = []
 
   // Если указаны конкретные файлы, используем их
@@ -84,7 +84,7 @@ export const run = async (root, options = {}) => {
 
   if (options.dom) {
     await DOM.setup()
-    console.log(term(`   ${options.react ? '├' : '└'}── 📦 DOM ready!`, {color: 'green'}))
+    console.log(term(`   ${options.react ? '├' : '└'}── 📦 DOM ready (environment set to ${options.domEnv})!`, {color: 'green'}))
   }
 
   if (options.react) {

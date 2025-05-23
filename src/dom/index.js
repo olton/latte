@@ -2,6 +2,8 @@ import { BrowserErrorCaptureEnum } from 'happy-dom'
 import { GlobalRegistrator } from '@happy-dom/global-registrator'
 import { merge } from '../helpers/merge.js'
 import { readFileSync, existsSync } from 'fs'
+import jsdomGlobal from 'global-jsdom'
+import {fetch as fetchPolyfill} from 'whatwg-fetch' 
 
 const navigationDefaults = {
   disableMainFrameNavigation: false,
@@ -41,16 +43,67 @@ const windowDefaults = {
   device: deviceDefaults
 }
 
+// Конфігурація за замовчуванням для jsdom
+const jsdomDefaults = {
+  url: 'http://localhost:8000/',
+  contentType: 'text/html',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+  includeNodeLocations: false,
+  runScripts: 'dangerously',
+  resources: 'usable',
+  pretendToBeVisual: true
+}
+
+let cleanup = null;
+
 const setup = async (options) => {
   try {
     await GlobalRegistrator.unregister()
   } catch (e) {}
-  GlobalRegistrator.register(merge(windowDefaults, options))
+
+  if (global.config.domEnv === 'jsdom') {
+    try {
+      // Використовуємо jsdom-global для автоматичної установки всіх глобальних змінних
+      cleanup = jsdomGlobal('', { 
+        ...jsdomDefaults, 
+        ...options
+      });
+
+      if (typeof window.fetch === "undefined") window.fetch = fetchPolyfill;
+      
+      // Встановлюємо HTML-структуру
+      document.documentElement.innerHTML = `
+        <html lang="en">
+          <head>
+            <title>Test page</title>
+          </head>
+          <body>
+          </body>
+        </html>
+      `;
+    } catch (e) {
+      console.error('JSDOM Initialization Error:', e);
+      throw e;
+    }
+  } else {
+    // Ініціалізація happy-dom як раніше
+    GlobalRegistrator.register(merge(windowDefaults, options))
+  }
+  
   flush()
 }
 
 const bye = async () => {
-  await GlobalRegistrator.unregister()
+  if (global.config && global.config.domEnv === 'jsdom') {
+    // Очищення глобальних змінних jsdom
+    if (typeof cleanup === 'function') {
+      cleanup();
+      cleanup = null;
+    }
+  } else {
+    // Відключення happy-dom як раніше
+    await GlobalRegistrator.unregister()
+  }
 }
 
 const html = (str) => {
@@ -155,9 +208,23 @@ function waitFor (selector, timeout = 5000) {
 
     setTimeout(() => {
       observer.disconnect()
-      reject(new Error(`Элемент ${selector} не найден в течение ${timeout}мс`))
+      reject(new Error(`Then element ${selector} not found during ${timeout}мс`))
     }, timeout)
   })
+}
+
+const waitForObject = (name) => {
+  return new Promise((resolve) => {
+    const checkObject = setInterval(() => {
+      if (window[name]) {
+        // if (typeof cb === 'function') {
+        //   cb()
+        // }
+        clearInterval(checkObject);
+        resolve(window[name]);
+      }
+    }, 100);
+  });
 }
 
 export {
@@ -169,5 +236,6 @@ export {
   $,
   $$,
   flush,
-  waitFor
+  waitFor,
+  waitForObject,  
 }
