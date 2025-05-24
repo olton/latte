@@ -10,7 +10,7 @@
   "scripts": {
     "pub": "npm publish --access public",
     "test": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte --progress=none",
-    "test:jsdom": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte -v --dom --dom-env=jsdom --progress=none",
+    "test:happy": "cross-env NODE_OPTIONS=\"--import tsx\" npx latte --dom --dom-env=happy-dom --progress=none",
     "test:watch": "cross-env NODE_OPTIONS=\"--import tsx\" latte --watch"
   },
   "keywords": [
