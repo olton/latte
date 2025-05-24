@@ -1,7 +1,6 @@
-import { stringify, safeStringify } from '../helpers/json.js'
+import { safeStringify } from '../helpers/json.js'
 import { Screen, term, termx, Progress } from '@olton/terminal'
 import { BOT } from '../config/index.js'
-import { hooksRegistry } from './hooks.js'
 
 const log = console.log
 

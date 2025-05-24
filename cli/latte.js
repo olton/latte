@@ -22,17 +22,17 @@ const argv = processArgv()
 
 try {
   registerGlobalEvents()
-  if (argv.clearConsole) clearConsole()
-  banner()
+  if (argv.clearConsole || argv.idea) clearConsole()
+  if (!argv.idea) banner()
   updateConfig(argv)
   
   const root = process.cwd()
 
   const projectName = getProjectName(root)
-  console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}`)
-  console.log(`${term(DIVIDER, {color: 'gray'})}`)
-  console.log(`${term(`🏠 Project directory: ${term(root, {color: 'whiteBright'})}`, {color: 'gray'})}`)
-  console.log(`${term(`⚙️ Tests included: ${term(config.include, {color: 'yellowBright'})}`, {color: 'gray'})}`)
+  if (!argv.idea) console.log(`${term('🚀 Executing tests for:', {color: 'blueBright'})} ${term(projectName, {style: 'bold'})}`)
+  if (!argv.idea) console.log(`${term(DIVIDER, {color: 'gray'})}`)
+  if (!argv.idea) console.log(`${term(`🏠 Project directory: ${term(root, {color: 'whiteBright'})}`, {color: 'gray'})}`)
+  if (!argv.idea) console.log(`${term(`⚙️ Tests included: ${term(config.include, {color: 'yellowBright'})}`, {color: 'gray'})}`)
 
   if (argv.init) {
     const configFileName = argv.config || 'latte.json'
@@ -42,7 +42,7 @@ try {
   }
 
   if (argv.loader) {
-    console.log(term(`${BOT} Experimental loader mode is enabled!`, {color: 'yellow'}))
+    if (!argv.idea) console.log(term(`${BOT} Experimental loader mode is enabled!`, {color: 'yellow'}))
     const resolverPath = resolve(__dirname, '../src/resolver/index.js')
     register(pathToFileURL(resolverPath).href)
   }
@@ -53,7 +53,7 @@ try {
       console.log(term(`${BOT} └── After use: NODE_OPTIONS="--import tsx" latte ...`, {color: 'red'}))
       process.exit(1)
     } else {
-      console.log(term(`${BOT} TSX found! TypeScript and JSX/TSX support is enabled!`, {color: 'green'}))
+      if (!argv.idea) console.log(term(`${BOT} TSX found! TypeScript and JSX/TSX support is enabled!`, {color: 'green'}))
     }
   }
 
