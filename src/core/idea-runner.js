@@ -118,14 +118,15 @@ export const idea_runner = async (queue, options) => {
         }
 
         if (jobs.describes.length) {
-            
+            let describeId = 0
             for (const describe of jobs.describes) {
                 if (suiteName) {
                     if (describe.name.includes(suiteName) === false) {
                         continue
                     }
                 }
-                log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}' timestamp='${new Date().toISOString().replace('Z', '')}' flowId='${0}']`)
+                const timestamp = new Date().toISOString().replace('Z', '')
+                log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}' timestamp='${timestamp}' nodeId='suite_${describeId}' parentNodeId='root' flowId='${0}']`)
 
                 await setupAndTeardown(describe.beforeAll, 'beforeAll')
 
@@ -137,6 +138,7 @@ export const idea_runner = async (queue, options) => {
 
                 global.testResults[file].describes.push(describes)
                 const startDescribeTime = Date.now()
+                let testId = 0
                 for (const test of describe.it) {
                     let expect = {}
 
@@ -153,7 +155,7 @@ export const idea_runner = async (queue, options) => {
                         }
                     }
 
-                    log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}']`)
+                    log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}' nodeId='test_${testId}' parentNodeId='suite_${describeId}' flowId='${0}']`)
                     
                     // Execute test function
                     const startTestTime = Date.now()
@@ -193,11 +195,14 @@ export const idea_runner = async (queue, options) => {
                     }
 
                     totalTests++
+                    testId++
                 }
 
                 await setupAndTeardown(describe.afterAll, 'afterAll')
 
                 log(`##teamcity[testSuiteFinished name='${describe.name}' duration='${Date.now() - startDescribeTime}']`)
+                
+                describeId++
             }
         }
 
@@ -228,7 +233,7 @@ export const idea_runner = async (queue, options) => {
                     log(`##teamcity[testFinished name='${test.name}' duration='${Date.now() - startTestTime}']`)
                 } catch (error) {
                     const [row, col] = parseStack(error.stack, file)
-                    log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='${error.message.replace(/'/g, '\\\'')}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                    log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Assertion place: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
                     global.testResults[file].completed = false
                     expect = {
                         result: false,
