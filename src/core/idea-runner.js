@@ -18,6 +18,7 @@
  * 2. **`timestamp`** - часова мітка події в форматі Unix timestamp
  * 3. **`nodeId`** - ідентифікатор вузла (використовується при розподіленому тестуванні)
  * 4. **`parentNodeId`** - ідентифікатор батьківського вузла
+ * 5. **`name`** - назва тесту або набору тестів
  *
  * ### Для повідомлень про тести:
  * 1. **`duration`** - тривалість виконання тесту в мілісекундах
@@ -38,6 +39,7 @@
  * 1. **`path`** - шлях до артефакту
  * 2. **`size`** - розмір артефакту
  *
+ * Не реалізовано:
  * ### Для повідомлень про покриття коду:
  * 1. **`coverageStats`** - статистика покриття коду
  * 2. **`coverageClass`** - клас покриття
@@ -49,6 +51,27 @@
 import { term } from '@olton/terminal'
 
 const log = console.log
+
+/**
+ * Парсить стек помилки для отримання рядка та стовпчика
+ * @param stack
+ * @param file
+ * @returns number[] - [row, column]
+ */
+const parseStack = (stack, file) => {
+    if (!stack) return ''
+    const lines = stack.split('\n')
+    const filteredLines = lines.filter(line => {
+        // Фільтруємо рядки, які не містять інформацію про файл або номер рядка
+        return line.includes(file)
+    })
+    const parsed = filteredLines[0].match(/at (.+):(\d+):(\d+)/)
+    if (parsed) {
+        // Повертаємо рядок у форматі "file:line:column"
+        return [+parsed[2], +parsed[3]]
+    }
+    return [0, 0]
+}
 
 const setupAndTeardown = async (funcs, type) => {
     if (funcs && funcs.length) {
@@ -85,6 +108,7 @@ export const idea_runner = async (queue, options) => {
         let testFileStatus = true
         let testFilePassed = 0
         let testFileFailed = 0
+        const filePath = jobs.filePath || file
 
         global.testResults[file] = {
             describes: [],
@@ -101,7 +125,7 @@ export const idea_runner = async (queue, options) => {
                         continue
                     }
                 }
-                log(`##teamcity[testSuiteStarted name='${describe.name}' timestamp='${new Date().toISOString().replace('Z', '')}' flowId='${0}']`)
+                log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}' timestamp='${new Date().toISOString().replace('Z', '')}' flowId='${0}']`)
 
                 await setupAndTeardown(describe.beforeAll, 'beforeAll')
 
@@ -118,18 +142,18 @@ export const idea_runner = async (queue, options) => {
 
                     if (testName) {
                         if (testName && test.name.includes(testName) === false) {
-                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${file}']`)
+                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
                             continue
                         }
                     }
                     if (skip) {
                         if (skip && test.name.includes(skip) === true) {
-                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${file}']`)
+                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
                             continue
                         }
                     }
 
-                    log(`##teamcity[testStarted name='${test.name}']`)
+                    log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}']`)
                     
                     // Execute test function
                     const startTestTime = Date.now()
@@ -138,9 +162,10 @@ export const idea_runner = async (queue, options) => {
                         await setupAndTeardown(test.beforeEach, 'beforeEach')
                         await test.fn()
                         expect.result = true
-                        log(`##teamcity[testFinished name='${test.name}' locationHint='${file}' duration='${Date.now() - startTestTime}']`)
+                        log(`##teamcity[testFinished name='${test.name}' duration='${Date.now() - startTestTime}']`)
                     } catch (error) {
-                        log(`##teamcity[testFailed name='${test.name}' locationHint='${file}' details='${error.message.replace(/'/g, '\\\'')}' errorDetails='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                        const [row, col] = parseStack(error.stack, file)
+                        log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Assertion place: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
                         global.testResults[file].completed = false
                         expect = {
                             result: false,
@@ -182,15 +207,15 @@ export const idea_runner = async (queue, options) => {
                 let expect = {}
 
                 if (testName && test.name.includes(testName) === false) {
-                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${file}']`)
+                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
                     continue
                 }
                 if (skip && test.name.includes(skip) === true) {
-                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${file}']`)
+                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
                     continue
                 }
 
-                log(`##teamcity[testStarted name='${test.name}']`)
+                log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}']`)
 
                 // Execute test function
                 const startTestTime = Date.now()
@@ -200,9 +225,10 @@ export const idea_runner = async (queue, options) => {
                 try {
                     await test.fn()
                     expect.result = true
-                    log(`##teamcity[testFinished name='${test.name}' locationHint='${file}' duration='${Date.now() - startTestTime}']`)
+                    log(`##teamcity[testFinished name='${test.name}' duration='${Date.now() - startTestTime}']`)
                 } catch (error) {
-                    log(`##teamcity[testFailed name='${test.name}' locationHint='${file}' details='${error.message.replace(/'/g, '\\\'')}' errorDetails='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                    const [row, col] = parseStack(error.stack, file)
+                    log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='${error.message.replace(/'/g, '\\\'')}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
                     global.testResults[file].completed = false
                     expect = {
                         result: false,

@@ -6,13 +6,15 @@ export class TestQueue {
     this.currentDescribe = {}
   }
 
-  setCurrentFile (file) {
+  setCurrentFile (file, filePath = '') {
     this.currentTestFile = file
+
     this.queue.set(file, {
       describes: [],
       tests: [],
       beforeAll: [],
-      afterAll: []
+      afterAll: [],
+      filePath: filePath,
     })
   }
 
