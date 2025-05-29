@@ -126,7 +126,7 @@ export const idea_runner = async (queue, options) => {
                     }
                 }
                 const timestamp = new Date().toISOString().replace('Z', '')
-                log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}' timestamp='${timestamp}' nodeId='suite_${describeId}' parentNodeId='root' flowId='${0}']`)
+                log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}::${describe.name}' timestamp='${timestamp}' nodeId='suite_${describeId}' parentNodeId='root' flowId='${0}']`)
 
                 await setupAndTeardown(describe.beforeAll, 'beforeAll')
 
@@ -144,18 +144,18 @@ export const idea_runner = async (queue, options) => {
 
                     if (testName) {
                         if (testName && test.name.includes(testName) === false) {
-                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
+                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
                             continue
                         }
                     }
                     if (skip) {
                         if (skip && test.name.includes(skip) === true) {
-                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
+                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
                             continue
                         }
                     }
 
-                    log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}' nodeId='test_${testId}' parentNodeId='suite_${describeId}' flowId='${0}']`)
+                    log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}::${test.name}' nodeId='test_${testId}' parentNodeId='suite_${describeId}' flowId='${0}']`)
                     
                     // Execute test function
                     const startTestTime = Date.now()
@@ -164,10 +164,10 @@ export const idea_runner = async (queue, options) => {
                         await setupAndTeardown(test.beforeEach, 'beforeEach')
                         await test.fn()
                         expect.result = true
-                        log(`##teamcity[testFinished name='${test.name}' duration='${Date.now() - startTestTime}']`)
+                        log(`##teamcity[testFinished name='${test.name}' locationHint='${filePath}::${test.name}' duration='${Date.now() - startTestTime}']`)
                     } catch (error) {
                         const [row, col] = parseStack(error.stack, file)
-                        log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Assertion place: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                        log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
                         global.testResults[file].completed = false
                         expect = {
                             result: false,
@@ -212,11 +212,11 @@ export const idea_runner = async (queue, options) => {
                 let expect = {}
 
                 if (testName && test.name.includes(testName) === false) {
-                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
+                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
                     continue
                 }
                 if (skip && test.name.includes(skip) === true) {
-                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}']`)
+                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
                     continue
                 }
 
@@ -230,10 +230,10 @@ export const idea_runner = async (queue, options) => {
                 try {
                     await test.fn()
                     expect.result = true
-                    log(`##teamcity[testFinished name='${test.name}' duration='${Date.now() - startTestTime}']`)
+                    log(`##teamcity[testFinished name='${test.name}' locationHint='${filePath}::${test.name}' duration='${Date.now() - startTestTime}']`)
                 } catch (error) {
                     const [row, col] = parseStack(error.stack, file)
-                    log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Assertion place: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                    log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
                     global.testResults[file].completed = false
                     expect = {
                         result: false,

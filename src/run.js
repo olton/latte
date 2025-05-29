@@ -140,9 +140,9 @@ export const run = async (root, options = {}) => {
             // Ігноруємо помилки
         }
     }
-
+    
     // Обработка покрытия кода, если включено
-    if (!options.idea && options.coverage) {
+    if (options.coverage) {
         const filteredCoverage = coverageFilter(coverage)
 
         if (options.reportType === 'lcov') {
