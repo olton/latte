@@ -21,7 +21,8 @@
     "html",
     "dom",
     "browser",
-    "testing"
+    "testing",
+    "latte"
   ],
   "author": "Serhii Pimenov <serhii@pimenov.com.ua> (https://pimenov.com.ua)",
   "license": "MIT",
@@ -35,18 +36,18 @@
     "email": "serhii@pimenov.com.ua"
   },
   "dependencies": {
-    "@happy-dom/global-registrator": "^17.4.7",
+    "@happy-dom/global-registrator": "^17.5.6",
     "@olton/terminal": "^0.6.0",
     "chokidar": "^4.0.3",
     "glob": "^11.0.2",
     "global-jsdom": "^26.0.0",
-    "happy-dom": "^17.4.7",
+    "happy-dom": "^17.5.6",
     "html-escaper": "^3.0.3",
     "jsdom": "^26.1.0",
     "puppeteer": "^24.9.0",
     "table": "^6.9.0",
     "whatwg-fetch": "^3.6.20",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
