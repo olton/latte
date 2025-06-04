@@ -71,9 +71,11 @@ try {
 
   for(const file in result) {
     if (result[file].completed === false) {
-      if (argv.idea) process.exit(1)
+      process.exit(1)
     }
   }
+  console.log(`Finished! ${term('🎉', {color: 'greenBright'})}`)
+  if (!argv.watch) process.exit(0)
 } catch (error) {
   if (error.message.includes('Directory import') && error.message.includes('is not supported')) {
     console.error(term(`\n${FAIL} Import of the Directory has been identified!`, {color: 'red'}))

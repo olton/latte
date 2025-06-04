@@ -73,6 +73,48 @@ const parseStack = (stack, file) => {
     return [0, 0]
 }
 
+const Console = {
+    log: (message) => {
+        if (typeof message === 'object') {
+            message = JSON.stringify(message)
+        }
+        console.log(`##teamcity[message '${message}']`)
+    },
+    start: () => {
+        log(`##teamcity[testingStarted]`)
+    },
+    finish: (duration) => {
+        log(`##teamcity[testingFinished duration='${duration}']`)
+    },
+    suiteStarted: (name, filePath, nodeId = 0, parentNodeId = 'root', flowId = 0) => {
+        const timestamp = new Date().toISOString().replace('Z', '')
+        log(`##teamcity[testSuiteStarted name='${name}' locationHint='${filePath}::${name}' timestamp='${timestamp}' nodeId='suite_${nodeId}' parentNodeId='root' flowId='0']`)
+    },
+    suiteFinished: (name, duration) => {
+        log(`##teamcity[testSuiteFinished name='${name}' duration='${duration}']`)
+    },
+    testStarted: (name, filePath, nodeId = 0, parentNodeId = 0, flowId = 0) => {
+        log(`##teamcity[testStarted name='${name}' locationHint='${filePath}::${name}' nodeId='test_${nodeId}' parentNodeId='${parentNodeId}' flowId='${flowId}']`)
+    },
+    testFinished: (name, filePath, duration) => {
+        log(`##teamcity[testFinished name='${name}' locationHint='${filePath}::${name}' duration='${duration}']`)
+    },
+    testFailed: (name, filePath, error, file = '') => {
+        let { received, expected, message, stack } = error
+        const [row, col] = parseStack(stack, file)
+        if (typeof received === 'object' || typeof received === 'function') {
+            received = typeof received
+        }
+        if (typeof expected === 'object' || typeof expected === 'function') {
+            expected = typeof expected
+        }
+        log(`##teamcity[testFailed name='${name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion']`)
+    },
+    testIgnored: (name, filePath, message) => {
+        log(`##teamcity[testIgnored name='${name}' message='${message}' locationHint='${filePath}::${name}']`)
+    }
+}
+
 const setupAndTeardown = async (funcs, type) => {
     if (funcs && funcs.length) {
         for (const fn of funcs) {
@@ -86,8 +128,9 @@ const setupAndTeardown = async (funcs, type) => {
 }
 
 export const idea_runner = async (queue, options) => {
-    log(`##teamcity[testingStarted]`)
-
+    // log(`##teamcity[testingStarted]`)
+    Console.start()
+    
     const startTime = Date.now()
     const { verbose, test: testName, suite: suiteName, skip, parallel, idea, progress, showStack = false } = options
 
@@ -125,8 +168,9 @@ export const idea_runner = async (queue, options) => {
                         continue
                     }
                 }
-                const timestamp = new Date().toISOString().replace('Z', '')
-                log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}::${describe.name}' timestamp='${timestamp}' nodeId='suite_${describeId}' parentNodeId='root' flowId='${0}']`)
+                // const timestamp = new Date().toISOString().replace('Z', '')
+                // log(`##teamcity[testSuiteStarted name='${describe.name}' locationHint='${filePath}::${describe.name}' timestamp='${timestamp}' nodeId='suite_${describeId}' parentNodeId='root' flowId='${0}']`)
+                Console.suiteStarted(describe.name, filePath, describeId, 'root', 0)
 
                 await setupAndTeardown(describe.beforeAll, 'beforeAll')
 
@@ -144,18 +188,21 @@ export const idea_runner = async (queue, options) => {
 
                     if (testName) {
                         if (testName && test.name.includes(testName) === false) {
-                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                            // log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                            Console.testIgnored(test.name, filePath, 'Test skipped by name filter')
                             continue
                         }
                     }
                     if (skip) {
                         if (skip && test.name.includes(skip) === true) {
-                            log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                            // log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                            Console.testIgnored(test.name, filePath, 'Test skipped by name filter')
                             continue
                         }
                     }
 
-                    log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}::${test.name}' nodeId='test_${testId}' parentNodeId='suite_${describeId}' flowId='${0}']`)
+                    // log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}::${test.name}' nodeId='test_${testId}' parentNodeId='suite_${describeId}' flowId='${0}']`)
+                    Console.testStarted(test.name, filePath, testId, `suite_${describeId}`, 0)
                     
                     // Execute test function
                     const startTestTime = Date.now()
@@ -164,10 +211,13 @@ export const idea_runner = async (queue, options) => {
                         await setupAndTeardown(test.beforeEach, 'beforeEach')
                         await test.fn()
                         expect.result = true
-                        log(`##teamcity[testFinished name='${test.name}' locationHint='${filePath}::${test.name}' duration='${Date.now() - startTestTime}']`)
+                        // log(`##teamcity[testFinished name='${test.name}' locationHint='${filePath}::${test.name}' duration='${Date.now() - startTestTime}']`)
+                        Console.testFinished(test.name, filePath, Date.now() - startTestTime)
                     } catch (error) {
-                        const [row, col] = parseStack(error.stack, file)
-                        log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                        // const {received, expected, message, stack} = error
+                        // const [row, col] = parseStack(stack, file)
+                        // log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion' stackTrace='${showStack ? stack.replace(/'/g, '') : ''}']`)
+                        Console.testFailed(test.name, filePath, error, file)
                         global.testResults[file].completed = false
                         expect = {
                             result: false,
@@ -200,7 +250,8 @@ export const idea_runner = async (queue, options) => {
 
                 await setupAndTeardown(describe.afterAll, 'afterAll')
 
-                log(`##teamcity[testSuiteFinished name='${describe.name}' duration='${Date.now() - startDescribeTime}']`)
+                // log(`##teamcity[testSuiteFinished name='${describe.name}' duration='${Date.now() - startDescribeTime}']`)
+                Console.suiteFinished(describe.name, Date.now() - startDescribeTime)
                 
                 describeId++
             }
@@ -212,15 +263,18 @@ export const idea_runner = async (queue, options) => {
                 let expect = {}
 
                 if (testName && test.name.includes(testName) === false) {
-                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                    // log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                    Console.testIgnored(test.name, filePath, 'Test skipped by name filter')
                     continue
                 }
                 if (skip && test.name.includes(skip) === true) {
-                    log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                    // log(`##teamcity[testIgnored name='${test.name}' message='Test skipped by name filter' locationHint='${filePath}::${test.name}']`)
+                    Console.testIgnored(test.name, filePath, 'Test skipped by name filter')
                     continue
                 }
 
-                log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}']`)
+                // log(`##teamcity[testStarted name='${test.name}' locationHint='${filePath}']`)
+                Console.testStarted(test.name, filePath)
 
                 // Execute test function
                 const startTestTime = Date.now()
@@ -230,10 +284,13 @@ export const idea_runner = async (queue, options) => {
                 try {
                     await test.fn()
                     expect.result = true
-                    log(`##teamcity[testFinished name='${test.name}' locationHint='${filePath}::${test.name}' duration='${Date.now() - startTestTime}']`)
+                    // log(`##teamcity[testFinished name='${test.name}' locationHint='${filePath}::${test.name}' duration='${Date.now() - startTestTime}']`)
+                    Console.testFinished(test.name, filePath, Date.now() - startTestTime)
                 } catch (error) {
-                    const [row, col] = parseStack(error.stack, file)
-                    log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${error.message}' actual='${error.received}' expected='${error.expected}' type='assertion' stackTrace='${showStack ? error.stack.replace(/'/g, '\\\'') : ''}']`)
+                    // const {received, expected, message, stack} = error
+                    // const [row, col] = parseStack(stack, file)
+                    // log(`##teamcity[testFailed name='${test.name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion' stackTrace='${showStack ? stack.replace(/'/g, '') : ''}']`)
+                    Console.testFailed(test.name, filePath, error, file)
                     global.testResults[file].completed = false
                     expect = {
                         result: false,
@@ -268,7 +325,8 @@ export const idea_runner = async (queue, options) => {
         global.testResults[file].duration = (seconds * 1e9 + nanoseconds) / 1e6
     }
     
-    log(`##teamcity[testingFinished deration='${Date.now() - startTime}']`)
+    // log(`##teamcity[testingFinished deration='${Date.now() - startTime}']`)
+    Console.finish(Date.now() - startTime)
 
     return failedTests
 }

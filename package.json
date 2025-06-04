@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.17.1",
+  "version": "0.17.2",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
@@ -36,15 +36,15 @@
     "email": "serhii@pimenov.com.ua"
   },
   "dependencies": {
-    "@happy-dom/global-registrator": "^17.5.6",
+    "@happy-dom/global-registrator": "^17.6.3",
     "@olton/terminal": "^0.6.0",
     "chokidar": "^4.0.3",
     "glob": "^11.0.2",
     "global-jsdom": "^26.0.0",
-    "happy-dom": "^17.5.6",
+    "happy-dom": "^17.6.3",
     "html-escaper": "^3.0.3",
     "jsdom": "^26.1.0",
-    "puppeteer": "^24.9.0",
+    "puppeteer": "^24.10.0",
     "table": "^6.9.0",
     "whatwg-fetch": "^3.6.20",
     "yargs": "^18.0.0"

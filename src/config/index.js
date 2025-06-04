@@ -8,6 +8,7 @@ export const BOT = '🤖'
 export const FAIL = '💀'
 export const SEARCH = '🔍'
 export const STOP = '⛔'
+export const FLAME = '🔥'
 export const DIVIDER = '-----------------------------------------------------------------'
 
 const defaultInclude = ['**/*.{test,spec}.{js,ts,jsx,tsx}']

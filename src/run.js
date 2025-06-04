@@ -158,6 +158,5 @@ export const run = async (root, options = {}) => {
             displayReport(filteredCoverage)
         }
     }
-    
     return global.testResults
 }
