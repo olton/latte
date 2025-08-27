@@ -56,16 +56,17 @@ const log = console.log
  * Парсить стек помилки для отримання рядка та стовпчика
  * @param stack
  * @param file
- * @returns number[] - [row, column]
+ * @returns number[] || string - [row, column]
  */
 const parseStack = (stack, file) => {
     if (!stack) return ''
+    const _file = file.replaceAll("\\", "/")
     const lines = stack.split('\n')
     const filteredLines = lines.filter(line => {
         // Фільтруємо рядки, які не містять інформацію про файл або номер рядка
-        return line.includes(file)
+        return line.includes(_file)
     })
-    const parsed = filteredLines[0].match(/at (.+):(\d+):(\d+)/)
+    const parsed = filteredLines.length === 0 ? [0, 0] : filteredLines[0].match(/at (.+):(\d+):(\d+)/)
     if (parsed) {
         // Повертаємо рядок у форматі "file:line:column"
         return [+parsed[2], +parsed[3]]
@@ -78,7 +79,7 @@ const Console = {
         if (typeof message === 'object') {
             message = JSON.stringify(message)
         }
-        console.log(`##teamcity[message '${message}']`)
+        log(`##teamcity[message '${message}']`)
     },
     start: () => {
         log(`##teamcity[testingStarted]`)
@@ -88,16 +89,16 @@ const Console = {
     },
     suiteStarted: (name, filePath, nodeId = 0, parentNodeId = 'root', flowId = 0) => {
         const timestamp = new Date().toISOString().replace('Z', '')
-        log(`##teamcity[testSuiteStarted name='${name}' locationHint='${filePath}::${name}' timestamp='${timestamp}' nodeId='suite_${nodeId}' parentNodeId='root' flowId='0']`)
+        log(`##teamcity[testSuiteStarted name='${name.replaceAll("'", '"')}' locationHint='${filePath}' timestamp='${timestamp}' nodeId='suite_${nodeId}' parentNodeId='root' flowId='0']`)
     },
     suiteFinished: (name, duration) => {
-        log(`##teamcity[testSuiteFinished name='${name}' duration='${duration}']`)
+        log(`##teamcity[testSuiteFinished name='${name.replaceAll("'", '"')}' duration='${duration}']`)
     },
     testStarted: (name, filePath, nodeId = 0, parentNodeId = 0, flowId = 0) => {
-        log(`##teamcity[testStarted name='${name}' locationHint='${filePath}::${name}' nodeId='test_${nodeId}' parentNodeId='${parentNodeId}' flowId='${flowId}']`)
+        log(`##teamcity[testStarted name='${name.replaceAll("'", '"')}' locationHint='${filePath}' nodeId='test_${nodeId}' parentNodeId='${parentNodeId}' flowId='${flowId}']`)
     },
     testFinished: (name, filePath, duration) => {
-        log(`##teamcity[testFinished name='${name}' locationHint='${filePath}::${name}' duration='${duration}']`)
+        log(`##teamcity[testFinished name='${name.replaceAll("'", '"')}' locationHint='${filePath}' duration='${duration}']`)
     },
     testFailed: (name, filePath, error, file = '') => {
         let { received, expected, message, stack } = error
@@ -108,10 +109,14 @@ const Console = {
         if (typeof expected === 'object' || typeof expected === 'function') {
             expected = typeof expected
         }
-        log(`##teamcity[testFailed name='${name}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion']`)
+        
+        received = received.toString().trim().replace(/[\r\n]+/g, ' ').replace(/'/g, '')
+        expected = expected.toString().trim().replace(/[\r\n]+/g, ' ').replace(/'/g, '')
+        
+        log(`##teamcity[testFailed name='${name.replaceAll("'", '"')}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion']`)
     },
     testIgnored: (name, filePath, message) => {
-        log(`##teamcity[testIgnored name='${name}' message='${message}' locationHint='${filePath}::${name}']`)
+        log(`##teamcity[testIgnored name='${name.replaceAll("'", '"')}' message='${message}' locationHint='${filePath}']`)
     }
 }
 
@@ -259,7 +264,6 @@ export const idea_runner = async (queue, options) => {
 
         if (jobs.tests.length && !suiteName) {
             for (const test of jobs.tests) {
-                // console.log(test)
                 let expect = {}
 
                 if (testName && test.name.includes(testName) === false) {
