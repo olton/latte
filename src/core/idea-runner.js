@@ -74,6 +74,22 @@ const parseStack = (stack, file) => {
     return [0, 0]
 }
 
+const escapeValue = v => {
+    let value = JSON.stringify(v)
+    
+    value = value.replace(/\|/g, '||')
+    value = value.replace(/'/g, "|'")
+    value = value.replace(/\n/g, '|n')
+    value = value.replace(/\r/g, '|r')
+    value = value.replace(/\u0085/g, '|x') // next line
+    value = value.replace(/\u2028/g, '|l') // line separator
+    value = value.replace(/\u2029/g, '|p') // paragraph separator
+    value = value.replace(/\[/g, '|[')
+    value = value.replace(/]/g, '|]')
+    
+    return value
+}
+
 const Console = {
     log: (message) => {
         if (typeof message === 'object') {
@@ -89,34 +105,35 @@ const Console = {
     },
     suiteStarted: (name, filePath, nodeId = 0, parentNodeId = 'root', flowId = 0) => {
         const timestamp = new Date().toISOString().replace('Z', '')
-        log(`##teamcity[testSuiteStarted name='${name.replaceAll("'", '"')}' locationHint='${filePath}' timestamp='${timestamp}' nodeId='suite_${nodeId}' parentNodeId='root' flowId='0']`)
+        log(`##teamcity[testSuiteStarted name='${escapeValue(name)}' locationHint='${filePath}' timestamp='${timestamp}' nodeId='suite_${nodeId}' parentNodeId='root' flowId='0']`)
     },
     suiteFinished: (name, duration) => {
-        log(`##teamcity[testSuiteFinished name='${name.replaceAll("'", '"')}' duration='${duration}']`)
+        log(`##teamcity[testSuiteFinished name='${escapeValue(name)}' duration='${duration}']`)
     },
     testStarted: (name, filePath, nodeId = 0, parentNodeId = 0, flowId = 0) => {
-        log(`##teamcity[testStarted name='${name.replaceAll("'", '"')}' locationHint='${filePath}' nodeId='test_${nodeId}' parentNodeId='${parentNodeId}' flowId='${flowId}']`)
+        log(`##teamcity[testStarted name='${escapeValue(name)}' locationHint='${filePath}' nodeId='test_${nodeId}' parentNodeId='${parentNodeId}' flowId='${flowId}']`)
     },
     testFinished: (name, filePath, duration) => {
-        log(`##teamcity[testFinished name='${name.replaceAll("'", '"')}' locationHint='${filePath}' duration='${duration}']`)
+        log(`##teamcity[testFinished name='${escapeValue(name)}' locationHint='${filePath}' duration='${duration}']`)
     },
     testFailed: (name, filePath, error, file = '') => {
         let { received, expected, message, stack } = error
         const [row, col] = parseStack(stack, file)
-        if (typeof received === 'object' || typeof received === 'function') {
-            received = typeof received
+        
+        if (typeof received === 'function') {
+            received = `function ${received.name}`
         }
-        if (typeof expected === 'object' || typeof expected === 'function') {
-            expected = typeof expected
+        if (typeof expected === 'function') {
+            expected = `function ${expected.name}`
         }
         
-        received = received.toString().trim().replace(/[\r\n]+/g, ' ').replace(/'/g, '')
-        expected = expected.toString().trim().replace(/[\r\n]+/g, ' ').replace(/'/g, '')
+        received = escapeValue(received)
+        expected = escapeValue(expected)
         
-        log(`##teamcity[testFailed name='${name.replaceAll("'", '"')}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion']`)
+        log(`##teamcity[testFailed name='${escapeValue(name)}' locationHint='${filePath}:${row}:${col}' details='Source: ${filePath}:${row}:${col}' message='${message.replace(/'/g, '')}' actual='${received}' expected='${expected}' type='assertion']`)
     },
     testIgnored: (name, filePath, message) => {
-        log(`##teamcity[testIgnored name='${name.replaceAll("'", '"')}' message='${message}' locationHint='${filePath}']`)
+        log(`##teamcity[testIgnored name='${escapeValue(name)}' message='${message}' locationHint='${filePath}']`)
     }
 }
 

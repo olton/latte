@@ -14,69 +14,77 @@ import AccessibilityExpect from './matchers/a11y.js'
 import ReactExpect from './matchers/react.js'
 
 class Expect {
-  received = null
-  control = true
-  messages = null
+    received = null
+    control = true
+    messages = null
 
-  constructor (received, messages = assertMessages, control = true) {
-    this.received = received
-    this.control = control
-    this.messages = messages
-  }
-
-  get not () {
-    return new this.constructor(this.received, this.messages, !this.control)
-  }
-
-  get react () {
-    if (!React || !ReactDOM) {
-      throw new ExpectError('React not initialized. Add --react flag to the command line.')
+    constructor (received, messages = assertMessages, control = true) {
+        this.received = received
+        this.control = control
+        this.messages = messages
     }
 
-    return new this.constructor(this.received, this.messages, this.control)
-  }
-
-  assert (result, msg = null, method = null, expected = '', received = '') {
-    const defPositiveMsg = this.messages[method] && this.messages[method].positive ? this.messages[method].positive : 'Expected value not to match condition'
-    const defNegativeMsg = this.messages[method] && this.messages[method].negative ? this.messages[method].negative : 'Expected value to match condition'
-
-    received = received || this.received
-    if (received === null || received === undefined || typeof received.toString !== 'function') {
-      received = ''
+    get not () {
+        return new this.constructor(this.received, this.messages, !this.control)
     }
 
-    if (expected === null || expected === undefined || typeof expected.toString !== 'function') {
-      expected = ''
+    get react () {
+        if (!React || !ReactDOM) {
+            throw new ExpectError('React not initialized. Add --react flag to the command line.')
+        }
+
+        return new this.constructor(this.received, this.messages, this.control)
     }
 
-    msg = (msg || (this.control ? defPositiveMsg : defNegativeMsg))
-      .replace(/{\s*(received)\s*}/, received)
-      .replace(/{\s*(expected)\s*}/, expected)
+    assert (result, msg = null, method = null, expected = '', received = '') {
+        const defPositiveMsg = this.messages[method] && this.messages[method].positive
+            ? this.messages[method].positive
+            : 'Expected value not to match condition'
+        const defNegativeMsg = this.messages[method] && this.messages[method].negative
+            ? this.messages[method].negative
+            : 'Expected value to match condition'
 
-    if (!(Boolean(result) === this.control)) {
-      throw new ExpectError(
-        msg,
-        method,
-        received !== '' ? received : this.received,
-        expected
-      )
+        received = received || this.received
+        if (received === null || received === undefined || typeof received.toString !== 'function') {
+            received = ''
+        }
+
+        if (expected === null || expected === undefined || typeof expected.toString !== 'function') {
+            expected = ''
+        }
+
+        msg = (msg || (this.control
+            ? defPositiveMsg
+            : defNegativeMsg))
+            .replace(/{\s*(received)\s*}/, received)
+            .replace(/{\s*(expected)\s*}/, expected)
+
+        if (Boolean(result) !== this.control) {
+            throw new ExpectError(
+                msg,
+                method,
+                received !== ''
+                    ? received
+                    : this.received,
+                expected
+            )
+        }
     }
-  }
 }
 
 Object.assign(Expect.prototype,
-  BaseExpect,
-  AsyncExpect,
-  HtmlExpect,
-  ObjectExpect,
-  TypeExpect,
-  ThrowExpect,
-  ColorExpect,
-  ArrayExpect,
-  MockExpect,
-  ValidatorExpect,
-  AccessibilityExpect,
-  ReactExpect
+    BaseExpect,
+    AsyncExpect,
+    HtmlExpect,
+    ObjectExpect,
+    TypeExpect,
+    ThrowExpect,
+    ColorExpect,
+    ArrayExpect,
+    MockExpect,
+    ValidatorExpect,
+    AccessibilityExpect,
+    ReactExpect
 )
 
 /**
@@ -87,7 +95,7 @@ Object.assign(Expect.prototype,
  * @returns An object containing multiple assertion methods.
  */
 function expect (received) {
-  return new Expect(received)
+    return new Expect(received)
 }
 
 export { Expect, ExpectError, expect }

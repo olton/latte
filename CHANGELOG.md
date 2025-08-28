@@ -1,4 +1,4 @@
 # CHANGELOG
 
 ### 0.17.4
-+ [x] Fixed teamcity protocol messages
++ [x] Fixed teamcity protocol messages generating
