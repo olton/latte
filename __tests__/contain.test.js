@@ -1,7 +1,7 @@
 describe('Contain tests', () => {
     it('[1, 2, 3] contain 1', () => {
         const a = [1, 2, 3]
-        expect(a).toContain(4)
+        expect(a).toContain(1)
     })
     it('[1, 2, 3] not contain 4', () => {
         expect([1, 2, 3]).not.toContain(4)
