@@ -1,6 +1,6 @@
 {
   "name": "@olton/latte",
-  "version": "0.17.4",
+  "version": "0.17.5",
   "main": "src/index.js",
   "bin": {
     "latte": "cli/latte.js"
@@ -44,7 +44,7 @@
     "happy-dom": "^18.0.1",
     "html-escaper": "^3.0.3",
     "jsdom": "^26.1.0",
-    "puppeteer": "^24.10.1",
+    "puppeteer": "^24.19.0",
     "table": "^6.9.0",
     "whatwg-fetch": "^3.6.20",
     "yargs": "^18.0.0"
@@ -62,9 +62,9 @@
     }
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "tsx": "^4.20.3"
+    "cross-env": "^10.0.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tsx": "^4.20.5"
   }
 }
